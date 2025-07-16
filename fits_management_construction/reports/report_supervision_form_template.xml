@@ -1,0 +1,236 @@
+<odoo>
+    <record id="action_report_supervision_form" model="ir.actions.report">
+        <field name="name">Supervision Form</field>
+        <field name="model">supervision.form</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_supervision_form_template</field>
+        <field name="report_file">fits_management_construction.report_supervision_form_template</field>
+        <field name="binding_model_id" ref="model_supervision_form"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_supervision_form_template" name="Supervision Form Template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: 80%;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                        width: 40%;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <table class="table-details">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Supervision Form</h2>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2" style="width: 5%; text-align: center;"><strong>NO</strong></td>
+                                    <td rowspan="2" style="width: 75%; text-align: center;"><strong>LINGKUP KEGIATAN</strong></td>
+                                    <td colspan="2" style="20%"><strong>KETERANGAN</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 10%; text-align: center;">
+                                        <strong>ADA</strong>
+                                    </td>
+                                    <td style="width: 10%; text-align: center;">
+                                        <strong>TIDAK</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; background-color: #abd7eb;"><span>1</span></td>
+                                    <td style="background-color: #abd7eb;"><span>Masa Mobilisasi</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>a</span></td>
+                                    <td><span>Data dan dokumen kegiatan pekerjaan</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>b</span></td>
+                                    <td><span>Data dan dokumen kontrak</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>c</span></td>
+                                    <td><span>Rencana mutu pekerjaan konstruksi (Penyedia jasa pekerjaan konstruksi)</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>d</span></td>
+                                    <td><span>Jadwal pengiriman peralatan penyedia jasa konstruksi</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>e</span></td>
+                                    <td><span>Date tenaga kerja konstruksi</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>f</span></td>
+                                    <td><span>dst...</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; background-color: #abd7eb;"><span>2</span></td>
+                                    <td style="background-color: #abd7eb;"><span>Masa Pelaksanaan</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>a</span></td>
+                                    <td><span>Pemeriksaan deposit dan kualitas dari quarry material</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>b</span></td>
+                                    <td><span>Pengawasan pembuatan Job Mix Formula</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>c</span></td>
+                                    <td><span>Pemeriksaan terhadap permohonan izin kerja oleh penyedia jasa pekerjaan konstruksi (request)</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>d</span></td>
+                                    <td><span>Pembagian tugas kepada tim supervisi setelah persetujuan izin kerja (quality control, quantity surveyor, inspector, dll)</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>e</span></td>
+                                    <td><span>Pemeriksaan hasil pengukuran volume</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>f</span></td>
+                                    <td><span>Pemeriksaan hasil test laboratorium</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>g</span></td>
+                                    <td><span>dst...</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; background-color: #abd7eb;"><span>3</span></td>
+                                    <td style="background-color: #abd7eb;"><span>Masa Pemeliharaan</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>a</span></td>
+                                    <td><span>Daftar inspeksi pekerjaan masa pemeliharaan</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>b</span></td>
+                                    <td><span>Rekomendasi pemeliharaan selama defect liability period</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>c</span></td>
+                                    <td><span>Final Report rangkuman dari aktivitas pelaksanaan pekerjaan mencakup antara lain pembayaran, perubahan kontrak (CCO) dan claim</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>d</span></td>
+                                    <td><span>Pemeriksaan As Built drawing sesuai pelaksaan dilapangan</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right;"><span>e</span></td>
+                                    <td><span>dst...</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; background-color: #abd7eb;"><span>4</span></td>
+                                    <td style="background-color: #abd7eb;"><span>dst...</span></td>   
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="border-bottom: none; border-right: none;"></td>
+                                    <td colspan="2" style="border-bottom: none; border-left: none;">
+                                        <span t-esc="doc.city.display_name"/>,
+                                        <span t-esc="doc.date.strftime('%d')"/>
+                                        <span t-esc="doc.month_name"/>
+                                        <span t-esc="doc.date.strftime('%Y')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-top: none; border-right: none;"></td>
+                                    <td style="border-top: none; border-right: none; border-left: none;">
+                                        Mengetahui,<br/>
+                                        Kontraktor
+                                        <br/><br/><br/><br/><br/><br/>
+                                        (...............................)
+                                    </td>
+                                    <td colspan="2" style="border-top: none; border-left: none;">
+                                        <br/>
+                                        Konsultan Pengawas<br/>
+                                        <br/><br/><br/><br/><br/><br/>
+                                        (...............................)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>              
+            </t>
+        </t>
+    </template>
+
+</odoo>

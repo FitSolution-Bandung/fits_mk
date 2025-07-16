@@ -1,0 +1,230 @@
+<odoo>
+    <data>
+        <record id="paperformat_rab_landscape" model="report.paperformat">
+            <field name="name">A4 Landscape</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top" eval="10"/>
+            <field name="margin_bottom" eval="10"/>
+            <field name="margin_left" eval="10"/>
+            <field name="margin_right" eval="10"/>
+        </record>
+
+        <record id="action_report_rab" model="ir.actions.report">
+            <field name="name">RAB Report</field>
+            <field name="model">budget.plan</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_rab_template</field>
+            <field name="report_file">fits_management_construction.report_rab_template</field>
+            <field name="binding_model_id" ref="model_budget_plan"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_rab_landscape"/>
+        </record>
+        
+        <template id="report_rab_template" name="RAB Template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <style>
+                                body{
+                                    font-family: Arial;
+                                    font-size: 14px;
+                                }
+                                .table-bordered {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                    margin-top: 20px;
+                                }
+                                .table-bordered th,
+                                .table-bordered td {
+                                    border: 1px solid black;
+                                    padding: 8px;
+                                    vertical-align: top;
+                                }
+
+                                .table-spec{
+                                    vertical-align: top;
+                                    text-align: center;
+                                }
+                            </style>
+                            <div style="text-align: center;">
+                                <h3>Rencana Anggaran Biaya</h3>
+                                <p><strong>Proyek <t t-esc="doc.project.display_name"/></strong></p>
+                            </div>
+            
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th>NO</th>
+                                        <th>URAIAN PEKERJAAN</th>
+                                        <th>VOL</th>
+                                        <th>SAT</th>
+                                        <th colspan="3">JUMLAH HARGA SATUAN (Rp.)</th>
+                                        <th colspan="3">JUMLAH HARGA PEKERJAAN (Rp.)</th>
+                                        <th>JML. TOTAL (Rp.)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-spec">
+                                        <td rowspan="2"><strong>1</strong></td>
+                                        <td rowspan="2"><strong>2</strong></td>
+                                        <td rowspan="2"><strong>3</strong></td>
+                                        <td rowspan="2"><strong>4</strong></td>
+                                        <td><strong>5</strong></td>
+                                        <td><strong>6</strong></td>
+                                        <td><strong>7</strong></td>
+                                        <td><strong>8 = 3 x 5</strong></td>
+                                        <td><strong>9 = 3 x 6</strong></td>
+                                        <td><strong>10 = 3 x 7</strong></td>
+                                        <td><strong>HRG PEK.</strong></td>
+                                    </tr>
+                                    <tr style="text-align: center;">
+                                        <td><strong>BAHAN</strong></td>
+                                        <td><strong>ALAT</strong></td>
+                                        <td><strong>UPAH</strong></td>
+                                        <td><strong>BAHAN</strong></td>
+                                        <td><strong>ALAT</strong></td>
+                                        <td><strong>UPAH</strong></td>
+                                        <td><strong>11 = 8 + 9 + 10</strong></td>
+                                    </tr>
+                                    <t t-set="prev_wbs_category" t-value="none"/>
+                                    <t t-set="prev_wbs_display_name" t-value="none"/>
+
+                                    <t t-set="row_number" t-value="0"/>
+
+                                    <t t-set="total_data" t-value="0"/>
+
+                                    <t t-set="sum_material" t-value="0"/>
+                                    <t t-set="sum_wages" t-value="0"/>
+                                    <t t-set="sum_equipment" t-value="0"/>
+                                    <t t-set="sum_total" t-value="0"/>
+
+                                    <t t-foreach="doc.rab_mk_ids" t-as="line">
+                                        <t t-if="not line.display_type and line.wbs.wbs_category.code != prev_wbs_category">
+                                            <t t-if="row_number != 0">
+                                                <tr>
+                                                    <td colspan="7" style="text-align: center;">Jumlah</td>
+                                                    <td style="text-align: right;"><t t-esc="sum_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                    <td style="text-align: right;"><t t-esc="sum_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                    <td style="text-align: right;"><t t-esc="sum_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                    <td style="text-align: right;"><t t-esc="sum_total" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                </tr>
+                                            </t>
+
+                                            <tr>
+                                                <td style="text-align: center;"><strong><t t-esc="line.wbs.wbs_category.code"/></strong></td>
+                                                <td colspan="10"><strong><t t-esc="line.wbs.wbs_category.display_name"/></strong></td>
+                                            </tr>
+
+                                            <!-- initialisasi dengan data baru -->
+                                            <t t-set="prev_wbs_category" t-value="line.wbs.wbs_category.code"/>
+                                            <t t-set="row_number" t-value="1"/>
+
+                                            <!-- set value 0 -->
+                                            <t t-set="sum_material" t-value="0"/>
+                                            <t t-set="sum_equipment" t-value="0"/>
+                                            <t t-set="sum_wages" t-value="0"/>
+                                            <t t-set="sum_total" t-value="0"/>
+                                        </t>
+
+                                        <!-- batas pusing -->
+
+                                        <t t-if="not line.display_type and line.wbs.wbs.display_name != prev_wbs_display_name">
+                                            <t t-set="material_data" t-value="doc.rab_mk_ids.filtered(lambda l: l.wbs.id == line.wbs.wbs.id and l.wbs.wbs.name.product_variant_id.rab_category == 'material')"/>
+                                            <t t-set="wages_data" t-value="doc.rab_mk_ids.filtered(lambda l: l.wbs.id == line.wbs.wbs.id and l.wbs.wbs.name.product_variant_id.rab_category == 'wages')"/>
+                                            <t t-set="equipment_data" t-value="doc.rab_mk_ids.filtered(lambda l: l.wbs.id == line.wbs.wbs.id and l.wbs.wbs.name.product_variant_id.rab_category == 'equipment')"/>
+                                            <tr>
+                                                <td style="text-align: right;"><t t-esc="row_number"/></td>
+                                                <td><t t-esc="line.wbs.wbs.display_name"/></td>
+                                                <td style="text-align: right;"><t t-esc="int(line.volume) if line.volume == int(line.volume) else line.volume"/></td>
+                                                <td style="text-align: right;"><t t-esc="line.uom.display_name"/></td>
+                                                
+                                                <td style="text-align: right;">
+                                                    <t t-if="line.material">
+                                                            <t t-esc="line.material" t-options='{"widget": "float", "precision": 2}'/>
+                                                    </t>
+                                                    <t t-if="not line.material">0</t>
+                                                </td>
+
+                                                <td style="text-align: right;">
+                                                    <t t-if="line.equipment">
+                                                        <t t-esc="line.equipment" t-options='{"widget": "float", "precision": 2}'/>
+                                                    </t>
+                                                    <t t-if="not line.equipment">0</t>
+                                                </td>
+
+                                                <td style="text-align: right;">
+                                                    <t t-if="line.wages">
+                                                        <t t-esc="line.wages" t-options='{"widget": "float", "precision": 2}'/>
+                                                    </t>
+                                                    <t t-if="not line.wages">0</t>
+                                                </td>
+
+                                                <!-- batas jumlah harga satuan -->
+
+                                                <td style="text-align: right;">
+                                                    <t t-if="line.material">
+                                                            <t t-set="work_price_material" t-value="line.material * line.volume"/>
+                                                            <t t-esc="work_price_material" t-options='{"widget": "float", "precision": 2}'/>
+                                                            <t t-set="total_data" t-value="total_data + work_price_material"/>
+                                                            <t t-set="sum_material" t-value="sum_material + work_price_material"/>
+                                                    </t>
+                                                    <t t-if="not line.material">0</t>
+                                                </td>
+                                                
+                                                <td style="text-align: right;">
+                                                    <t t-if="line.equipment">
+                                                            <t t-set="work_price_equipment" t-value="line.equipment * line.volume"/>
+                                                            <t t-esc="work_price_equipment" t-options='{"widget": "float", "precision": 2}'/>
+                                                            <t t-set="total_data" t-value="total_data + work_price_equipment"/>
+                                                            <t t-set="sum_equipment" t-value="sum_equipment + work_price_equipment"/>
+                                                    </t>
+                                                    <t t-if="not line.equipment">0</t>
+                                                </td>
+                                                
+                                                <td style="text-align: right;">
+                                                    <t t-if="line.wages">
+                                                            <t t-set="work_price_wages" t-value="line.wages * line.volume"/>
+                                                            <t t-esc="work_price_wages" t-options='{"widget": "float", "precision": 2}'/>
+                                                            <t t-set="total_data" t-value="total_data + work_price_wages"/>
+                                                            <t t-set="sum_wages" t-value="sum_wages + work_price_wages"/>
+                                                    </t>
+                                                    <t t-if="not line.wages">0</t>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <t t-esc="total_data" t-options='{"widget": "float", "precision": 2}'/>
+                                                    <t t-set="sum_total" t-value="sum_total + total_data"/>
+                                                </td>
+                                            </tr>
+                                            <t t-set="total_data" t-value="0"/>
+                                            <t t-set="prev_wbs_display_name" t-value="line.wbs.wbs.display_name"/>
+                                            <t t-set="row_number" t-value="row_number + 1"/>
+                                        </t>
+                                    </t>
+                                    <t t-if="prev_wbs_category">
+                                        <tr>
+                                            <td colspan="7" style="text-align: center;">Jumlah</td>
+                                            <td style="text-align: right;"><t t-esc="sum_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;"><t t-esc="sum_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;"><t t-esc="sum_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;"><t t-esc="sum_total" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7" style="text-align: center;">Jumlah Keseluruhan</td>
+                                            <td style="text-align: right;"><t t-esc="doc.total_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;"><t t-esc="doc.total_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;"><t t-esc="doc.total_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;"><t t-esc="doc.total_price" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

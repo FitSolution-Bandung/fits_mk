@@ -1,0 +1,91 @@
+<odoo>
+    <record model="ir.ui.view" id="view_feasibility_inspection_document_tree">
+        <field name="name">feasibility.inspection.document.tree</field>
+        <field name="model">feasibility.inspection.document</field>
+        <field name="arch" type="xml">
+            <tree string="Feasibility Inspection Document">
+                <field name="no_pho"/>
+                <field name="submission_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_feasibility_inspection_document_form">
+        <field name="name">feasibility.inspection.document.form</field>
+        <field name="model">feasibility.inspection.document</field>
+        <field name="arch" type="xml">
+            <form string="Feasibility Inspection Document Form">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="no_pho"/>
+                            <field name="no_contract"/>
+                            <field name="contract_date" readonly="status != 'draft'"/>                   
+                            <!-- <field name="work_activities" readonly="status != 'draft'"/> -->
+                        </group>
+                        <group>
+                            <field name="submission_date" readonly="status != 'draft'"/>
+                            <!-- <field name="name_project" readonly="status != 'draft'"/> -->
+                            <field name="package" readonly="status != 'draft'"/>
+                            <field name="construction_provider" readonly="status != 'draft'"/>                                      
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work Detail Information">
+                            <group string="Work Detail">
+                                <group>
+                                    <field name="name_project"/>
+                                    <field name="work_activities"/>
+                                    <field name="location"/>
+                                </group>
+                                <group>
+                                    <field name="cost_center"/>
+                                    <field name="description"/>
+                                </group>
+                            </group>
+                            <group string="Quality Defect Report">
+                                <field name="notes"/>
+                            </group>
+                            <group string="Inspection Item">
+                                <field name="feasibility_inspection_ids" colspan="2" nolabel="1" readonly="status != 'draft'">
+                                    <tree editable="1">
+                                        <field name="inspection_item"/>
+                                        <field name="compliant_status"/>
+                                        <field name="noncompliant_status"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_feasibility_inspection" model="ir.actions.act_window">
+        <field name="name">Feasibility Inspection Document</field>
+        <field name="res_model">feasibility.inspection.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_feasibility_inspection" parent="menu_root_additional_form" action="action_feasibility_inspection" sequence="10"/>
+</odoo>

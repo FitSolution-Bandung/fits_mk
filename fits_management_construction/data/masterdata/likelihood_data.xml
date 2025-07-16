@@ -1,0 +1,22 @@
+<odoo>
+    <record id="likelihood_1" model="likelihood">
+        <field name="no">1</field>
+        <field name="name">Terjadi</field>
+    </record>
+    <record id="likelihood_2" model="likelihood">
+        <field name="no">2</field>
+        <field name="name">Jarang Terjadi</field>
+    </record>
+    <record id="likelihood_3" model="likelihood">
+        <field name="no">3</field>
+        <field name="name">Sedang Terjadi</field>
+    </record>
+    <record id="likelihood_4" model="likelihood">
+        <field name="no">4</field>
+        <field name="name">Sangat Mungkin Terjadi</field>
+    </record>
+    <record id="likelihood_5" model="likelihood">
+        <field name="no">5</field>
+        <field name="name">Pasti Terjadi</field>
+    </record>
+</odoo>

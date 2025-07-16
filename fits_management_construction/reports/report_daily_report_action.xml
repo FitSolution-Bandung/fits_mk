@@ -1,0 +1,10 @@
+<odoo>
+    <report
+        id="report_daily_report"
+        model="daily.report"
+        string="Daily Report"
+        report_type="qweb-pdf"
+        name="fits_management_construction.report_daily_report_template"
+        file="fits_management_construction.report_daily_report_template"
+        attachment_use="False"/>
+</odoo>

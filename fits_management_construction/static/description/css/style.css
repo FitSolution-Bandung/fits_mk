@@ -1,0 +1,633 @@
+/* copal */
+/* bg dark-blue: 101430
+bg light-blue: 293A76
+bg green: 73BE44
+bg blue: 3A55A3
+bg coklat: 986833
+bg red: E82828 */
+
+body {
+  font-family: Lato, sans-serif;
+  margin: 0 auto;
+  width: 100%;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
+h1 {
+  margin-bottom: 10px;
+  color: #3d405b;
+  font-weight: 900;
+}
+
+h1 span {
+  color: #875a7b;
+}
+
+/* title */
+
+.title {
+  padding: 30px 50px;
+}
+
+.title h1 {
+  font-size: 36px;
+  letter-spacing: 0.5px;
+}
+
+.title p {
+  color: #555;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+/* features */
+
+.features {
+  background-color: #875a7b;
+  padding: 30px 50px;
+  /* width: 100%; */
+}
+
+.features h1 {
+  color: white;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.features .feature-responsive {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.feature-addons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  text-align: center;
+  color: white;
+  background-color: #3d405b;
+  border-radius: 10px;
+  padding: 0 19px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* risk-mitigation */
+
+.risk-mitigation {
+  /* padding: 15px 0; */
+  margin-top: 30px;
+  padding-bottom: 15px;
+}
+
+.risk-mitigation p {
+  color: #875a7b;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 42px;
+  letter-spacing: 0.5px;
+}
+
+.risk-mitigation p span {
+  color: #3d405b;
+}
+
+.accordion {
+  width: 70%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.accordion .title-feature {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #875a7b;
+  position: relative;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.accordion .title-feature:hover {
+  transform: scale(1.02);
+  background-color: #6a4861; /* Perubahan warna latar */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Efek bayangan lebih intens */
+}
+
+.accordion .title-feature h1 {
+  font-size: 24px;
+  margin: 0;
+  padding: 20px;
+  color: white;
+  letter-spacing: 1.5px;
+}
+
+.accordion .title-feature h1::before,
+.accordion .title-feature h1::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 28px;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.accordion .title-feature h1::before {
+  content: "+";
+  right: 20px;
+}
+
+.accordion .title-feature h1::after {
+  content: "-";
+  right: 20px;
+  opacity: 0;
+}
+
+.accordion.active .title-feature h1::before {
+  opacity: 0;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.accordion.active .title-feature h1::after {
+  opacity: 1;
+  transform: translateY(-50%) rotate(360deg);
+}
+
+.contents {
+  height: 0;
+  overflow: hidden;
+  transition: all 0.8s;
+  background-color: #f9f9f9;
+  padding: 0 15px;
+}
+
+.risk-mitigation .accordion.active .contents {
+  height: 1350px;
+  padding: 10px 15px;
+}
+
+.description li {
+  margin: 15px 0;
+  background-color: #3d405b;
+  padding: 15px;
+  font-size: 18px;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: left;
+  border-radius: 10px;
+}
+
+/* img */
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.img img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* jsa */
+
+.job-safety {
+  padding-bottom: 15px;
+}
+
+.job-safety .accordion.active .contents {
+  height: 700px;
+  padding: 10px 15px;
+}
+
+/* stakeholder */
+.stakeholder {
+  padding-bottom: 15px;
+}
+
+.stakeholder .accordion.active .contents {
+  height: 1000px;
+  padding: 10px 15px;
+}
+
+/* wbs */
+.wbs {
+  padding-bottom: 15px;
+}
+
+.wbs .accordion.active .contents {
+  height: 400px;
+  padding: 10px 15px;
+}
+
+/* harga-satuan */
+.harga-satuan {
+  padding-bottom: 15px;
+}
+
+.harga-satuan .accordion.active .contents {
+  height: 650px;
+  padding: 10px 15px;
+}
+
+/* ahs */
+.ahs {
+  padding-bottom: 15px;
+}
+
+.ahs .accordion.active .contents {
+  height: 600px;
+  padding: 10px 15px;
+}
+
+/* boq */
+.boq {
+  padding-bottom: 15px;
+}
+
+.boq .accordion.active .contents {
+  height: 650px;
+  padding: 10px 15px;
+}
+
+/* rab */
+.rab {
+  padding-bottom: 15px;
+}
+
+.rab .accordion.active .contents {
+  height: 800px;
+  padding: 10px 15px;
+}
+
+/* daily-report */
+.daily-report {
+  padding-bottom: 15px;
+}
+
+.daily-report .accordion.active .contents {
+  height: 750px;
+  padding: 10px 15px;
+}
+
+/* curva-s */
+.curva-s {
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+.curva-s .accordion.active .contents {
+  height: 650px;
+  padding: 10px 15px;
+}
+
+/* footer */
+
+.footer {
+  background-color: #f9f9f9;
+  text-align: center;
+  /* width: 100%; */
+  margin-bottom: 50px;
+}
+
+.footer .section-title {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #3d405b;
+  letter-spacing: 0.5px;
+}
+
+.footer p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.footer .contact-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer .contact-info a {
+  text-decoration: none;
+}
+
+.footer .contact-item {
+  text-align: center;
+  color: #555;
+  width: 150px;
+  padding: 20px 0;
+  border-radius: 20px;
+  border: #875a7b solid 2px;
+}
+
+.footer .contact-item i {
+  font-size: 24px;
+  color: #875a7b;
+  margin-bottom: 10px;
+}
+
+.footer .contact-item span {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+  letter-spacing: 0.5px;
+}
+
+.contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* gap: 20px; */
+}
+
+.contact p {
+  margin: 0;
+}
+
+.contact span {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.footer .contact-item:hover {
+  color: white;
+  background-color: #875a7b;
+  transition: all 0.8s;
+}
+
+.footer .contact-item:hover i,
+.footer .contact-item:hover span {
+  color: white;
+  transition: all 0.8s;
+}
+
+/* Responsive */
+@media (min-width: 1440px) {
+  .accordion .title-feature h1 {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 1439px) and (min-width: 1024px) {
+  .title p {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .content {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5s;
+  }
+
+  .accordion .title-feature h1 {
+    font-weight: 600;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 650px) {
+  .title h1 {
+    font-size: 28px;
+  }
+
+  .title p {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .content p {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5s;
+    /* vertical-align: middle; */
+  }
+
+  .feature-responsive {
+    display: flex;
+    justify-items: space-between;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .accordion {
+    width: 80%;
+  }
+
+  .accordion .title-feature h1 {
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .description li {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .risk-mitigation .accordion.active .contents {
+    height: 1100px;
+  }
+
+  .job-safety .accordion.active .contents {
+    height: 550px;
+  }
+
+  .stakeholder .accordion.active .contents {
+    height: 750px;
+  }
+
+  .wbs .accordion.active .contents {
+    height: 300px;
+  }
+
+  .harga-satuan .accordion.active .contents {
+    height: 500px;
+  }
+
+  .ahs .accordion.active .contents {
+    height: 400px;
+  }
+
+  .boq .accordion.active .contents {
+    height: 500px;
+  }
+
+  .rab .accordion.active .contents {
+    height: 600px;
+  }
+
+  .daily-report .accordion.active .contents {
+    height: 550px;
+  }
+
+  .curva-s .accordion.active .contents {
+    height: 500px;
+  }
+}
+
+@media (max-width: 649px) {
+  .title h1 {
+    font-size: 24px;
+  }
+
+  .title p {
+    font-weight: 500;
+    font-size: 11px;
+  }
+
+  .features h1 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+  }
+
+  .content p {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5s;
+    padding: 10px 20px;
+  }
+
+  .feature-addons {
+    display: block;
+  }
+
+  .risk-mitigation p {
+    font-weight: 600;
+    font-size: 32px;
+  }
+
+  .accordion {
+    width: 90%;
+  }
+
+  .accordion .title-feature h1 {
+    font-size: 14px;
+    width: 80%;
+    text-align: left;
+  }
+
+  .description li {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .risk-mitigation .accordion.active .contents {
+    height: 850px;
+  }
+
+  .job-safety .accordion.active .contents {
+    height: 500px;
+  }
+
+  .stakeholder .accordion.active .contents {
+    height: 600px;
+  }
+
+  .wbs .accordion.active .contents {
+    height: 300px;
+  }
+
+  .harga-satuan .accordion.active .contents {
+    height: 450px;
+  }
+
+  .ahs .accordion.active .contents {
+    height: 350px;
+  }
+
+  .boq .accordion.active .contents {
+    height: 400px;
+  }
+
+  .rab .accordion.active .contents {
+    height: 550px;
+  }
+
+  .daily-report .accordion.active .contents {
+    height: 500px;
+  }
+
+  .curva-s .accordion.active .contents {
+    height: 400px;
+  }
+
+  /*.footer */
+
+  .footer {
+    padding: 0 30px;
+    padding-bottom: 30px;
+  }
+
+  .footer .section-title {
+    font-size: 32px;
+  }
+
+  .footer p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 30px;
+  }
+
+  .footer .contact-item {
+    border: #875a7b solid 1px;
+    width: 120px;
+  }
+
+  .footer .contact-item i {
+    font-size: 24px;
+  }
+
+  .footer .contact-item span {
+    font-size: 16px;
+  }
+
+  .footer .contact-info {
+    justify-content: space-around;
+  }
+
+  .contact p span {
+    font-size: 12px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

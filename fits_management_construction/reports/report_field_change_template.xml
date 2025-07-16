@@ -1,0 +1,231 @@
+    <odoo>
+        <record id="action_report_field_change" model="ir.actions.report">
+            <field name="name">Field Change</field>
+            <field name="model">field.change</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_field_change_template</field>
+            <field name="report_file">fits_management_construction.report_field_change_template</field>
+            <field name="binding_model_id" ref="model_field_change"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_field_change_template" name="Field Change">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <style>
+                        body{
+                            font-family: Arial; 
+                        }
+
+                        .table-header{
+                            margin: 0 auto;
+                            margin-bottom: 20px;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        .table-header th,
+                        .table-header td{
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+                    </style>
+
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <table class="table-header">
+                                <h2 style="text-align: center; margin-bottom: 50px;">Field Change</h2>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            No.<br/>
+                                            FCN/
+                                            <span t-esc="doc.no_fcn"/>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            Submission Date:<br/>
+                                            <span t-esc="doc.submission_date"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            No Contract<br/>
+                                            <span t-esc="doc.no_contract"/>
+                                        </td>
+                                        <td>
+                                            Name Package<br/>
+                                            <span t-esc="doc.name_package"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Contract Date<br/>
+                                            <span t-esc="doc.contract_date"/>
+                                        </td>
+                                        <td>
+                                            Construction Provider<br/>
+                                            <span t-esc="doc.construction_service_provider.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><strong>Work Details</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Project Name:<br/>
+                                            <span t-esc="doc.name_project.display_name"/>
+                                        </td>
+                                        <td rowspan="2" style="vertical-align: top;">
+                                            Description:<br/>
+                                            <span t-esc="doc.description"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Work Activities:<br/>
+                                            <span t-esc="doc.work_activity"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Work Location:<br/>
+                                            <span t-esc="doc.location"/>
+                                        </td>
+                                        <td>
+                                            Cost Center:<br/>
+                                            <span t-esc="doc.cost_center"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Other Information:<br/><br/><br/>
+                                        </td>
+                                        <td>
+                                            Other Information:<br/><br/><br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Details of Proposed Changes</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">Actual Conditions:</td>
+                                        <td style="text-align: center;">Plan Changes:</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span t-esc="doc.actual_condition"/>
+                                        </td>
+                                        <td>
+                                           <span t-esc="doc.plan_change"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <strong>Reason for change:</strong>
+                                            <br/><br/><br/>
+                                            <span t-esc="doc.reason_change"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <strong>
+                                            Change implementation plan:
+                                            <span t-esc="doc.plan_change_date"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <strong>Documents related to this change:</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Method Statement<br/><br/><br/>
+                                            <span>...............................</span>
+                                        </td>
+                                        <td>
+                                            ITP<br/><br/><br/>
+                                            <span>...............................</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Work Picture<br/><br/><br/>
+                                            <span>...............................</span>
+                                        </td>
+                                        <td>
+                                            Other:<br/><br/><br/>
+                                            <span>...............................</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <strong>
+                                                Supporting documents included:
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><br/><br/><br/><br/><br/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div style="page-break-before: always; page-break-inside: avoid;">
+                                <table class="table-header">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3">
+                                                <strong>
+                                                Submission and Approval
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Submission Date:
+                                                <span t-esc="doc.submission_date"/>
+                                            </td>
+                                            <td>
+                                                Received Date: .../.../...
+                                            </td>
+                                            <td>
+                                                Approved Date: .../.../...
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;" >Submitted by:</td>
+                                            <td style="text-align: center;" >Received by:</td>
+                                            <td style="text-align: center;" >Approved by:</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;" >Work Service Providers</td>
+                                            <td style="text-align: center;" >Technical Director</td>
+                                            <td style="text-align: center;" >MK Consultant</td>
+                                        </tr>
+                                        <tr>
+                                            <td><br/><br/><br/></td>
+                                            <td><br/><br/><br/></td>
+                                            <td><br/><br/><br/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Name:</td>
+                                            <td>Name:</td>
+                                            <td>Name:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date:</td>
+                                            <td>Date:</td>
+                                            <td>Date:</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>                
+                </t>
+            </t>
+        </template>
+
+    </odoo>

@@ -1,0 +1,61 @@
+<odoo>
+    <record id="web_external_layout_striped_inherit_standard" model="ir.ui.view">
+        <field name="name">layout.stripped.inherit.standard</field>
+        <!-- <field name="model">ir.ui.view</field> -->
+        <field name="inherit_id" ref="web.external_layout_standard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
+                <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
+                    <div class="o_background_header">
+                    <div class="float-end">
+                        <div class="mt0 text-end h3" t-if="company.report_header" t-field="company.report_header">Company tagline</div>
+                    </div>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo"/>
+                    <div class="float-start company_address">
+                        <ul class="list-unstyled" name="company_address_list">
+                            <li t-if="company.is_company_details_empty"><span t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}">
+                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                    <strong>Company address block</strong>
+                                    <div>Contains the company address.</div>
+                                </div>
+                            </span></li>
+                            <li t-else="">
+                                <span t-field="company.company_details">
+                                    <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                        <strong>Company details block</strong>
+                                        <div>Contains the company details.</div>
+                                    </div>
+                                </span>
+                            </li>
+                            <li t-if="not forced_vat"/>
+                            <li t-else="">
+                                <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
+                                <span t-esc="forced_vat">US12345671</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix mb8"/>
+                    </div>
+                </div>
+            </xpath>            
+            <xpath expr="//div[contains(@t-attf-class, 'footer')]" position="replace">
+                <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
+                    <div class="text-center">
+                        <ul class="list-inline">
+                            <div t-field="company.report_footer"/>
+                        </ul>
+                        <div t-if="report_type == 'pdf'" class="text-muted">
+                            Page:
+                            <span class="page"/>
+                            of
+                            <span class="topage"/>
+                        </div>
+                        <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                            <span t-out="o.name">(document name)</span>
+                        </div>
+                    </div>
+                </div>
+            </xpath>            
+        </field>
+    </record>
+</odoo>

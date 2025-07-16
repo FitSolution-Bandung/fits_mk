@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_boq_tree">
+            <field name="name">boq.tree</field>
+            <field name="model">boq</field>
+            <field name="arch" type="xml">
+                <tree string="Bill Of Quantity">
+                    <field name="no_boq"/>
+                    <field name="name"/>
+                    <field name="project"/>
+                    <field name="status" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_boq_form">
+            <field name="name">boq.form</field>
+            <field name="model">boq</field>
+            <field name="arch" type="xml">
+                <form string="Bill Of Quantity">
+                    <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                                invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                        />
+                        <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                                invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                        />
+                        <!-- <button string="Create RFQ" name="action_rfq" type="object" class="oe_highlight" invisible="status != 'confirm'"/> -->
+                        <!-- <div invisible="rfq_count != 0 or status == 'confirm'">
+                            <button string="Create RFQ" name="action_rfq" type="object" 
+                                    class="oe_highlight"/>
+                        </div> -->
+                        <div invisible="rfq_count != 0 or status != 'confirm'">
+                            <button string="Create RFQ" name="action_rfq" type="object" 
+                                    class="oe_highlight"/>
+                        </div>
+                        <field name="rfq_count" invisible="1"/>
+                        <field name="status" widget="statusbar" options="{'clickable': 0}"
+                               statusbar_visible="draft,confirm,cancelled"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_budget_plan"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-file">
+                                <field name="budget_plan_count" widget="statinfo" string="Budget Plan"/>
+                            </button>
+                            <button name="action_view_rfq"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-dollar">
+                                <field name="rfq_count" widget="statinfo" string="Request for Quotations"/>
+                            </button>  
+                        </div>
+                        <group>
+                            <field name="no_boq"/>
+                            <field name="name" readonly="status != 'draft'"/>
+                            <field name="project" readonly="status != 'draft'"/>
+                            <field name="vendor" readonly="status != 'draft'"/>
+                        </group>
+                        <notebook>
+                            <page string="BOQ">
+                                <field name="boq_mk_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <!-- <field name="number"/> -->
+                                        <!-- <field name="wbs_category"/>
+                                        <field name="wbs_category_ids" invisible="1" nolabel="1"/>
+                                        <field name="wbs"/> -->
+                                        <!-- <field name="job_description" default="-"/> -->
+                                        <field name="ahs" widget="many2one"/>
+                                        <field name="calculation"/>
+                                        <field name="uom"/>
+                                        <field name="volume"/>
+                                        <field name="attachment" widget="binary"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_boq" model="ir.actions.act_window">
+            <field name="name">Bill Of Quantity</field>
+            <field name="res_model">boq</field>
+        </record>
+        <!-- Sub Menu Pre-Cons Phase-->
+        <menuitem id="menu_boq" parent="menu_root_rab_mk"
+                  action="action_boq" sequence="2"/>
+    </data>
+</odoo>

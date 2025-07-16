@@ -1,0 +1,264 @@
+<odoo>
+    <record id="action_report_work_request" model="ir.actions.report">
+        <field name="name">Work Request</field>
+        <field name="model">work.request</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_work_request_template</field>
+        <field name="report_file">fits_management_construction.report_work_request_template</field>
+        <field name="binding_model_id" ref="model_work_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_work_request_template" name="Work Request Template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: 80%;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                        width: 20%;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <table class="table-header">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Work Request</h2>
+                            <tbody>
+                                <tr>
+                                    <td><strong>No Contract</strong></td>
+                                    <td><span t-esc="doc.no_contract"/></td>
+                                    <td><strong>Name Project</strong></td>
+                                    <td><span t-esc="doc.name_project.display_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contract Date</strong></td>
+                                    <td><span t-esc="doc.contract_date"/></td>
+                                    <td><strong>Package</strong></td>
+                                    <td><span t-esc="doc.package"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Work Activities</strong></td>
+                                    <td>
+                                        <span t-esc="doc.work_activities"/>
+                                    </td>
+                                    <td><strong>Construction Provider</strong></td>
+                                    <td>
+                                        <span t-esc="doc.construction_provider.display_name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- batas belum di perbaiki -->
+                        <table class="table-details">
+                            <tbody>
+                                <tr>
+                                    <td colspan="11" style="background-color: Gainsboro"><strong>WORK DETAIL:</strong></td>
+                                </tr>
+                                <tr>
+                                    <t t-set="row_number" t-value="1"/>
+                                    <td colspan="6">
+                                        <strong>Work Detail:</strong><br/>
+                                        <t t-esc="doc.work_detail"/>
+                                    </td>
+                                    <td colspan="5">
+                                        <strong>Location:</strong><br/>
+                                        <t t-foreach="doc.location_ids" t-as="line">
+                                            <span style="display: inline-block;" t-esc="row_number"/>.
+                                            <span t-esc="line.location"/><br/>
+                                            <t t-set="row_number" t-value="row_number + 1"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span><strong>Implementation<br/>Schedule:</strong></span>
+                                    </td>
+                                    <td colspan="2">
+                                        <span>Start:</span><br/>
+                                        <t t-esc="doc.start_date"/>
+                                    </td>
+                                    <td colspan="2">
+                                        <span>Finish:</span><br/>
+                                        <t t-esc="doc.finish_date"/>
+                                    </td>
+                                    <td colspan="5">
+                                        <span>Notes:</span><br/>
+                                        <t t-esc="doc.notes"/>
+                                    </td>
+                                </tr>
+                                <!-- Document Status -->
+                                <tr>
+                                    <td colspan="11" style="background-color: Gainsboro"><strong>DOCUMENT STATUS:</strong></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="text-align: center;"><strong>Dokumen</strong></td>
+                                    <td colspan="2" style="text-align: center;"><strong>Status</strong></td>
+                                    <td style="text-align: center;"><strong>Tanggal</strong></td>
+                                    <td colspan="2" style="text-align: center;"><strong>Referensi</strong></td>
+                                    <td colspan="2" style="text-align: center;"><strong>Verifikasi Pengawas</strong></td>
+                                </tr>
+                                <t t-set="row_number" t-value="0"/>
+                                <t t-foreach="doc.document_status_ids" t-as="line">
+                                    <tr>
+                                        <td colspan="4">
+                                            <span t-esc="row_number + 1"/>
+                                            <t t-set="row_number" t-value="row_number + 1"/>
+                                            . 
+                                            <span t-esc="line.document"/>
+                                        </td>
+                                        <td colspan="2"><span t-esc="line.status"/></td>
+                                        <td colspan="1" style="white-space: nowrap;"><span t-esc="line.date"/></td>
+                                        <td colspan="2"><span t-esc="line.reference"/></td>
+                                        <td colspan="2"><span t-esc="line.verification"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="11">
+                                        <span><strong>PENGAJUAN</strong></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="padding: 0px; text-align: center;">
+                                        <span><strong>Dibuat Oleh:</strong></span>
+                                    </td>
+                                    <td colspan="5" style="padding: 0px; text-align: center;">
+                                        <span><strong>Diajukan Oleh:</strong></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <br/><br/><br/><br/><br/>
+                                    </td>
+                                    <td colspan="5">
+                                        <br/><br/><br/><br/><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="padding: 0px; text-align: center;">
+                                        <span><strong>Site Manager</strong></span>
+                                    </td>
+                                    <td colspan="5" style="padding: 0px; text-align: center;">
+                                        <span><strong>Project Manager</strong></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0px; width: 10%; white-space: nowrap;">
+                                        <span>Nama :</span>
+                                    </td>
+                                    <td colspan="5"></td>
+                                    <td style="padding: 0px; width: 10%; white-space: nowrap;">
+                                        <span>Nama :</span>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0px;">
+                                        <span>Tanggal :</span>
+                                    </td>
+                                    <td colspan="5"></td>
+                                    <td style="padding: 0px;">
+                                        <span>Tanggal :</span>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <!-- batas pengajuan -->
+                                <tr>
+                                    <td colspan="11"><strong>PERSETUJUAN</strong></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" rowspan="2" style="width: 25%;">
+                                        Hasil Pemeriksaan dan Verifikasi Pengawas Pekerjaan (pilih salah satu):
+                                    </td>
+                                    <td colspan="4" style="text-align: center; padding: 0px;">
+                                        <strong>Diperiksa oleh:</strong>
+                                    </td>
+                                    <td colspan="4" style="text-align: center; padding: 0px;">
+                                        <strong>Disetujui oleh:</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" rowspan="3" style="height: 60px;"></td>
+                                    <td colspan="4" rowspan="3" style="height: 60px;"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">🔳 Pekerjaan dapat dilaksanakan</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">🔳 Pekerjaan tidak dapat dilaksanakan</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3" colspan="3">Catatan:</td>
+                                    <td colspan="4" style="text-align: center; white-space: nowrap; padding: 0px;">
+                                        <strong>Direksi Teknis/Konsultan Pengawas</strong>
+                                    </td>
+                                    <td colspan="4" style="text-align: center; white-space: nowrap; padding: 0px;">
+                                        <strong>Direksi Lapangan/Konsultan MK</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0; width: 10%; white-space: nowrap;">
+                                        <span>Nama:</span>
+                                    </td>
+                                    <td colspan="3">
+                                    </td>
+                                    <td style="padding: 0; width: 10%; white-space: nowrap;">
+                                        <span>Nama:</span>
+                                    </td>
+                                    <td colspan="3">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0;">
+                                        <span>Tanggal:</span>
+                                    </td>
+                                    <td colspan="3">
+                                    </td>
+                                    <td style="padding: 0;">
+                                        <span>Tanggal:</span>
+                                    </td>
+                                    <td colspan="3">
+                                    </td>
+                                </tr>
+                            </tbody>                           
+                        </table>
+                    </div>
+                </t>                
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,161 @@
+<odoo>
+    <record id="action_report_goods_submission" model="ir.actions.report">
+        <field name="name">Goods Submission</field>
+        <field name="model">goods.submission</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_goods_submission_template</field>
+        <field name="report_file">fits_management_construction.report_goods_submission_template</field>
+        <field name="binding_model_id" ref="model_goods_submission"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_goods_submission_template" name="Goods Submission Template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: 80%;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                        width: 40%;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <table class="table-header">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Goods Submission Form</h2>
+                            <tbody>
+                                <tr>
+                                    <td><strong>No Meeting: </strong><span t-esc="doc.no_meeting"/></td>
+                                    <td><strong>Day: </strong><span t-esc="doc.day_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Name Project: </strong><span t-esc="doc.name_project.display_name"/></td>
+                                    <td><strong>Date: </strong>
+                                        <span t-esc="doc.date.strftime('%d')"/>
+                                        <span t-esc="doc.month_name"/>
+                                        <span t-esc="doc.date.strftime('%Y')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Work: </strong><span t-esc="doc.work"/></td>
+                                    <td><strong>Location: </strong><span t-esc="doc.location"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table-details">
+                            <thead>
+                                <tr>
+                                    <th><strong>No</strong></th>
+                                    <th style="text-align: center;"><strong>Tools</strong></th>
+                                    <th style="text-align: center;"><strong>Qty</strong></th>
+                                    <th style="text-align: center;"><strong>Unit</strong></th>
+                                    <th style="text-align: center;"><strong>Price</strong></th>
+                                    <th style="text-align: center;"><strong>Total</strong></th>
+                                    <th style="text-align: center;"><strong>Remarks</strong></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- <tr>
+                                    <td style="text-align: center;"><strong>A</strong></td>
+                                    <td colspan="6"><strong>Kebutuhan Lapangan</strong></td>
+                                </tr> -->
+                                <t t-set="total" t-value="0"/>
+                                <t t-set="row_number" t-value="0"/>
+                                <t t-if="doc.goods_submission_ids">
+                                    <t t-foreach="doc.goods_submission_ids" t-as="line">
+                                        <t t-if="not line.tools">
+                                            <tr>
+                                                <td colspan="7">
+                                                    <strong>
+                                                        <span t-esc="line.name"/>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <t t-set="row_number" t-value="0"/>
+                                        </t>
+                                        <t t-else="">
+                                            <tr>
+                                                <td><span t-esc="row_number + 1"/></td>
+                                                <t t-set="row_number" t-value="row_number + 1"/>
+                                                <td style="width: 30%;"><span t-esc="line.tools.display_name"/></td>
+                                                <td style="text-align: center;"><span t-esc="line.quantity"/></td>
+                                                <td style="text-align: center;"><span t-esc="line.unit.display_name"/></td>
+                                                <td style="text-align: right; white-space: nowrap;">Rp. <t t-esc="line.price" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td style="text-align: right; white-space: nowrap;">Rp. <t t-esc="line.total_price" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td><span t-esc="line.notes"/></td>
+                                                <t t-set="total" t-value="total + line.total_price"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr>
+                                        <td style="text-align: center;" colspan="5"><strong>Total</strong></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="total" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-sign" style="text-align: center; border-right: none; width: 55%;" colspan="5">
+                                            <br/>
+                                            <span><strong>Approved by,</strong></span><br/>
+                                            <span t-esc="doc.approved_by_job_title"/><br/>
+                                            <span t-esc="doc.approved_by_department.display_name"/><br/>
+                                            <br/><br/><br/><br/><br/><br/>
+                                            <span t-esc="doc.approved_by.display_name"/>
+                                        </td>
+                                        <td class="table-sign" style="text-align: center; border-left: none; width: 45%;" colspan="2">
+                                            <br/>
+                                            <span><strong>Checked by,</strong></span><br/>
+                                            <span t-esc="doc.checked_by_job_title"/><br/>
+                                            <span t-esc="doc.checked_by_department.display_name"/><br/>
+                                            <br/><br/><br/><br/><br/><br/>
+                                            <span t-esc="doc.checked_by.display_name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="11">No Goods Submission Available</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>              
+            </t>
+        </t>
+    </template>
+
+</odoo>

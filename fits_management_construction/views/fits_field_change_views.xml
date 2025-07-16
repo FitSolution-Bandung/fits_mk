@@ -1,0 +1,89 @@
+<odoo>
+    <record model="ir.ui.view" id="view_field_change_tree">
+        <field name="name">field.change.tree</field>
+        <field name="model">field.change</field>
+        <field name="arch" type="xml">
+            <tree string="Field Change">
+                <field name="no_fcn"/>
+                <field name="submission_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_field_change_form">
+        <field name="name">field.change.form</field>
+        <field name="model">field.change</field>
+        <field name="arch" type="xml">
+            <form string="Field Change Form">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="no_fcn"/>
+                            <field name="no_contract"/>
+                            <field name="contract_date" readonly="status != 'draft'"/>                   
+                            <!-- <field name="work_activities" readonly="status != 'draft'"/> -->
+                        </group>
+                        <group>
+                            <field name="submission_date" readonly="status != 'draft'"/>
+                            <!-- <field name="name_project" readonly="status != 'draft'"/> -->
+                            <field name="name_package" readonly="status != 'draft'"/>
+                            <field name="construction_service_provider" readonly="status != 'draft'"/>                                      
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work Detail Information">
+                            <group string="Work Detail">
+                                <group>
+                                    <field name="name_project"/>
+                                    <field name="work_activity"/>
+                                    <field name="location"/>
+                                </group>
+                                <group>
+                                    <field name="cost_center"/>
+                                    <field name="description"/>
+                                </group>
+                            </group>
+                            <group string="Details of proposed changes">
+                                <group>
+                                    <field name="actual_condition"/>
+                                    <field name="plan_change"/>
+                                </group>
+                                <group>
+                                    <field name="reason_change"/>
+                                    <field name="plan_change_date"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_field_change" model="ir.actions.act_window">
+        <field name="name">Field Change</field>
+        <field name="res_model">field.change</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_field_change" parent="menu_root_additional_form" action="action_field_change" sequence="14"/>
+</odoo>

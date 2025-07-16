@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_inherit_project_task_form">
+            <field name="name">inherit.project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_generate_progress_dates"
+                    string="Generate Progress Dates"
+                    type="object"
+                    class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//div[@id='date_deadline_and_recurring_task']" position="after">
+                    <field name="start_date" string="Started Date"/>
+                    <field name="end_date" string="Ended Date"/>
+                    <field name="wbs_category" />
+                </xpath>
+                <xpath expr="//notebook/page[@name='extra_info']" position="after">
+                    <page string="Plan Weight">
+                        <group>
+                            <group string="Task Weight">
+                                <field name="task_cost"/>
+                                <field name="task_weight" />
+                                <field name="actual_weight" />
+                            </group>
+                            <group string="Progress">
+                                <field name="total_progress" />
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Progress">
+                        <field name="progress_ids" >
+                            <tree editable="bottom">
+                                <field name="date" />
+                                <field name="project" />
+                                <field name="plan" sum="Total Plan"/>
+                                <field name="plan_b" sum="Total Plan B"/>
+                                <field name="progress" sum="Total Progress"/>
+                                <field name="plan_weight" sum="Total Plan Weight"/>
+                                <field name="plan_weight_b" sum="Total Plan Weight B"/>
+                                <field name="actual_weight" sum="Total Actual Weight"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,193 @@
+    <odoo>
+        <record id="action_report_feasibility_inspection" model="ir.actions.report">
+            <field name="name">Feasibility Inspection</field>
+            <field name="model">feasibility.inspection.document</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_feasibility_inspection_template</field>
+            <field name="report_file">fits_management_construction.report_feasibility_inspection_template</field>
+            <field name="binding_model_id" ref="model_feasibility_inspection_document"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_feasibility_inspection_template" name="Work Request Template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <style>
+                        body{
+                            font-family: Arial; 
+                        }
+
+                        .table-header{
+                            margin: 0 auto;
+                            margin-bottom: 20px;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        .table-header th,
+                        .table-header td{
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+                    </style>
+
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <table class="table-header">
+                                <h2 style="text-align: center; margin-bottom: 50px;">Feasibility Inspection Document</h2>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            No.<br/>
+                                            PHO/
+                                            <span t-esc="doc.no_pho"/>
+                                        </td>
+                                        <td style="text-align: center;" colspan="2">
+                                            Tanggal Pengajuan:<br/>
+                                            <span t-esc="doc.submission_date"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            No Contract<br/>
+                                            <span t-esc="doc.no_contract"/>
+                                        </td>
+                                        <td colspan="2">
+                                            Name Package<br/>
+                                            <span t-esc="doc.package"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Contract Date<br/>
+                                            <span t-esc="doc.contract_date"/>
+                                        </td>
+                                        <td colspan="2">
+                                            Construction Provider<br/>
+                                            <span t-esc="doc.construction_provider.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><strong>Work Details</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Project Name:<br/>
+                                            <span t-esc="doc.name_project.display_name"/>
+                                        </td>
+                                        <td rowspan="2" colspan="2" style="vertical-align: top;">
+                                            Description:<br/>
+                                            <span t-esc="doc.description"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Work Activities:<br/>
+                                            <span t-esc="doc.work_activities"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Work Location:<br/>
+                                            <span t-esc="doc.location"/>
+                                        </td>
+                                        <td colspan="2">
+                                            Cost Center:<br/>
+                                            <span t-esc="doc.cost_center"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Info Lainnya:<br/><br/><br/>
+                                        </td>
+                                        <td colspan="2">
+                                            Info Lainnya:<br/><br/><br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2"><strong>Inspection Item (Work Exexution Process)</strong></td>
+                                        <td colspan="2" style="text-align: center;"><strong>Nonconformance with requirements</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; width: 25%;"><strong>Acceptable</strong></td>
+                                        <td style="text-align: center; width: 25%;"><strong>Unacceptable</strong></td>
+                                    </tr>
+                                    <t t-foreach="doc.feasibility_inspection_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="line.inspection_item"/>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <label>
+                                                    <input type="checkbox" t-att-checked="line.compliant_status"/>
+                                                </label>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <label>
+                                                    <input type="checkbox" t-att-checked="line.noncompliant_status"/>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="3">
+                                            <strong>Quality Deficiency Notes</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <span t-esc="doc.notes"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="page-break-before: always; page-break-inside: avoid;">
+                                <table class="table-header">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                Executed by
+                                            </td>
+                                            <td style="text-align: center;">
+                                                Approved by
+                                            </td>
+                                            <td style="text-align: center;">
+                                                Noted by
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Handover Committee</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Construction Contractor</strong>
+                                            </td>
+                                            <td>
+                                                <strong>CMO</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><br/><br/><br/></td>
+                                            <td><br/><br/><br/></td>
+                                            <td><br/><br/><br/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Name:</td>
+                                            <td>Name:</td>
+                                            <td>Name:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date:</td>
+                                            <td>Date:</td>
+                                            <td>Date:</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>                
+                </t>
+            </t>
+        </template>
+
+    </odoo>

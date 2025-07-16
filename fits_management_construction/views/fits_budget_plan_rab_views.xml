@@ -1,0 +1,151 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_budget_plan_tree">
+            <field name="name">budget.plan.tree</field>
+            <field name="model">budget.plan</field>
+            <field name="arch" type="xml">
+                <tree string="Budget Plan">
+                    <field name="no_rab"/>
+                    <field name="name"/>
+                    <field name="project"/>
+                    <field name="customer" />
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_budget_plan_form">
+            <field name="name">budget.plan.form</field>
+            <field name="model">budget.plan</field>
+            <field name="arch" type="xml">
+                <form string="Budget Plan">
+                    <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                                invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                                invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button name="action_refresh" type="object" class="btn-primary" icon="fa-refresh"
+                                position="after" invisible="status != 'draft'"/>
+                        <div invisible="sale_order_count != 0">
+                            <button string="Sales Order" name="action_sales_order" type="object" 
+                                    class="oe_highlight" invisible="status != 'confirm'"/>
+                        </div>
+                        <div invisible="sale_order_count == 0">
+                            <button string="Sales Order" name="action_sales_order" type="object" 
+                                    class="btn-secondary" invisible="status != 'confirm'"/>
+                        </div>
+                        <field name="sale_order_count" invisible="1"/>
+                        <field name="status" widget="statusbar" options="{'clickable': 0}"
+                               statusbar_visible="draft,confirm,cancelled"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_sale_order"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-dollar">
+                                <field name="sale_order_count" widget="statinfo" string="Sales Order"/>
+                            </button>  
+                        </div>
+                        <group name='header'>
+                            <group>
+                                <field name="no_rab"/>
+                                <field name="name" readonly="status != 'draft'"/>
+                                <field name="project" readonly="status != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="boq" readonly="status != 'draft'"/>
+                                <field name="unit_price_data" readonly="status != 'draft'"/>
+                                <field name="customer" readonly="status != 'draft'"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="RAB">
+                                <field name="rab_mk_ids" widget="section_and_note_one2many" mode="tree" context="{'default_display_type': False}" readonly="status != 'draft'">
+                                    <tree editable="bottom" order="sequence asc">
+                                        <control>
+                                            <create name="add_product_control" 
+                                                    string="Add a Product"/>
+                                            <create name="add_section_control" 
+                                                    string="Add a Section" 
+                                                    context="{'default_display_type': 'line_section'}"/>
+                                            <create name="add_note_control" 
+                                                    string="Add a Note" 
+                                                    context="{'default_display_type': 'line_note'}"/>
+                                        </control>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="display_type" column_invisible="True"/>
+                                        <field name="wbs" invisible="display_type" widget="many2one"/>
+                                        <field name="name"/>
+                                        <field name="volume" invisible="display_type"/>
+                                        <field name="uom" invisible="display_type"/>
+                                        <field name="material" invisible="display_type" sum="Total Material"/>
+                                        <field name="wages" invisible="display_type" sum="Total Wages"/>
+                                        <field name="equipment" invisible="display_type" sum="Total Equipment"/>
+                                        <field name="price" invisible="display_type" sum="Price"/>
+                                        <field name="subtotal_price" invisible="display_type" sum="Subtotal Price"/>
+                                        <field name="taxes_id" invisible="display_type"/>
+                                        <field name="taxed" invisible="display_type" sum="Total Price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Info">
+                                <group string="Profit Input">
+                                    <field name="profit"/>
+                                    <!-- <field name="tax"/> -->
+                                </group>
+                                <group string="Rounding Totals">
+                                    <field name="sum_material" string="Rounded Material Total"/>
+                                    <field name="sum_wages" string="Rounded Wages Total"/>
+                                    <field name="sum_equipment" string="Rounded Equipment Total"/>
+                                    <field name="sum_total" string="Overall Rounded Total" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="Calculation">
+                                <group>
+                                    <group>
+                                        <field name="total_material" readonly="1"/>
+                                        <field name="total_wages" readonly="1"/>
+                                        <field name="total_equipment" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="total_tax_material" readonly="1"/>
+                                        <field name="total_tax_wages" readonly="1"/>
+                                        <field name="total_tax_equipment" readonly="1"/>
+                                    </group>
+                                </group>
+                                <button string="Calculate" name="action_calculate" type="object" class="oe_highlight"/>
+                            </page>
+                        </notebook>
+                        <!-- <div style="float: right; margin-right: 20px;">
+                            <group string="Total" colspan="2">
+                                <field name="total_material" readonly="1" string="Total Material"/>
+                                <field name="total_wages" readonly="1" string="Total Wages"/>
+                                <field name="total_equipment" readonly="1" string="Total Equipment"/>
+                                <field name="total_price" readonly="1" string="Total Price"/>
+                            </group>
+                        </div> -->
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_budget_plan" model="ir.actions.act_window">
+            <field name="name">Budget Plan</field>
+            <field name="res_model">budget.plan</field>
+        </record>
+        <!-- Sub Menu Pre-Cons Phase-->
+        <menuitem id="menu_budget_plan" parent="menu_root_rab_mk"
+                  action="action_budget_plan" sequence="1"/>
+    </data>
+</odoo>

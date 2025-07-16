@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <!-- Inherit the default BoM report -->
+        <template id="report_bom_inherit_description" inherit_id="mrp.report_mrp_bom">
+            <!-- Tambahkan kolom header untuk Description -->
+            <xpath expr="//thead/tr/th[@name='th_mrp_bom_h']" position="after">
+                <th class="text-start">Description</th>
+            </xpath>
+        </template>
+        <template id="report_bom_line_inherit_description" inherit_id="mrp.report_mrp_bom_pdf_line">
+            <xpath expr="//tr/td[@name='td_mrp_code']" position="after">
+                <td t-if="l['description']" class="text-start">
+                    <t t-esc="l['description']" />
+                </td>
+                <td t-else="" class="text-start">
+                    <span>No Desc</span>
+                </td>
+            </xpath>
+        </template>
+    </data>
+</odoo>

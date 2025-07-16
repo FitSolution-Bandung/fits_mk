@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_nonconformance_report_form_tree">
+            <field name="name">nonconformance.report.form.tree</field>
+            <field name="model">nonconformance.report.form</field>
+            <field name="arch" type="xml">
+                <tree string="Non-Conformance Report Form">
+                    <field name="no_ncrf"/>
+                    <field name="submission_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_nonconformance_report_form_form">
+            <field name="name">nonconformance.report.form.form</field>
+            <field name="model">nonconformance.report.form</field>
+            <field name="arch" type="xml">
+                <form string="Non-Conformance Report Form">
+                    <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                        invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+    
+                        <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                                invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                        />
+                        <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                                invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                        />
+                        <field name="status" widget="statusbar" options="{'clickable': 1}"
+                            statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <group name="header">
+                            <group>
+                                <field name="no_ncrf"/>
+                                <field name="submission_date" readonly="status != 'draft'"/>
+                                <field name="package_name" readonly="status != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="contract_number" readonly="status != 'draft'"/>
+                                <field name="contract_date" readonly="status != 'draft'"/>
+                                <field name="contruction_provider" readonly="status != 'draft'"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Data Details">
+                                <group>
+                                    <group>
+                                        <field name="project"/>    
+                                        <field name="work_activities"/>
+                                    </group>
+                                    <group>
+                                        <field name="work_location"/>
+                                        <field name="info"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Description">
+                                <group>
+                                    <field name="actual_condition"/>
+                                    <field name="condition"/>
+                                </group>
+                            </page>
+                            <page string="Proposed Follow-up Plan">
+                                <group>
+                                    <group>
+                                        <field name="proposal_plan"/>
+                                        <field name="other"/>
+                                    </group>
+                                    <group>
+                                        <field name="followup_desc"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Proposed Preventive Measures">
+                                <group>
+                                    <field name="proposal_measures"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form> 
+            </field>
+        </record>
+
+        <record id="action_nonconformance_report_form" model="ir.actions.act_window">
+            <field name="name">Non-Conformance Report</field>
+            <field name="res_model">nonconformance.report.form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_nonconformance_report_form" parent="menu_root_additional_form" action="action_nonconformance_report_form" sequence="8"/>
+    </data>
+</odoo>

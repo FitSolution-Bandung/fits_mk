@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_employee_inherit_sign" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.sign</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='identification_group']" position="after">
+                    <group string="Sign">
+                        <group>
+                            <field name="sign" widget="image" nolabel='1'/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,63 @@
+<odoo>
+    <record model="ir.ui.view" id="view_working_drawing_tree">
+        <field name="name">working.dra  wing.tree</field>
+        <field name="model">working.drawing</field>
+        <field name="arch" type="xml">
+            <tree string="Working Draw Approval">
+                <field name="no_contract"/>
+                <field name="submission_date"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_working_drawing_form">
+        <field name="name">working.drawing.form.form</field>
+        <field name="model">working.drawing</field>
+        <field name="arch" type="xml">
+            <form string="Working Draw Approval">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="no_form" readonly="status != 'draft'"/>
+                            <field name="submission_date"/>                   
+                            <field name="no_contract" readonly="status != 'draft'"/>
+                            <field name="contract_date" readonly="status != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="work_activity" readonly="status != 'draft'"/>
+                            <field name="name_project" readonly="status != 'draft'"/>
+                            <field name="name_package" readonly="status != 'draft'"/>                                      
+                            <field name="construction_service_provider" readonly="status != 'draft'"/>                                      
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_working_drawing" model="ir.actions.act_window">
+        <field name="name">Working Draw Approval</field>
+        <field name="res_model">working.drawing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_working_drawing" parent="menu_root_additional_form" action="action_working_drawing" sequence="13"/>
+</odoo>

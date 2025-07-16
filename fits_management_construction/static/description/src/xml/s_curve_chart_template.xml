@@ -1,0 +1,12 @@
+<odoo>
+    <template id="CurveSChartTemplate" name="Curve S Chart Template">
+        <t t-call="web.html_container">
+            <t t-set="title">Curve S Chart</t>
+            <t t-esc="title"/>
+            <div class="o_graphic_container">
+                <canvas id="curve_s_chart_canvas" width="400" height="400"></canvas>
+                <button type="button" t-on-click="downloadChart">Download PDF</button>
+            </div>
+        </t>
+    </template>
+</odoo>

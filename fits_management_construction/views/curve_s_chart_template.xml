@@ -1,0 +1,7 @@
+<odoo>
+    <template id="curve_s_chart_template">
+        <div id="curve_s_chart_container" style="width: 100%; height: 400px;">
+            <canvas id="curve_s_chart_canvas"></canvas>
+        </div>
+    </template>
+</odoo>

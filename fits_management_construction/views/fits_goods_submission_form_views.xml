@@ -1,0 +1,96 @@
+<odoo>
+    <record model="ir.ui.view" id="view_goods_submission_form_tree">
+        <field name="name">goods.submission.tree</field>
+        <field name="model">goods.submission</field>
+        <field name="arch" type="xml">
+            <tree string="Goods Submission Form">
+                <field name="no_meeting"/>
+                <field name="name_project"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_goods_submission_form">
+        <field name="name">goods.submission.form</field>
+        <field name="model">goods.submission</field>
+        <field name="arch" type="xml">
+            <form string="Goods Submission">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="no_meeting"/>
+                            <field name="name_project" readonly="status != 'draft'"/>                   
+                            <field name="work" readonly="status != 'draft'"/>
+                            <field name="approved_by" readonly="status != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="date" readonly="status != 'draft'"/>
+                            <field name="day_name"/>
+                            <field name="location" readonly="status != 'draft'"/>                                      
+                            <field name="checked_by" readonly="status != 'draft'"/>                                      
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Goods Submission Detail">
+                            <!-- <field name="goods_submission_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="tools"/>
+                                    <field name="quantity"/>
+                                    <field name="unit"/>
+                                    <field name="price"/>
+                                    <field name="total_price"/>
+                                </tree>
+                            </field> -->
+                            <field name="goods_submission_ids" widget="section_and_note_one2many" mode="tree" context="{'default_display_type': False}" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <control>
+                                        <create name="add_product_control"
+                                            string="Add a Product"/>
+                                        <create name="add_section_control"
+                                            string="Add a Section"
+                                            context="{'default_display_type': 'line_section'}"/>
+                                    </control>
+                                    <field name="display_type" column_invisible="True"/>
+                                    <field name="tools" invisible="display_type"/>
+                                    <field name="name"/>
+                                    <field name="quantity" invisible="display_type"/>
+                                    <field name="unit" invisible="display_type"/>
+                                    <field name="price" invisible="display_type"/>
+                                    <field name="total_price" invisible="display_type"/>
+                                    <field name="notes" invisible="display_type"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_goods_submission" model="ir.actions.act_window">
+        <field name="name">Goods Submission</field>
+        <field name="res_model">goods.submission</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_goods_submission" parent="menu_root_additional_form" action="action_goods_submission" sequence="11"/>
+</odoo>

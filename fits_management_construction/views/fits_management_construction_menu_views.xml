@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <!--  MK Root Menu-->
+        <menuitem id="management_construction_root" 
+                  name="Management Construction" 
+                  sequence="10" 
+                  web_icon="fits_management_construction,static/description/icon.png" 
+                  groups="fits_management_construction.group_management_construction_owner,fits_management_construction.group_management_construction_user,fits_management_construction.group_management_construction_manager"/>
+        
+        <menuitem id="menu_root_pre_cons_phase" 
+                  name="Risk Mitigation" 
+                  parent="management_construction_root" 
+                  sequence="1" 
+                  groups="fits_management_construction.group_management_construction_user,fits_management_construction.group_management_construction_manager"/>
+                  
+        <menuitem id="menu_root_rab_mk" 
+                  name="RAB" 
+                  parent="management_construction_root" 
+                  sequence="2" 
+                  groups="fits_management_construction.group_management_construction_user,fits_management_construction.group_management_construction_manager"/>
+        
+        <menuitem id="menu_configuration" 
+                  name="Configuration" 
+                  parent="management_construction_root" 
+                  sequence="10" 
+                  groups="fits_management_construction.group_management_construction_user,fits_management_construction.group_management_construction_manager"/>
+
+        <menuitem id="menu_root_daily_report" 
+                  name="Daily Report" 
+                  parent="management_construction_root" 
+                  sequence="6" 
+                  groups="fits_management_construction.group_management_construction_owner,fits_management_construction.group_management_construction_user,fits_management_construction.group_management_construction_manager"/>
+
+        <menuitem id="menu_root_additional_form" 
+                  name="Additional Form"
+                  parent="management_construction_root" 
+                  sequence="8" 
+                  groups="fits_management_construction.group_management_construction_owner,fits_management_construction.group_management_construction_user,fits_management_construction.group_management_construction_manager"/>
+
+        <menuitem id="menu_parent_risk_mitigation_configuration" 
+                  name="Risk Mitigation" 
+                  parent="menu_configuration" 
+                  sequence="10" 
+                  groups="fits_management_construction.group_management_construction_manager"/>
+
+        <menuitem id="menu_parent_rab_configuration" 
+                  name="RAB" 
+                  parent="menu_configuration" 
+                  sequence="20" 
+                  groups="fits_management_construction.group_management_construction_user,fits_management_construction.group_management_construction_manager"/>
+    </data>
+</odoo>

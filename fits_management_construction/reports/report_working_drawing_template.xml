@@ -1,0 +1,212 @@
+<odoo>
+    <record id="action_report_working_drawing" model="ir.actions.report">
+        <field name="name">Working Drawing Approval</field>
+        <field name="model">working.drawing</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_working_drawing_template</field>
+        <field name="report_file">fits_management_construction.report_working_drawing_template</field>
+        <field name="binding_model_id" ref="model_working_drawing"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_working_drawing_template" name="Working Drawing Template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: 80%;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                        width: 40%;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <table class="table-header">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Working Drawing Approval Form</h2>
+                            <tbody>
+                                <tr>
+                                    <td><strong>No: </strong><span t-esc="doc.no_form"/></td>
+                                    <td><strong>Submission Date: </strong><span t-esc="doc.submission_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No Contract: </strong><span t-esc="doc.no_contract"/></td>
+                                    <td><strong>Contract Date: </strong>
+                                        <span t-esc="doc.contract_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Work Activity: </strong><span t-esc="doc.work_activity"/></td>
+                                    <td><strong>Project Name: </strong><span t-esc="doc.name_project.display_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Package Name: </strong>
+                                        <span t-esc="doc.name_package"/>
+                                    </td>
+                                    <td><strong>Service Provider: </strong><span t-esc="doc.construction_service_provider.display_name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table-details">
+                            <tbody>
+                                <tr>
+                                    <td colspan="7">
+                                    SUBMISSION
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2"><strong>No.</strong></td>
+                                    <td rowspan="2" style="text-align: center;"><strong>No. Working Drawing</strong></td>
+                                    <td rowspan="2" style="text-align: center;"><strong>No. Revision</strong></td>
+                                    <td rowspan="2" style="text-align: center;"><strong>Title</strong></td>
+                                    <td colspan="3" style="text-align: center;"><strong>Checked By</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;"><strong>Note</strong></td>
+                                    <td style="text-align: center;"><strong>Inspector</strong></td>
+                                    <td style="text-align: center;"><strong>Approved By</strong></td>
+                                </tr>
+                                <t t-set="row_number" t-value="0"/>
+                                <t t-foreach="range(3)" t-as="a">
+                                    <t t-if="row_number == 0">
+                                        <tr>
+                                            <td><span t-esc="row_number + 1"/></td>
+                                            <t t-set="row_number" t-value="row_number + 1"/>
+                                            <td></td>
+                                            <td></td>
+                                            <td rowspan="3"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                    <t t-else="">
+                                        <tr>
+                                            <td><span t-esc="row_number + 1"/></td>
+                                            <t t-set="row_number" t-value="row_number + 1"/>
+                                            <td></td>
+                                            <td></td>   
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td colspan="3" style="vertical-align: middle; text-align: center; width: 50%;">
+                                    Received By <br/><br/><br/>
+                                    Technical Director/Supervisory Consultant
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center; width: 15%;">
+                                    Signature: <br/><br/><br/><br/><br/><br/>
+                                    .............................
+                                    </td>
+                                    <td colspan="3" style="vertical-align: middle; text-align: center; width: 35%;">
+                                    Date:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7">
+                                        Response/Approval:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">1) Approval response notes</td>
+                                    <td colspan="3" style="text-align: center;">Verifikasi</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">(a) Approved to be implemented</td>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">(b) Approved with notes/marks on the image</td>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">(c) Returned for repair</td>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" rowspan="3" style="vertical-align: middle;">(d) Other: <br/><br/><br/><br/>
+                                    ....................................
+                                    </td>
+                                    <td colspan="3"><br/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><br/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><br/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7">
+                                    AGREEMENT
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="vertical-align: middle; text-align: center; width: 50%;">
+                                    Checked By <br/><br/><br/>
+                                    Technical Director/Supervisory Consultant
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center; width: 15%;">
+                                    Signature: <br/><br/><br/><br/><br/><br/>
+                                    .............................
+                                    </td>
+                                    <td colspan="3" style="vertical-align: middle; text-align: center; width: 35%;">
+                                    Date:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="vertical-align: middle; text-align: center; width: 50%;">
+                                    Checked By <br/><br/><br/>
+                                    Technical Director/Supervisory Consultant
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center; width: 15%;">
+                                    Signature: <br/><br/><br/><br/><br/><br/>
+                                    .............................
+                                    </td>
+                                    <td colspan="3" style="vertical-align: middle; text-align: center; width: 35%;">
+                                    Date:
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>              
+            </t>
+        </t>
+    </template>
+
+</odoo>

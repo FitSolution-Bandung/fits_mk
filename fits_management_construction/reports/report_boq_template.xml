@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+        <record id="action_report_boq" model="ir.actions.report">
+            <field name="name">BOQ Report</field>
+            <field name="model">boq</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_boq_template</field>
+            <field name="report_file">fits_management_construction.report_boq_template</field>
+            <field name="binding_model_id" ref="model_boq"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <template id="report_boq_template" name="BOQ Template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="page">
+                                <style>
+                                    body{
+                                        font-family: Arial;
+                                    }
+                                    .table-bordered {
+                                        border-collapse: collapse;
+                                        width: 100%;
+                                        margin-top: 20px;
+                                    }
+                                    .table-bordered th,
+                                    .table-bordered td {
+                                        border: 1px solid black;
+                                        padding: 8px;
+                                        vertical-align: top;
+                                    }
+                                    .table-sm{
+                                        margin-bottom: 20px;
+                                    }
+                                </style>
+                                <div style="text-align: center;">
+                                    <h3>Bill of Quantity</h3>
+                                    <p><strong><t t-esc="doc.project.display_name"/></strong></p>
+                                </div>
+                
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center;">
+                                            <th>No</th>
+                                            <th>Uraian Pekerjaan</th>
+                                            <th>Volume</th>
+                                            <th>Satuan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="text-align: center;">
+                                            <td><strong>1</strong></td>
+                                            <td><strong>2</strong></td>
+                                            <td><strong>3</strong></td>
+                                            <td><strong>4</strong></td>
+                                        </tr>
+                                        <t t-set="prev_wbs_category" t-value="None"/>
+                                        <t t-foreach="doc.boq_mk_ids" t-as="line">
+                                            <t t-if="line.ahs.wbs_category.code != prev_wbs_category">
+                                                <tr>
+                                                    <td style="text-align: center;"><strong><t t-esc="line.ahs.wbs_category.code"/></strong></td>
+                                                    <td colspan="3"><strong><t t-esc="line.ahs.wbs_category.display_name"/></strong></td>
+                                                </tr>
+                                                <t t-set="prev_wbs_category" t-value="line.ahs.wbs_category.code"/>
+                                            </t>
+                                            <tr>
+                                                <strong>
+                                                    <td style="text-align: center;"><t t-esc="line.ahs.wbs.number"/></td>
+                                                    <td><t t-esc="line.ahs.wbs.display_name"/></td>
+                                                    <td style="text-align: right"><t t-esc="'{:.3f}'.format(line.volume) if line.volume == int(line.volume) else line.volume" /></td>
+                                                    <td style="text-align: center"><t t-esc="line.uom.display_name"/></td>
+                                                </strong>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

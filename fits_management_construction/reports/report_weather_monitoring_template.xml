@@ -1,0 +1,123 @@
+<odoo>
+    <record id="action_report_weather_monitoring" model="ir.actions.report">
+        <field name="name">Weather Monitoring</field>
+        <field name="model">weather.monitoring</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_weather_monitoring_template</field>
+        <field name="report_file">fits_management_construction.report_weather_monitoring_template</field>
+        <field name="binding_model_id" ref="model_weather_monitoring"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_weather_monitoring_template" name="Weather Monitoring Template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: auto;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                        width: auto;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <!-- batas belum di perbaiki -->
+                        <table class="table-header">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Weather Monitoring</h2>
+                            <tr>
+                                <td>Proyek: <span t-esc="doc.name_project.display_name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Lokasi: <span t-esc="doc.location"/></td>
+                            </tr>
+                            <tr>
+                                <td>Periode: <span t-esc="doc.month_years"/></td>
+                            </tr>
+                        </table>
+
+                        <table class="table-details">
+                            <tr>
+                                <td>Jam</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">05.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">06.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">07.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">08.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">09.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">10.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">11.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">12.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">13.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">14.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">15.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">16.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">17.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">18.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">19.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">20.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">21.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">22.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">23.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">24.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">01.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">02.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">03.00</td>
+                                <td style=" -webkit-transform: rotate(-90deg);">04.00</td>
+                                <td>Total<br/>Jam</td>
+                            </tr>
+                            <tr>
+                                <td>Tgl</td>
+                                <t t-set="range_25" t-value="range(1, 26)"/>
+                                <t t-foreach="range_25" t-as="num">
+                                    <td style="background-color: black;"></td>
+                                </t>
+                            </tr>
+                            <t t-set="days" t-value="range(1, doc.days_in_month + 1)"/>
+                            <t t-set="row_number" t-value="0"/>
+                            <tr t-foreach="days" t-as="day">
+                                <t t-set="row_number" t-value="row_number + 1"/>
+                                <td><t t-esc="row_number"/></td>
+                                <t t-foreach="range_25" t-as="num">
+                                    <td></td>
+                                </t>
+                            </tr>
+                        </table>
+                    </div>
+                </t>                
+            </t>
+        </t>
+    </template>
+
+</odoo>

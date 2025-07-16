@@ -1,0 +1,335 @@
+<odoo>
+    <record id="action_report_work_correction" model="ir.actions.report">
+        <field name="name">Work Correction</field>
+        <field name="model">work.correction</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_work_correction_template</field>
+        <field name="report_file">fits_management_construction.report_work_correction_template</field>
+        <field name="binding_model_id" ref="model_work_correction"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_work_correction_template" name="Work Correction Report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: 60%;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                    }
+                </style>
+
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <table class="table-header">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Work Correction Form</h2>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Project:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-esc="doc.name_project.display_name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Work Package:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-esc="doc.package"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Location:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-esc="doc.location"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table-details">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>A.</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Description of Deviations</strong>
+                                    </td>
+                                    <td colspan="2" style="text-align: center;">
+                                        <strong>
+                                            Reporter
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Name:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Job Position:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Signature:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>B.</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Root Cause Investigation &amp; Corrective Action Plan</strong>
+                                    </td>
+                                    <td colspan="2" style="text-align: center;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Name:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Job Position:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Signature:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <strong>Description of Corrective Action Implementation</strong>
+                                    </td>
+                                    <td colspan="2" style="text-align: center;">
+                                        <strong>
+                                            Prepared by Corrective Action Implementer:
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Name:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Job Position:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Signature:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <strong>Description &amp; Total Actual Cost of Corrective Action (Optional)</strong>
+                                    </td>
+                                    <td colspan="2" style="text-align: center;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Name:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Job Position:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Signature:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>C.</td>
+                                    <td>
+                                        <strong>Post-Corrective Action Inspection</strong>
+                                    </td>
+                                    <td colspan="2" style="text-align: center;">
+                                        <strong>
+                                            Checked By:
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Name:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Job Position:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Signature:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td rowspan="2" colspan="2" style="vertical-align: middle;">
+                                        Date:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong>Corrective Action Summary</strong>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <strong>PASS</strong>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <strong>FAIL</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="font-size: 12px;">
+                                        Note:<br/><br/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>                
+            </t>
+        </t>
+    </template>
+
+</odoo>

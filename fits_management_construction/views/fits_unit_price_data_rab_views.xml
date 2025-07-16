@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_unit_price_data_tree">
+            <field name="name">unit.price.data.tree</field>
+            <field name="model">unit.price.data</field>
+            <field name="arch" type="xml">
+                <tree string="Unit Price Data">
+                    <field name="no_upd"/>
+                    <field name="name"/>
+                    <field name="province"/>
+                    <field name="location"/>
+                    <field name="status" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_unit_price_data_form">
+            <field name="name">unit.price.data.form</field>
+            <field name="model">unit.price.data</field>
+            <field name="arch" type="xml">
+                <form string="Unit Price Data">
+                    <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                                invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                                invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <field name="status" widget="statusbar" options="{'clickable': 0}"
+                               statusbar_visible="draft,confirm,cancelled"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_budget_plan"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-file">
+                                <field name="budget_plan_count" widget="statinfo" string="Budget Plan"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="no_upd"/>
+                                <field name="name" readonly="status != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="province" readonly="status != 'draft'"/>
+                                <field name="location" readonly="status != 'draft'"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Material">
+                                <field name="price_material_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="material" widget="many2one"/>
+                                        <field name="uom"/>
+                                        <field name="unit_price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Wages">
+                                <field name="price_wages_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="work_item" widget="many2one"/>
+                                        <field name="uom"/>
+                                        <field name="wages"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Equipment">
+                                <field name="price_equipment_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="equipment" widget="many2one"/>
+                                        <field name="uom"/>
+                                        <field name="unit_price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_unit_price_data" model="ir.actions.act_window">
+            <field name="name">Unit Price Data</field>
+            <field name="res_model">unit.price.data</field>
+        </record>
+        <menuitem id="menu_unit_price_data" parent="menu_root_rab_mk"
+                  action="action_unit_price_data" sequence="4"/>
+    </data>
+</odoo>

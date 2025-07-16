@@ -1,0 +1,481 @@
+<odoo>
+    <data>
+        <record id="action_report_daily_report" model="ir.actions.report">
+            <field name="name">Daily Report</field>
+            <field name="model">daily.report</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_daily_report_template</field>
+            <field name="report_file">fits_management_construction.report_daily_report_template</field>
+            <field name="binding_model_id" ref="model_daily_report"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_daily_report_template" name="Daily Report Template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="page" style="margin-left: 0px; margin-right: 0px;">
+                                <style>
+                                    <style>
+                                        <!-- @page {
+                                            size: A4;
+                                            margin: 15mm;
+                                        }
+                                        .page {
+                                            width: 100%;
+                                            max-width: 210mm;
+                                            margin: 0 auto;
+                                        } -->
+                                        * {
+                                            font-size: 12px;
+                                            font-family: Arial; 
+                                        }
+                                        table {
+                                            width: 100%;
+                                            border-collapse: collapse;
+                                        }
+                                        table th, table td {
+                                            border: 1px solid #000;
+                                            padding: 5px;
+                                            text-align: left;
+                                        }
+                                        <!-- h2, h6 {
+                                            text-align: left;
+                                            margin: 10px 0;
+                                        } -->
+                                        thead tr, tbody tr {
+                                            height: 30px;
+                                        }
+                                        .custom-width {
+                                            max-width: 48%; /* Sesuaikan dengan lebar yang Anda inginkan */
+                                        }
+                                    </style>
+                                </style>
+                                <div style="text-align: center;">
+                                    <h3>Laporan Harian</h3>
+                                </div>
+                                <table style="width: 100%; margin-bottom: 20px;">
+                                    <tr>
+                                        <td style="width: 50%; vertical-align: top; font-size: 12px;">
+                                            <div>No. Urut: <span t-field="doc.no_dr"/></div> 
+                                            <div>Hari/ Tanggal: <span t-field="doc.date"/></div> 
+                                            <div>Kontrak No./Tanggal: <span t-field="doc.project.contract_date"/></div>                                     
+                                            <div>SMPK No./Tanggal: <span t-field="doc.project.smpk_date"/></div> 
+                                        </td>
+                                        <td style="width: 50%; vertical-align: top; font-size: 12px;">
+                                            <div>Proyek: <span t-field="doc.project.display_name"/></div> 
+                                            <div>Penyedia Jasa: <span t-field="doc.project.provider"/></div>                                     
+                                            <div>Konsultan Pengawas: <span t-field="doc.project.supervisory_consultant"/></div> 
+                                            <div>Konsultan Perencana: <span t-field="doc.project.planning_consultant"/></div> 
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- aman -->
+                                <div class="row header-grid">
+                                    <div class="col-6" style="margin-right: 5px; margin-bottom: 20px;">
+                                        <strong><p style="font-size: 12px; margin-bottom: 5px;">A. PEKERJAAN</p></strong>
+                                        <table>
+                                            <thead style="font-size: 12px;">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th style="width:40%;">Jenis Pekerjaan</th>
+                                                    <th>Bobot Rencana</th>
+                                                    <th>Bobot Aktual</th>
+                                                    <th>Total Progress (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-size: 12px;">
+                                                <t t-set="category_counter" t-value="1"/>
+                                                <t t-set="current_category" t-value="None"/>
+                                                <t t-set="unique_categories" t-value="set([wbs.wbs_category.id for wbs in doc.wbs_ids if wbs.wbs_category])"/>
+                                                <t t-set="total_rows_a" t-value="len(doc.wbs_ids) + (len(unique_categories) + 3)"/>
+                                                <!-- <t t-set="current_row_count_a" t-value="0"/> -->
+                                                
+                                                <t t-foreach="doc.wbs_ids" t-as="wbs">
+                                                    <t t-if="current_category != wbs.wbs_category.id">
+                                                        <t t-set="current_category" t-value="wbs.wbs_category.id"/>
+                                                        <t t-set="wbs_counter" t-value="1"/>
+                                                        <tr style="background-color:#e6e6e6;">
+                                                            <td style="text-align:right; "><strong><t t-esc="category_counter"/></strong></td>
+                                                            <t t-set="category_counter" t-value="category_counter + 1"/>
+                                                            <td colspan="4" style="text-align: left;">
+                                                                <strong><t t-esc="wbs.wbs_category.display_name"/></strong>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                    <tr t-att-style="'background-color: #00C000;' if wbs.is_highlighted else ''">
+                                                        <td style="text-align:right;"><t t-esc="category_counter - 1"/>.<t t-esc="wbs_counter"/></td>
+                                                        <td><t t-esc="wbs.wbs.display_name"/></td>
+                                                        <td style="text-align:right;"><t t-esc="'%.2f' % wbs.plan_weight"/></td>
+                                                        <td style="text-align:right;"><t t-esc="'%.2f' % wbs.total_actual"/></td>
+                                                        <td style="text-align:right;"><t t-esc="'%.2f' % wbs.total_progress"/></td>
+                                                        <t t-set="wbs_counter" t-value="wbs_counter + 1"/>
+                                                    </tr>
+                                                </t>
+                                                <tr style="background-color:#e6e6e6;">
+                                                    <td colspan="2" style="text-align: center;">Progres Aktual</td>
+                                                    <td style="text-align: center;">
+                                                        100%
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <t t-esc="doc.progress_actual"/>%
+                                                    </td>
+                                                    <td rowspan="2" style="text-align: center; vertical-align: center">
+                                                    Deviasi<br/>
+                                                    <t t-esc="doc.deviasi"/>%
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color:#e6e6e6;">
+                                                    <td colspan="2" style="text-align: center;">Progres Rencana</td>
+                                                    <td style="background-color: #000000"></td>
+                                                    <td style="text-align: center;">
+                                                        <t t-esc="doc.progress_plan"/>%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5">Catatan: 
+                                                    <span style="margin-left: 20px; width: 12px; height: 12px; border: 1px solid black; background-color: #00C000; display: inline-block;"></span>
+                                                        = Kegiatan Hari Ini
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr style="border-bottom: none;">
+                                                    <td colspan="5" style="border-bottom: none;">Catatan: 
+                                                    </td>
+                                                </tr> -->
+                                                <!-- <tr style="border-top: none;">
+                                                    <td colspan="5" style="border-top: none;">
+                                                        <span style="width: 12px; height: 12px; border: 1px solid black; background-color: #00C000; display: inline-block;"></span>
+                                                        = Kegiatan Hari Ini
+                                                    </td>
+                                                </tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-6 custom-width">
+                                        <div style="margin-bottom: 2px;">
+                                            <strong><p style="font-size: 12px; margin-bottom: 5px;">B. TIBA/MUTASI: PERALATAN &amp; BAHAN KONSTRUKSI POKOK</p></strong>
+                                            <table>
+                                                <thead style="font-size: 12px;">
+                                                    <tr>
+                                                        <th style="width:10%;">No</th>
+                                                        <th style="width:40%;">Jenis</th>
+                                                        <th style="width:10%;">Cacah</th>
+                                                        <th style="width:10%;">Satuan</th>
+                                                        <th>Lokasi Asal</th>
+                                                        <th>Lokasi Tujuan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="font-size: 12px;">
+                                                    <t t-set="mos_counter" t-value="1" />
+                                                    <t t-set="half_rows_a" t-value="total_rows_a // 2"/>
+                                                    <t t-set="total_rows_b" t-value="len(doc.mos_ids)"/> 
+                                                    <!-- <t t-set="current_row_count_b" t-value="0"/> -->
+                                                    <t t-if="doc.mos_ids">
+                                                        <t t-foreach="doc.mos_ids" t-as="mos">
+                                                            <tr>
+                                                                <td><t t-esc="'%02d' % mos_counter" /></td>
+                                                                <td t-esc="mos.product.display_name or '' "/>
+                                                                <td t-esc="mos.volume or '' " style="text-align:center;"/>
+                                                                <td t-esc="mos.uom.display_name or '' " style="text-align:center;"/>
+                                                                <td t-esc="mos.origin_location or '' "/>
+                                                                <td t-esc="mos.destination_location or ''"/>
+                                                                <!-- <t t-set="current_row_count_b" t-value="current_row_count_b + 1"/>  -->
+                                                            </tr>
+                                                            <t t-set="mos_counter" t-value="mos_counter + 1" />
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="total_rows_a % 2 != 1">
+                                                        <t t-set="half_rows_a" t-value="half_rows_a - 1"/>
+                                                    </t>
+                                                    <tr t-foreach="range(half_rows_a - total_rows_b)" t-as="i">
+                                                    <!-- <tr t-foreach="range(doc.get_table_b_c_filler()[0])" t-as="i"> -->
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div style="margin-bottom: 20px;">
+                                            <strong><p style="font-size: 12px; margin-top: 6px; margin-bottom: 5px;">C. PEMAKAIAN PERALATAN</p></strong>
+                                            <table>
+                                                <thead style="font-size: 12px;">
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Jenis Peralatan</th>
+                                                        <th>Jumlah</th>
+                                                        <th>Lokasi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="font-size: 12px;">
+                                                    <t t-set="equipment_counter" t-value="1" />
+                                                    <t t-set="total_rows_c" t-value="len(doc.equipment_ids)"/>
+                                                    <!-- <t t-set="total_rows_b" t-value="len(doc.equipment_ids)"/>  -->
+                                                    <!-- <t t-set="current_row_count_c" t-value="0"/> -->
+                                                    <t t-if="doc.equipment_ids">
+                                                        <t t-foreach="doc.equipment_ids" t-as="equipment">
+                                                            <tr>
+                                                                <td><t t-esc="'%02d' % equipment_counter" /></td>
+                                                                <td t-esc="equipment.product.display_name or '' "/>
+                                                                <td t-esc="equipment.amount or '' " style="text-align: center;"/>
+                                                                <td t-esc="equipment.location or '' " style="text-align: center;"/>
+                                                                <!-- <t t-set="current_row_count_c" t-value="current_row_count_c + 1"/>  -->
+                                                            </tr>
+                                                            <t t-set="equipment_counter" t-value="equipment_counter + 1" />
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="total_rows_a % 2 != 0">
+                                                        <t t-set="half_rows_a" t-value="half_rows_a - 1"/>
+                                                    </t>
+                                                    <!-- <t t-else="">
+                                                        <t t-set="half_rows_a" t-value="half_rows_a - 1"/>
+                                                    </t> -->
+                                                    <tr t-foreach="range(half_rows_a - total_rows_c)" t-as="i">
+                                                    <!-- <tr t-foreach="range(doc.get_table_b_c_filler()[1])" t-as="i"> -->
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <p style="page-break-before:always;"> </p> -->
+                                <div class="row">
+                                    <div class="col-6" style="margin-right: 5px;">
+                                        <strong><p style="font-size: 12px; margin-bottom: 5px;">D. PERSONIL PELAKSANAAN LAPANGAN</p></strong>
+                                        <table>
+                                            <thead style="font-size: 12px;">
+                                                <tr>
+                                                    <th style="width:10%;">No</th>
+                                                    <th style="width:60%;">Tugas/Jabatan</th>
+                                                    <th style="width:10%;">Cacah</th>
+                                                    <th style="width:20%;">Lokasi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-size: 12px;">
+                                                <t t-set="manp_counter" t-value="1" />
+                                                <t t-set="total_rows_d" t-value="5"/> 
+                                                <t t-set="current_row_count_d" t-value="0"/>
+                                                <t t-foreach="doc.manpower_ids" t-as="manp">
+                                                    <tr>
+                                                        <td><t t-esc="'%02d' % manp_counter" /></td>
+                                                        <td t-esc="manp.job_title or ''"/>
+                                                        <td t-esc="manp.amount or ''"/>
+                                                        <td t-esc="manp.location or ''"/>
+                                                        <t t-set="current_row_count_d" t-value="current_row_count_d + 1"/> 
+                                                    </tr>
+                                                    <t t-set="manp_counter" t-value="manp_counter + 1" />
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-6 custom-width">
+                                        <strong><p style="font-size: 12px; margin-bottom: 5px;">E. CUACA/BENCANA ALAM/ KEJADIAN PENGHAMBAT PEKERJAAN</p></strong>
+                                        <table>
+                                            <thead style="font-size: 12px;">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th style="width:15%;">Jenis</th>
+                                                    <th style="width:20%;">Jam</th>
+                                                    <th>Lokasi</th>
+                                                    <!-- <th>Tangung Jawab Kontraktor</th> -->
+                                                    <th>Akibat</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-size: 12px;">
+                                                <t t-set="weather_counter" t-value="1" />
+                                                <t t-set="total_rows_e" t-value="5"/> 
+                                                <t t-set="current_row_count_e" t-value="0"/>
+                                                <t t-foreach="doc.weather_ids" t-as="weather">
+                                                    <tr>
+                                                        <td><t t-esc="'%02d' % weather_counter" /></td>
+                                                        <td t-esc="weather.weather.display_name or ''"/>
+                                                        <td>
+                                                            <t t-esc="'%.2f' % weather.started_time"/> - <t t-esc="'%.2f' % weather.ended_time"/>
+                                                        </td>
+                                                        <td t-esc="weather.location or '' "/>
+                                                        <!-- <td t-esc="weather.responsibility or ''"/> -->
+                                                        <td t-esc="weather.result or '' "/>
+                                                        <t t-set="current_row_count_e" t-value="current_row_count_e + 1"/> 
+                                                    </tr>
+                                                    <t t-set="weather_counter" t-value="weather_counter + 1" />
+                                                </t>
+                                                <t t-set="manp_rows" t-value="(len(doc.manpower_ids) - 1)"/>
+                                                <t t-if="current_row_count_e &lt; manp_rows">
+                                                    <t t-set="empty_rows_e" t-value="manp_rows - current_row_count_e"/>
+                                                    <t t-foreach="range(empty_rows_e)" t-as="empty_row_index">
+                                                        <tr>
+                                                            <td style="text-align:right;"></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 20px;">
+                                    <!-- Table F -->
+                                    <strong><p style="font-size: 12px; margin-bottom: 5px;">F. USUL/PENGAJUAN/SARAN/INSTRUKSI KESEPAKATAN/LAPORAN</p></strong>
+                                    <table>
+                                        <thead style="font-size: 12px;">
+                                            <tr>
+                                                <th>Poin Catatan</th>
+                                                <th style="width:60%;">Uraian</th>
+                                                <th style="width:20%;">Tanda Tangan Dan Nama Jelas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="font-size: 12px;">
+                                            <t t-if="doc.note_ids">
+                                                <t t-foreach="doc.note_ids" t-as="note">
+                                                    <tr>
+                                                        <td t-esc="note.note_point or ''"/>
+                                                        <td t-esc="note.desc or '' "/>
+                                                        <td style="text-align: center;">
+                                                            <t t-if="condition">
+                                                                <img t-att-src="'data:image/png;base64,' + note.name_mp.sign.decode('utf-8')" 
+                                                                alt="Signature" style="max-width: 32px; height: auto;"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <p>No Signature Available</p>
+                                                            </t>
+                                                            <br/>
+                                                            <t t-esc="note.name_mp.display_name"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                            <t t-if="not doc.note_ids">
+                                                <tr>
+                                                    <td style="text-align: center;">-</td>
+                                                    <td style="text-align: center;">-</td>
+                                                    <td style="text-align: center;">-</td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                    <!-- End Table F -->
+                                </div>
+
+                                <div style="margin-top: 50px">
+                                    <table style="width:100%; font-size: 12px;">
+                                        <tr>
+                                            <!-- Bagian Kiri -->
+                                            <td style="width: 50%; vertical-align: top; text-align:center;">
+                                                <p>Team Leader</p>
+                                                <t t-if="doc.leader.sign">
+                                                    <img t-att-src="'data:image/png;base64,' + doc.leader.sign.decode('utf-8')" alt="Signature" style="max-width: 64px; height: auto;" />
+                                                </t>
+                                                <t t-else="">
+                                                    <p>No Signature Available</p>
+                                                </t>
+                                                <br/><br />
+                                                <t t-esc="doc.leader.display_name"/>
+                                            </td>
+                        
+                                            <!-- Bagian Kanan -->
+                                            <td style="width: 50%; vertical-align: top; text-align:center;">
+                                                <p>Pengawas Struktur</p>
+                                                <t t-if="doc.supervisor.sign">
+                                                    <img t-att-src="'data:image/png;base64,' + doc.supervisor.sign.decode('utf-8')" alt="Signature" style="max-width: 64px; height: auto;"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <p>No Signature Available</p>
+                                                </t>
+                                                <br/><br />
+                                                <t t-esc="doc.supervisor.display_name"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <t t-set="document_reports" t-value="doc.get_document_reports()"/>
+                            <t t-if="document_reports">
+                                <p style="page-break-before:always;"> </p>
+                                <div class="page">
+                                    <t t-foreach="document_reports" t-as="document">
+                                        <div style="text-align: center;">
+                                            <h3>Dokumentasi</h3>
+                                        </div>
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td style="width: 50%; vertical-align: top;">
+                                                    <div>No. Urut: <span t-field="document.no_doc"/></div> 
+                                                    <div>Hari/ Tanggal: <span t-field="document.date"/></div> 
+                                                    <div>Kontrak No./Tanggal: <span t-field="document.project.contract_date"/></div>                                     
+                                                    <div>SMPK No./Tanggal: <span t-field="document.project.smpk_date"/></div> 
+                                                </td>
+                                                <td style="width: 50%; vertical-align: top;">
+                                                    <div>Proyek: <span t-field="document.project.display_name"/></div> 
+                                                    <div>Penyedia Jasa: <span t-field="document.project.provider"/></div>                                     
+                                                    <div>Konsultan Pengawas: <span t-field="document.project.supervisory_consultant"/></div> 
+                                                    <div>Konsultan Perencana: <span t-field="document.project.planning_consultant"/></div> 
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table>
+                                            <t t-foreach="document.documentation_ids" t-as="doc_item">
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <img t-att-src="'data:image/png;base64,' + doc_item.img.decode('utf-8')" alt="Documentation" style="max-height: 224px; width: auto;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><t t-esc="doc_item.desc"/></p>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </table>
+                                    </t>
+                                </div>
+                            </t>
+
+                            <t t-if="doc.monitoring_ids">
+                                <div class="page">
+                                    <t t-foreach="doc.monitoring_ids" t-as="monitoring">
+                                        <p style="page-break-before:always;"> </p>
+                                        <div style="text-align: center;">
+                                            <h3>Monitoring</h3>
+                                        </div>
+                                        <table>
+                                            <tr>
+                                                <td style="text-align: center;">
+                                                    <t t-if="monitoring.pdf_image">
+                                                        <span t-field="monitoring.pdf_image" t-options="{'widget': 'image'}" role="img"
+                                                              style="max-width: 100%; height: auto; width: 200px; object-fit: contain;"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>No image attached</span>
+                                                    </t>
+                                                    <!-- <t t-set="pdf_base64" t-value="monitoring.pdf_file and (monitoring.pdf_file | base64_encode) or False"/>
+                                                    <t t-if="pdf_base64">
+                                                        <img t-att-src="'data:application/pdf;base64,' + pdf_base64" style="width:100%;"/>
+                                                    </t> -->
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+        
+    </data>
+</odoo>

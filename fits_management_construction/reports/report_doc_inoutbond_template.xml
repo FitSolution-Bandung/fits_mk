@@ -1,0 +1,107 @@
+<odoo>
+    <record id="action_report_doc_inoutbond" model="ir.actions.report">
+        <field name="name">Document Inbond Outbond</field>
+        <field name="model">document.inbond.outbond</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_doc_inoutbond_template</field>
+        <field name="report_file">fits_management_construction.report_doc_inoutbond_template</field>
+        <field name="binding_model_id" ref="model_document_inbond_outbond"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_doc_inoutbond_template" name="Document Inbond Outbond">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-details td{
+                        font-size: 12px;
+                    }
+
+                    .table-details th{
+                        font-size: 14px;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <h2 style="text-align: center; margin-bottom: 50px;">Document Inbond/Outbond Form</h2>
+                        <table class="table-details">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;"><strong>Receipt Date</strong></th>
+                                    <th style="text-align: center;"><strong>No Agenda</strong></th>
+                                    <th style="text-align: center;"><strong>No Doc</strong></th>
+                                    <th style="text-align: center;"><strong>Doc Date</strong></th>
+                                    <th style="text-align: center;"><strong>Summary</strong></th>
+                                    <th style="text-align: center;"><strong>Source</strong></th>
+                                    <th style="text-align: center;"><strong>Destination</strong></th>
+                                    <th style="text-align: center;"><strong>Inbond</strong></th>
+                                    <th style="text-align: center;"><strong>Outbond</strong></th>
+                                    <th style="text-align: center;"><strong>Signature</strong></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <t t-set="row_number" t-value="0"/>
+                                <t t-if="doc.document_inbond_outbond_ids">
+                                    <t t-foreach="doc.document_inbond_outbond_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-esc="line.date"/></td>
+                                            <td style="text-align: center;"><span>0</span><span t-esc="row_number + 1"/></td>
+                                            <t t-set="row_number" t-value="row_number + 1"/>
+                                            <td><span t-esc="line.no_doc"/></td>
+                                            <td><span t-esc="line.date"/></td>
+                                            <td><span t-esc="line.summary"/></td>
+                                            <td><span t-esc="line.source.display_name"/></td>
+                                            <td><span t-esc="line.destination.display_name"/></td>
+                                            <td style="text-align: center;">
+                                                <label>
+                                                    <input type="checkbox" t-att-checked="line.inbond_status"/>
+                                                </label>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <label>
+                                                    <input type="checkbox" t-att-checked="line.outbond_status"/>
+                                                </label>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="11">No Document Inbond/Outbond Available</td>
+                                    </tr>
+                                </t>                                
+                            </tbody>
+                        </table>
+                    </div>
+                </t>              
+            </t>
+        </t>
+    </template>
+
+</odoo>

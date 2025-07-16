@@ -1,0 +1,61 @@
+<odoo>
+    <record model="ir.ui.view" id="view_work_correction_tree">
+        <field name="name">work.correction.tree</field>
+        <field name="model">work.correction</field>
+        <field name="arch" type="xml">
+            <tree string="Work Correction">
+                <field name="inspection_date"/>
+                <field name="inspection_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_work_correction_form">
+        <field name="name">work.correction.form</field>
+        <field name="model">work.correction</field>
+        <field name="arch" type="xml">
+            <form string="Work Correction Form">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="inspection_date" readonly="status != 'draft'"/>
+                            <field name="inspection_by" readonly="status != 'draft'"/>                   
+                            <field name="name_project" readonly="status != 'draft'"/>                                   
+                        </group>
+                        <group>
+                            <field name="package" readonly="status != 'draft'"/>                                   
+                            <field name="location" readonly="status != 'draft'"/>                                   
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_work_correction" model="ir.actions.act_window">
+        <field name="name">Work Correction</field>
+        <field name="res_model">work.correction</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_work_correction" parent="menu_root_additional_form" action="action_work_correction" sequence="9"/>
+</odoo>

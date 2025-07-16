@@ -1,0 +1,222 @@
+<odoo>
+    <record id="action_report_material_approval" model="ir.actions.report">
+        <field name="name">Material Approval</field>
+        <field name="model">material.approval</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_material_approval_template</field>
+        <field name="report_file">fits_management_construction.report_material_approval_template</field>
+        <field name="binding_model_id" ref="model_material_approval"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_material_approval_template" name="Material Approval Template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: 80%;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                        width: 40%;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <table class="table-header">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Material Approvals</h2>
+                            <tbody>
+                                <tr>
+                                    <td><strong>No Doc: </strong><span t-esc="doc.no_doc"/></td>
+                                    <td><strong>Date: </strong><span t-esc="doc.date"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Project Name: </strong><span t-esc="doc.name_project.display_name"/></td>
+                                    <td><strong>Package Name: </strong><span t-esc="doc.name_package"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Project Location: </strong><span t-esc="doc.location"/></td>
+                                    <td><strong>Subpackage Name: </strong><span t-esc="doc.name_subpackage"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table-details">
+                            <tr>
+                                <td width="30%"><span>1. Nama Contoh Bahan</span></td>
+                                <td></td>
+                            </tr>                
+                            <tr>
+                                <td><span>2. Hasil Produksi/Merk</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>3. Nama Sub Kontraktor</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>4. Nama Supplier</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>5. Sesuai dengan</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>a. Gambar Kerja Nomor</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>b. RKS. Ps/ Berita Acara No.</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>6. Lokasi Peruntukan</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>a. Gedung</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><span>b. Ruang/Lantai</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3"><span>c. Bagian Pekerjaan</span></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr>
+                                <td><br/></td>
+                            </tr>
+                            <tr>
+                                <td><br/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span>Catatan:</span>
+                                    <br/><br/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-right: none;"></td>
+                                <td style="text-align: center; border-left: none;">
+                                    <span>KONTRAKTOR</span>
+                                    <br/><br/><br/><br/><br/>
+                                    <span>NAMA      :</span><br/>
+                                    <span>JABATAN   :</span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table-details">
+                            <tr>
+                                <td colspan="2" style="text-align: center;"><strong>PERSETUJUAN MATERIAL</strong></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4" style="width: 50%;">
+                                    1. Dasar Persetujuan
+                                </td>
+                                <td>
+                                    [x] Penilaian Sub Kont/Suplier, sudah/belum
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    [x] Sesuai/Tidak Sesuai Gbr. Kerja
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    [x] Sesuai/Tidak Sesuai UST/Brosur
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    [x] Mutu, baik/jelek
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">
+                                    2. Berdasarkan Penelitian Contoh tersebut
+                                </td>
+                                <td>
+                                    [x] Diterima
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    [x] Ditolak
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">
+                                    3. Menyatakan bahan tersebut
+                                </td>
+                                <td>
+                                    [x] Diizinkan dimasukkan ke lapangan
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    [x] Belum/Tidak diizinkan dimasukkan ke lapangan
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    [x] Harus dilakukan pemeriksaan mutu/perbandingan produk lain
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span>Catatan:</span>
+                                    <br/><br/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-right: none;"></td>
+                                <td style="border-left: none;">
+                                    <span>MANAJEMEN PROYEK</span>
+                                    <br/><br/><br/><br/><br/>
+                                    <span>NAMA      :</span><br/>
+                                    <span>JABATAN   :</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>              
+            </t>
+        </t>
+    </template>
+
+</odoo>

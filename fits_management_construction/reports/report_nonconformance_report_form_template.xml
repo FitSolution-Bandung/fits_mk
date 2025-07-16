@@ -1,0 +1,186 @@
+<odoo>
+    <data>
+        <record id="action_report_nonconformance_report_form" model="ir.actions.report">
+            <field name="name">Non-Conformance Report Form</field>
+            <field name="model">nonconformance.report.form</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_nonconformance_report_form_template</field>
+            <field name="report_file">fits_management_construction.report_nonconformance_report_form_template</field>
+            <field name="binding_model_id" ref="model_nonconformance_report_form"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_nonconformance_report_form_template" name="Non-Conformance Report Form Template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="page" style="margin-left: 0px; margin-right: 0px;">
+                                <style>
+                                    <style>
+                                        * {
+                                            font-family: Arial; 
+                                        }
+                                        table {
+                                            width: 100%;
+                                            border-collapse: collapse;
+                                        }
+                                        table th, table td {
+                                            border: 1px solid #000;
+                                            padding: 5px;
+                                            text-align: left;
+                                        }
+                                        tbody tr {
+                                            height: 30px;
+                                        }
+                                    </style>
+                                </style>
+                                <div style="text-align: center;">
+                                    <h3>Formulir Laporan Ketidaksesuaian</h3>
+                                </div>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 60%;">No.: <t t-esc="doc.no_ncrf"/></td>
+                                        <td style="width: 40%;">Tanggal Pengajuan: <br/><t t-esc="doc.submission_date"/></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 30%;">Nomor Kontrak</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.contract_number"/></td>
+                                        <td>Nama Paket</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.package_name"/></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 30%;">Tanggal Kontrak</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.contract_date"/></td>
+                                        <td>Penyedia Jasa Pekerjaan Konstruksi</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.contruction_provider.display_name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><strong>Detail Data Ketidaksesuaian</strong></td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 30%;">Nama Proyek</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.project.display_name"/></td>
+                                        <td rowspan="2">
+                                            <italic>Referensi:</italic><br/>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Kualitas</span>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Material</span><br/>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Dimensi dan Posisi (X,Y,Z)</span>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Lainnya:</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 30%;">Kegiatan Pekerjaan</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.work_activities"/></td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 30%;">Lokasi Pekerjaan</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.work_location"/></td>
+                                        <td rowspan="3">
+                                            <italic>Jenis Ketidaksesuaian:</italic><br/>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Drawing</span>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Material yang disetujui</span><br/>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> BQ</span><br />
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Spesifikasi</span>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;"/> Metode Kerja/WI/SOP</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 30%;">Info Lainnya</td>
+                                        <td style="width: 30%;">: <t t-esc="doc.info"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><strong>Uraian Ketidaksesuaian</strong></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 60%; height: 50px;">Kondisi Aktual:<br/><t t-esc="doc.actual_condition"/></td>
+                                        <td style="width: 40%; height: 50px;">Kondisi seharusnya:<br/><t t-esc="doc.condition"/></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <strong>Usulan Rencan Tindak Lanjut</strong><br/>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;" t-att-checked="doc.proposal_plan == 'fixed'"/> Diperbaiki</span>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;" t-att-checked="doc.proposal_plan == 'dismantle'"/> Bongkar dan Dikerjakan Ulang</span>
+                                            <span style="margin-right: 10px;"><input type="checkbox" style="margin-right: 10px;" t-att-checked="doc.proposal_plan == 'acceptable'"/> Dapat diterima dengan catatan</span><br/>
+                                            <t t-if="doc.other">
+                                                Lainnya: <t t-esc="doc.other"/><br /><br />
+                                            </t>
+                                            <t t-else="">
+                                                Lainnya: ................<br/><br/>
+                                            </t>
+                                            Uraian Tindak Lanjut:<br/>
+                                            <t t-esc="doc.followup_desc"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td rowspan="2" style="width: 60%;">
+                                            <strong>Usulan Tindakan Pencegahan :</strong><br/>
+                                            <t t-esc="doc.proposal_measures"/>
+                                        </td>
+                                        <td style="width: 40%;">
+                                            <strong>Pemeriksaan Setelah Tindak Lanjut :</strong>
+                                            <table style="width: 100%; border: none;">
+                                                <tr>
+                                                    <td style="width: 50%; border: none;">
+                                                        <p>Diterima / Tidak Diterima</p>
+                                                    </td>
+                                                    <td style="width: 50%; border: none;">
+                                                        <p>Tanggal :</p>
+                                                        <p>.............................</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td colspan="4"><strong>Pengajuan dan Persetujuan</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diajukan Oleh :</td>
+                                        <td>Diperiksa Oleh :</td>
+                                        <td>Disetujui Oleh :</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Penyedia Jasa Pekerjaan Konsturksi:</strong></td>
+                                        <td><strong>Direksi Teknis/Konsultan Pengawas:</strong></td>
+                                        <td><strong>Direksi Lapangan/Konsultan MK:</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama:</td>
+                                        <td>Nama:</td>
+                                        <td>Nama:</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tanggal:</td>
+                                        <td>Tanggal:</td>
+                                        <td>Tanggal:</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

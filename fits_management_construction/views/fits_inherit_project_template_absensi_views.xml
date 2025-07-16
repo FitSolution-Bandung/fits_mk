@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <!-- buat id unik untuk record data baru -->
+        <record model="ir.ui.view" id="view_inherit_project_template_form"> 
+            <!-- name inherit bebas -->
+            <field name="name">inherit.project.template.form</field>
+            <!-- nama modelnya -->
+            <field name="model">project.project</field>
+            <!-- masukan inherit_id yang sama dengan external id -->
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet//notebook" position="inside">
+                    <page string="List Manpower">
+                        <field name="manpower_ids">
+                            <tree editable="bottom">
+                                <field name="name" string="Manpower"/>
+                                <field name="job_title" string="Job Position" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

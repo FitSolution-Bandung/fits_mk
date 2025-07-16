@@ -1,0 +1,68 @@
+<odoo>
+    <record model="ir.ui.view" id="view_document_inbond_outbond_tree">
+        <field name="name">document.inbond.outbond.tree</field>
+        <field name="model">document.inbond.outbond</field>
+        <field name="arch" type="xml">
+            <tree string="Document Inbond Outbond Form">
+                <field name="no_doc_inoutbond"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_document_inbond_outbond_form">
+        <field name="name">document.inbond.outbond.form</field>
+        <field name="model">document.inbond.outbond</field>
+        <field name="arch" type="xml">
+            <form string="Document Inbond Outbond">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <field name="no_doc_inoutbond" readonly="status != 'draft'"/>                   
+                    </group>
+                    <notebook>
+                        <page string="Document Inbond Outbond List">
+                            <field name="document_inbond_outbond_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="date"/>    
+                                    <field name="no_doc"/>
+                                    <field name="summary"/>
+                                    <field name="source"/>
+                                    <field name="destination"/>
+                                    <field name="inbond_status"/>
+                                    <field name="outbond_status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_document_inbond_outbond_form" model="ir.actions.act_window">
+        <field name="name">Document Inbond Outbond</field>
+        <field name="res_model">document.inbond.outbond</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_document_inbond_outbond_form" parent="menu_root_additional_form" action="action_document_inbond_outbond_form" sequence="12"/>
+</odoo>

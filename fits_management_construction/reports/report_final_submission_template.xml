@@ -1,0 +1,323 @@
+    <odoo>
+        <record id="action_report_final_submission" model="ir.actions.report">
+            <field name="name">Final Submission</field>
+            <field name="model">final.submission</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_final_submission_template</field>
+            <field name="report_file">fits_management_construction.report_final_submission_template</field>
+            <field name="binding_model_id" ref="model_final_submission"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_final_submission_template" name="Final Submission">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <style>
+                        body{
+                            font-family: Arial; 
+                        }
+
+                        .table-header{
+                            margin: 0 auto;
+                            margin-bottom: 20px;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        .table-header th,
+                        .table-header td{
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+
+                        .table-details {
+                            border-collapse: collapse;
+                            width: 100%;
+                            margin-top: 20px;
+                            margin-bottom: 50px;
+                        }
+
+                        .table-details th,
+                        .table-details td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            vertical-align: top;
+                        }
+                    </style>
+
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <table class="table-header">
+                                <h2 style="text-align: center; margin-bottom: 50px;">Field Change</h2>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            No :
+                                            <span t-esc="doc.no_doc"/>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            Submission Date:<br/>
+                                            <span t-esc="doc.submission_date"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            No Contract<br/>
+                                            <span t-esc="doc.no_contract"/>
+                                        </td>
+                                        <td>
+                                            Package Name<br/>
+                                            <span t-esc="doc.package_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Contract Date<br/>
+                                            <span t-esc="doc.contract_date"/>
+                                        </td>
+                                        <td>
+                                            Construction Provider<br/>
+                                            <span t-esc="doc.construction_service_provider"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><strong>Work Details</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Project Name:<br/>
+                                            <span t-esc="doc.project_name.display_name"/>
+                                        </td>
+                                        <td rowspan="2" style="vertical-align: top;">
+                                            Description:<br/>
+                                            <span t-esc="doc.description"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Work Activities:<br/>
+                                            <span t-esc="doc.work_activity"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Work Location:<br/>
+                                            <span t-esc="doc.location"/>
+                                        </td>
+                                        <td>
+                                            Budget from:<br/>
+                                            <span t-esc="doc.budget_by"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Other Information:<br/><br/><br/>
+                                        </td>
+                                        <td>
+                                            Other Information:<br/><br/><br/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div style="page-break-before: always; page-break-inside: avoid;">
+                                <table class="table-header">
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="text-align: center; vertical-align: middle;">
+                                                <strong>
+                                                Inspection Items (maintenance period work)
+                                                </strong>
+                                            </td>
+                                            <td colspan="3" style="text-align: center;">
+                                                <strong>
+                                                Suitability for the job
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; width: 10%;">
+                                                Sesuai
+                                            </td>
+                                            <td style="text-align: center; width: 10%;">
+                                                Tidak Sesuai
+                                            </td>
+                                            <td style="text-align: center; width: 10%;">
+                                                Keterangan
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>A. Material Bojong</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">1. Karat pada kawat bronjong</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">2. Kawat Pengikat</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">3. Kawat bronjong jebol/tidak</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">4. Kebersihan bronjong</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>B. Struktur Bronjong</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">1. Perubahan posisi bronjong ke arah horizontal dan vertikal</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">2. Penurunan pada pondasi</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">3. Sambungan antar bronjong masih terikat dengan baik</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">4. Kondisi batu kali masih terisi penuh</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>C. Saluran Drainase</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">1. Dasar saluran dalam keadaan bersih dari sampah</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">2. Surface saluran tidak ada yang gompal</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">3. Saluran berfungsi dengan baik</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-indent: 10px;">4. Kebersihan drainase</td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div style="width: 12px; height: 12px; border: 1px solid black; margin: 0 auto;"></div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4"><strong>Notes:</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4"><br/><br/><br/><br/><br/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="table-details">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center; width: 33.3%">Implemented by</td>
+                                            <td style="text-align: center; width: 33.3%">Approved by</td>
+                                            <td style="text-align: center; width: 33.3%">Known by</td>
+                                        </tr>
+                                        <tr>
+                                            <td><br/><br/><br/><br/><br/></td>
+                                            <td><br/><br/><br/><br/><br/></td>
+                                            <td><br/><br/><br/><br/><br/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span t-esc="doc.name_maintenance_service.display_name"/></td>
+                                            <td><span t-esc="doc.name_consultant.display_name"/></td>
+                                            <td><span t-esc="doc.name_responsible.display_name"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>                
+                </t>
+            </t>
+        </template>
+
+    </odoo>

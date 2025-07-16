@@ -1,0 +1,77 @@
+<odoo>
+    <record model="ir.ui.view" id="view_implementation_permits_tree">
+        <field name="name">implementation.permits.tree</field>
+        <field name="model">implementation.permits</field>
+        <field name="arch" type="xml">
+            <tree string="Implementation Permits">
+                <field name="no_doc"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_implementation_permits_form">
+        <field name="name">implementation.permits.form</field>
+        <field name="model">implementation.permits</field>
+        <field name="arch" type="xml">
+            <form string="Implementation Permits Form">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="no_doc" readonly="True"/>
+                            <field name="name_consultant" readonly="status != 'draft'"/>                    
+                            <field name="name_contractor" readonly="status != 'draft'"/>                    
+                        </group>
+                        <group>
+                            <field name="province" readonly="status != 'draft'"/>                   
+                            <field name="city" readonly="status != 'draft'"/>                   
+                            <field name="date" readonly="status != 'draft'"/>                   
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Implementation Permits">
+                            <field name="implementation_permits_ids" readonly="status != 'draft'">
+                            <tree editable="bottom">
+                                    <field name="name_items"/>  
+                                    <field name="date"/>  
+                                    <field name="implementation_method"/>  
+                                    <field name="volume"/>
+                                    <field name="tools"/>
+                                    <field name="manpower"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_implementation_permits" model="ir.actions.act_window">
+        <field name="name">Implementation Permits</field>
+        <field name="res_model">implementation.permits</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_implementation_permits" parent="menu_root_additional_form" action="action_implementation_permits" sequence="15"/>
+</odoo>

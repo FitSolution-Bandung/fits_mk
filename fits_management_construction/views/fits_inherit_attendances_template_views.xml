@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+        <!-- buat id unik untuk record data baru -->
+        <record model="ir.ui.view" id="view_inherit_attendances_template_form"> 
+            <!-- name inherit bebas -->
+            <field name="name">inherit.attendances.template.form</field>
+            <!-- nama modelnya -->
+            <field name="model">hr.attendance</field>
+            <!-- masukan inherit_id yang sama dengan external id -->
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="job_position" string="Job Position"/>
+                    <field name="project_name" string="Name Project"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_attendance_form_inherit_project" model="ir.ui.view">
+            <field name="name">hr.attendance.form.inherit.project</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <!-- Menambahkan project_name setelah check_in dan check_out -->
+                <field name="check_out" position="after">
+                    <field name="project_name" placeholder="Select Project"/>
+                </field>
+
+                <!-- Menghilangkan invisible di Attendances -->
+                <field name="in_ip_address" position="attributes">
+                    <attribute name="invisible"/>
+                </field>
+                <field name="in_browser" position="attributes">
+                    <attribute name="invisible"/>
+                </field>
+                <xpath expr="//sheet/group/group[2]/group[2]" position="attributes">
+                    <attribute name="invisible"/>
+                </xpath>
+                <field name="out_ip_address" position="attributes">
+                    <attribute name="invisible"/>
+                </field>
+                <field name="out_browser" position="attributes">
+                    <attribute name="invisible"/>
+                </field>
+                <xpath expr="//sheet/group/group[3]/group[2]" position="attributes">
+                    <attribute name="invisible"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_backdate_attendance_tree" model="ir.ui.view">
+            <field name="name">back.date.attendance.tree</field>
+            <field name="model">back.date.attendance</field>
+            <field name="arch" type="xml">
+                <tree string="Backdate Attendance">
+                    <field name="employee"/>
+                    <field name="check_in"/>
+                    <field name="check_out"/>
+                    <field name="project"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_backdate_attendance_form" model="ir.ui.view">
+            <field name="name">back.date.attendance.form</field>
+            <field name="model">back.date.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Backdate Attendance">
+                    <header>
+                        <!-- ini perlu dibenahi susunannya -->
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                invisible="status != 'draft'"/>
+
+                        <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight" invisible="status != 'confirm'"/>
+
+                        <field name="status" widget="statusbar" options="{'clickable': 1}"
+                               statusbar_visible="draft,confirm" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="employee"/>
+                            <field name="check_in"/>
+                            <field name="check_out"/>
+                            <field name="project"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_backdate_attendance_search" model="ir.ui.view">
+            <field name="name">back.date.attendance.search</field>
+            <field name="model">back.date.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Backdate Attendance">
+                    <field name="employee"/>
+                    <field name="project"/>
+                    <filter name="filter_draft" string="Draft" domain="[('status', '=', 'draft')]" />
+                    <filter name="filter_confirm" string="Confirm" domain="[('status', '=', 'confirm')]" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_backdate_attendance" model="ir.actions.act_window">
+            <field name="name">Backdate Attendance</field>
+            <field name="res_model">back.date.attendance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_backdate_attendance_search"/>
+            <field name="context">{'search_default_filter_draft': 1}</field>
+        </record>
+
+        <menuitem id="menu_manage_attendance" 
+                  name="Manage Attendance" 
+                  parent="hr_attendance.menu_hr_attendance_root" 
+                  sequence="10"/>
+
+        <!-- Sub-menu: Backdate Attendance -->
+        <menuitem id="menu_backdate_attendance" 
+                  name="Backdate Attendance" 
+                  parent="menu_manage_attendance" 
+                  action="action_backdate_attendance" 
+                  sequence="1"/>
+
+    </data>
+</odoo>

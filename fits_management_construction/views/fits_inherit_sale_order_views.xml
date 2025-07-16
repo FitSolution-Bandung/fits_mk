@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_inherit_sale_order_form">
+            <field name="name">inherit.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_view_budget_plan"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-file">
+                            <field name="rab_count" widget="statinfo" string="Budget Plan"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="project" readonly="state in ['cancel', 'sale']"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="wbs_category" column_invisible='parent.project == False'/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

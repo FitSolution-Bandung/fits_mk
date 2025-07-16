@@ -1,0 +1,119 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_analysis_risk_mitigation_tree">
+            <field name="name">analysis.risk.mitigation.tree</field>
+            <field name="model">analysis.risk.mitigation</field>
+            <field name="arch" type="xml">
+                <tree string="Analysis &amp; Risk Mitigation">
+                    <field name="no_mitigation"/>
+                    <field name="name"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_analysis_risk_mitigation_form">
+            <field name="name">analysis.risk.mitigation.form</field>
+            <field name="model">analysis.risk.mitigation</field>
+            <field name="arch" type="xml">
+                <form string="Analysis &amp; Risk Mitigation">
+                    <header>
+                        <!-- ini perlu dibenahi susunannya -->
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                invisible="status != 'draft'"/>
+
+                        <button string="Cancel" name="action_draft" type="object" class="oe_highlight" invisible="status != 'confirm'"/>
+                        <button string="Monitoring" name="action_monitoring" type="object" class="oe_highlight" invisible="status != 'confirm'"/>
+
+                        <button string="Cancel" name="action_confirm" type="object" class="oe_highlight" invisible="status != 'monitoring'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Done" name="action_done" type="object" class="oe_highlight" invisible="status != 'monitoring'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                        <button string="Cancel" name="action_monitoring" type="object" class="oe_highlight" invisible="status != 'done'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight" invisible="status != 'done'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                        <!-- <button string="Create HSE" class="btn-primary" type="object" name="create_hse" invisible="status != 'confirm'"/> -->
+                        
+                        <field name="status" widget="statusbar" options="{'clickable': 1}"
+                               statusbar_visible="draft,confirm,monitoring,done" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button string="Health Safety Environment" class="oe_stat_button" type="object" name="get_hse"
+                                    icon="fa-check-square-o"/>
+                        </div> -->
+                        <group>
+                            <field name="no_mitigation"/>
+                            <field name="name" readonly="status != 'draft'"/>
+                        </group>
+                        <notebook>
+                            <page string="Risk Mitigation">
+                                <field name="risk_mitigation_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="category"/>
+                                        <field name="risk_identification"/>
+                                        <field name="reason"/>
+                                        <field name="potential_impact"/>
+                                        <field name="risk_code"/>
+                                        <field name="likelihood"/>
+                                        <field name="impact"/>
+                                        <field name="risk_score"/>
+                                        <field name="risk_level"/>
+                                        <field name="mitigation"/>
+                                        <field name="action"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Field Conditions">
+                                <field name="field_conditions_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="condition"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Material Distributions">
+                                <field name="material_distribution_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="attachment" widget="binary" filename="file_name"/>
+                                        <field name="file_name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_analysis_risk_mitigation" model="ir.actions.act_window">
+            <field name="name">Analysis &amp; Risk Mitigation</field>
+            <field name="res_model">analysis.risk.mitigation</field>
+        </record>
+
+        <!-- <record id="action_confirm_all" model="ir.actions.server">
+            <field name="name">Confirm All Selected</field>
+            <field name="model_id" ref="model_your_model_name"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                records = model.browse(context.get('active_ids'))
+                for record in records:
+                    if record.state != 'confirmed':  # Cek apakah status sudah "confirmed"
+                        record.write({'state': 'confirmed'})  # Ubah status menjadi confirmed
+            </field>
+        </record> -->
+
+        <!-- Sub Menu Pre-Cons Phase-->
+        <menuitem id="menu_analysis_risk_mitigation" parent="menu_root_pre_cons_phase"
+                  action="action_analysis_risk_mitigation" sequence="1"/>
+    </data>
+</odoo>

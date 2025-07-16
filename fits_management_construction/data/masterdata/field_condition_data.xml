@@ -1,0 +1,32 @@
+<odoo>
+    <record id="fieldcondition_1" model="field.condition.type">
+        <field name="name">Hujan Ringan</field>
+    </record>
+    <record id="fieldcondition_2" model="field.condition.type">
+        <field name="name">Hujan Deras</field>
+    </record>
+    <record id="fieldcondition_3" model="field.condition.type">
+        <field name="name">Badai/Petir</field>
+    </record>
+    <record id="fieldcondition_4" model="field.condition.type">
+        <field name="name">Suhu Ekstrem (Panas atau Dingin)</field>
+    </record>
+    <record id="fieldcondition_5" model="field.condition.type">
+        <field name="name">Angin Kencang</field>
+    </record>
+    <record id="fieldcondition_6" model="field.condition.type">
+        <field name="name">Kelembaban Tinggi</field>
+    </record>
+    <record id="fieldcondition_7" model="field.condition.type">
+        <field name="name">Tanah Berlumpur</field>
+    </record>
+    <record id="fieldcondition_8" model="field.condition.type">
+        <field name="name">Tanah Berbatu</field>
+    </record>
+    <record id="fieldcondition_9" model="field.condition.type">
+        <field name="name">Tanah Kering/Retak</field>
+    </record>
+    <record id="fieldcondition_10" model="field.condition.type">
+        <field name="name">Tanah Tidak Stabil</field>
+    </record>
+</odoo>

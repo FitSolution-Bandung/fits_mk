@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="view_res_users_form_inherit_construction" model="ir.ui.view">
+            <field name="name">res.users.form.inherit.construction</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.user_groups_view"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="(//group)[14]" position="replace">
+                    <group string="Other">
+                        <newline/>
+                        <field name="sel_groups_34" readonly="sel_groups_1_10_11 != 1" on_change="1"/>
+                        <newline/>
+                    </group>
+                </xpath> -->
+                <xpath expr="//group/field[@name='sel_groups_116_117']" position="replace">
+                </xpath>
+                
+                <!-- <xpath expr="//group/field[@name='sel_groups_45_46']" position="after">
+                    <newline/>
+                    <field name="dynamic_group_field" readonly="sel_groups_1_10_11 != 1" on_change="1"/>
+                    <newline/>
+                </xpath> -->
+                <xpath expr="//group/field[@name='sel_groups_45_46']" position="after">
+                    <newline/>
+                    <field name="sel_groups_116_117"  readonly="sel_groups_1_10_11 != 1" on_change="1"/>
+                    <newline/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

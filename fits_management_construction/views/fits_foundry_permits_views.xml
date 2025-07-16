@@ -1,0 +1,85 @@
+<odoo>
+    <record model="ir.ui.view" id="view_foundry_permits_tree">
+        <field name="name">foundry.permits.tree</field>
+        <field name="model">foundry.permits</field>
+        <field name="arch" type="xml">
+            <tree string="Foundry Permits">
+                <field name="no_permits"/>
+                <field name="name_project"/>
+                <field name="package"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_foundry_permits_form">
+        <field name="name">foundry.permits.form</field>
+        <field name="model">foundry.permits</field>
+        <field name="arch" type="xml">
+            <form string="Foundry Permits">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="no_permits"/>
+                            <field name="name_project" readonly="status != 'draft'"/>
+                            <field name="package" readonly="status != 'draft'"/>
+                            <field name="date" readonly="status != 'draft'"/>                   
+                        </group>
+                        <group>
+                            <field name="name_contractor" readonly="status != 'draft'"/>                    
+                            <field name="name_consultant" readonly="status != 'draft'"/>                    
+                            <field name="province" readonly="status != 'draft'"/>                   
+                            <field name="city" readonly="status != 'draft'"/>                   
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work Details">
+                            <field name="work_detail_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="name_items"/>    
+                                    <field name="volume"/>
+                                    <field name="concrete_class"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Approval Notes">
+                            <field name="approval_notes_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="work_types"/>
+                                    <field name="approval_notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_foundry_permits" model="ir.actions.act_window">
+        <field name="name">Foundry Permits</field>
+        <field name="res_model">foundry.permits</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_foundry_permits" parent="menu_root_additional_form" action="action_foundry_permits" sequence="5"/>
+</odoo>

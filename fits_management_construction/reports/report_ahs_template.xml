@@ -1,0 +1,148 @@
+<odoo>
+    <data>
+        <record id="action_report_ahs" model="ir.actions.report">
+            <field name="name">AHS Report</field>
+            <field name="model">unit.price.analysis</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_ahs_template</field>
+            <field name="report_file">fits_management_construction.report_ahs_template</field>
+            <field name="binding_model_id" ref="model_unit_price_analysis"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <template id="report_ahs_template" name="AHS Template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="page">
+                                <style>
+                                    body{
+                                        font-family: Arial;
+                                    }
+                                    .table-bordered {
+                                        border-collapse: collapse;
+                                        width: 100%;
+                                        margin-top: 20px;
+                                    }
+                                    .table-bordered th,
+                                    .table-bordered td {
+                                        border: 1px solid black;
+                                        padding: 8px;
+                                        vertical-align: top;
+                                    }
+                                    .table-sm{
+                                        margin-bottom: 20px;
+                                    }
+                                </style>
+                                <div style="text-align: center;">
+                                    <h3>Analisa Harga Satuan Pekerjaan</h3>
+                                </div>
+                
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr style="text-align: center;">
+                                            <th>No</th>
+                                            <th>Uraian</th>
+                                            <th>Koef</th>
+                                            <th>Satuan</th>
+                                            <!-- <th>Harga Satuan</th>
+                                            <th colspan="3">Jumlah Harga Satuan</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="text-align: center;">
+                                            <td><strong>1</strong></td>
+                                            <td><strong>2</strong></td>
+                                            <td><strong>3</strong></td>
+                                            <td><strong>4</strong></td>
+                                            <!-- <td><strong>5</strong></td>
+                                            <td colspan="3"><strong>3 x 5</strong></td> -->
+                                        </tr>
+                                        <t t-set="prev_wbs_category" t-value="None"/>
+                                        <t t-set="prev_wbs_display_name" t-value="None"/>
+                                        <!-- <t t-foreach="doc.ahs_material_ids" t-as="line"> -->
+                                            <!-- <t t-if="doc.wbs_category.code != prev_wbs_category"> -->
+                                                <tr>
+                                                    <td style="text-align: center;"><strong><t t-esc="doc.wbs_category.code"/></strong></td>
+                                                    <td><strong><t t-esc="doc.wbs_category.display_name"/></strong></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <!-- <td></td>
+                                                    <td style="text-align: center;"><strong>Bahan</strong></td>
+                                                    <td style="text-align: center;"><strong>Alat</strong></td>
+                                                    <td style="text-align: center;"><strong>Upah</strong></td> -->
+                                                </tr>
+                                                <!-- <t t-set="prev_wbs_category" t-value="doc.wbs_category.code"/> -->
+                                            <!-- </t> -->
+                                            <!-- <t t-if="doc.wbs.display_name != prev_wbs_display_name"> -->
+                                                <tr>
+                                                    <td style="text-align: center;"><strong><t t-esc="doc.code"/></strong></td>
+                                                    <td colspan="3"><strong><t t-esc="doc.wbs.display_name"/></strong></td>
+                                                </tr>
+                                                <!-- <t t-set="prev_wbs_display_name" t-value="doc.wbs.display_name"/> -->
+                                            <!-- </t> -->
+
+                                            <!-- batas pusing -->
+
+                                            <t t-foreach="doc.ahs_material_ids" t-as="line">
+                                                <tr>
+                                                    <td></td>
+                                                    <td><t t-esc="line.product.display_name"/></td>
+                                                    <td style="text-align: right;"><t t-esc="int(line.koefisien) if line.koefisien == int(line.koefisien) else line.koefisien"/></td>
+                                                    <td style="text-align: center;"><t t-esc="line.uom.display_name"/></td>
+                                                <!-- <t t-if="line.material">
+                                                    <td style="text-align: right;">Rp. <t t-esc="line.material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </t>
+                                                <t t-elif="line.wages">
+                                                    <td></td>
+                                                    <td style="text-align: right;">Rp. <t t-esc="line.wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                    <td></td>
+                                                </t>
+                                                <t t-elif="line.equipment">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td style="text-align: right;">Rp. <t t-esc="line.equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                </t> -->
+                                                <!-- <t t-else="">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td> -->
+                                                <!-- </t> -->
+                                            </tr>
+                                            </t>
+                                            <t t-foreach="doc.ahs_wages_ids" t-as="line">
+                                                <tr>
+                                                    <td></td>
+                                                    <td><t t-esc="line.product.display_name"/></td>
+                                                    <td style="text-align: right;"><t t-esc="int(line.koefisien) if line.koefisien == int(line.koefisien) else line.koefisien"/></td>
+                                                    <td style="text-align: center;"><t t-esc="line.uom.display_name"/></td>
+                                            </tr>
+                                            </t>
+                                            <t t-foreach="doc.ahs_equipment_ids" t-as="line">
+                                                <tr>
+                                                    <td></td>
+                                                    <td><t t-esc="line.product.display_name"/></td>
+                                                    <td style="text-align: right;"><t t-esc="int(line.koefisien) if line.koefisien == int(line.koefisien) else line.koefisien"/></td>
+                                                    <td style="text-align: center;"><t t-esc="line.uom.display_name"/></td>
+                                            </tr>
+                                            </t>
+                                        <!-- </t> -->
+                                        <!-- <tr>
+                                            <td colspan="5" style="text-align: left;"><strong>Jumlah</strong></td>
+                                            <td style="text-align: right;"><strong>Rp. <t t-esc="doc.total_material" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                            <td style="text-align: right;"><strong>Rp. <t t-esc="doc.total_wages" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                            <td style="text-align: right;"><strong>Rp. <t t-esc="doc.total_equipment" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,139 @@
+<odoo>
+    <record id="action_report_implementation_permits" model="ir.actions.report">
+        <field name="name">Implementation Permits</field>
+        <field name="model">implementation.permits</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">fits_management_construction.report_implementation_permits_template</field>
+        <field name="report_file">fits_management_construction.report_implementation_permits_template</field>
+        <field name="binding_model_id" ref="model_implementation_permits"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_implementation_permits_template" name="Implementation Permits Template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    body{
+                        font-family: Arial; 
+                    }
+
+                    .table-details {
+                        border-collapse: collapse;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-bottom: 50px;
+                    }
+
+                    .table-details th,
+                    .table-details td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        vertical-align: top;
+                    }
+
+                    .table-header{
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        border-collapse: collapse;
+                        width: 80%;
+                    }
+
+                    .table-header th,
+                    .table-header td{
+                        border: 1px solid black;
+                        padding: 10px;
+                        width: 40%;
+                    }
+
+                    .table-sign{
+                        padding: 8px;
+                        vertical-align: bottom;
+                        text-align: center;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <table class="table-header">
+                            <h2 style="text-align: center; margin-bottom: 50px;">Implementation Permits</h2>
+                            <tbody>
+                                <tr>
+                                    <td><strong>No Doc</strong></td>
+                                    <td><span t-esc="doc.no_doc"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contractor</strong></td>
+                                    <td><span t-esc="doc.name_contractor.display_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Consultant</strong></td>
+                                    <td><span t-esc="doc.name_consultant.display_name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table-details">
+                            <thead>
+                                <tr>
+                                    <th><strong>No</strong></th>
+                                    <th style="text-align: center;"><strong>Work Items</strong></th>
+                                    <th style="text-align: center;"><strong>Date</strong></th>
+                                    <th style="text-align: center;"><strong>Implementation Method</strong></th>
+                                    <th style="text-align: center;"><strong>Vol</strong></th>
+                                    <th style="text-align: center;"><strong>Tools</strong></th>
+                                    <th style="text-align: center;"><strong>Man Power</strong></th>
+                                    <th style="text-align: center;"><strong>Desc</strong></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <t t-set="row_number" t-value="0"/>
+                                <t t-if="doc.implementation_permits_ids">
+                                    <t t-foreach="doc.implementation_permits_ids" t-as="line">
+                                        <tr>
+                                            <td><span t-esc="row_number + 1"/></td>
+                                            <t t-set="row_number" t-value="row_number + 1"/>
+                                            <td><span t-esc="line.name_items"/></td>
+                                            <td><span t-esc="line.date"/></td>
+                                            <td><span t-esc="line.implementation_method"/></td>
+                                            <td><span t-esc="line.volume"/></td>
+                                            <td><span t-esc="line.tools"/></td>
+                                            <td><span t-esc="line.manpower"/></td>
+                                            <td><span t-esc="line.description"/></td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="8">
+                                            <span>Catatan: </span>
+                                            <strong>BOLEH DILAKSANAKAN/TIDAK BOLEH DILAKSANAKAN</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-sign" colspan="4">
+                                            <br/><br/>
+                                            <span>Consultant</span><br/>
+                                            <span style="margin-bottom: 16px;"><t t-esc="doc.name_consultant.display_name"/></span><br/><br/><br/><br/><br/><br/><br/>
+                                            <span>(.........................................)</span>
+                                        </td>
+                                        <td class="table-sign" colspan="4">
+                                            <br/><br/>
+                                            <span><t t-esc="doc.city.display_name"/>, <t t-esc="doc.date.strftime('%d')"/> <t t-esc="doc.month_name"/> <t t-esc="doc.date.strftime('%Y')"/></span><br/><br/>
+                                            <span style="margin-top: 8px;">Contractor</span><br/>
+                                            <span style="margin-bottom: 16px;"><t t-esc="doc.name_contractor.display_name"/></span><br/><br/><br/><br/><br/><br/><br/>
+                                            <span>(.........................................)</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="11">No Implementation Permits Available</td>
+                                    </tr>
+                                </t>                                
+                            </tbody>
+                        </table>
+                    </div>
+                </t>              
+            </t>
+        </t>
+    </template>
+
+</odoo>

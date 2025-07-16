@@ -1,0 +1,271 @@
+<odoo>
+    <data>
+        <record id="action_report_health_safety_environment" model="ir.actions.report">
+            <field name="name">Job Safety Analysis</field>
+            <field name="model">health.safety.environment</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_health_safety_environment_template</field>
+            <field name="report_file">fits_management_construction.report_health_safety_environment_template</field>
+            <field name="binding_model_id" ref="model_health_safety_environment"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <template id="report_health_safety_environment_template" name="JSA Template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="page">
+                                <style>
+                                    body{
+                                        font-family: Arial; 
+                                    }
+        
+                                    h2{
+                                        text-align: center;
+                                    }
+        
+                                    .table-details {
+                                        border-collapse: collapse;
+                                        width: 100%;
+                                        margin-top: 20px;
+                                    }
+                                    .table-details th,
+                                    .table-details td {
+                                        border: 1px solid black;
+                                        padding: 8px;
+                                        vertical-align: top;
+                                    }
+        
+                                    .table-header{
+                                        margin-bottom: 20px;
+                                        border-collapse: collapse;
+                                        width: 100%;
+                                    }
+        
+                                    .table-header th,
+                                    .table-header td {
+                                        border: 1px solid black;
+                                        padding: 10px;
+                                        vertical-align: top;
+                                    }
+        
+                                    .table-emergency{
+                                        vertical-align: center;
+                                        text-align: center;
+                                        background-color: NavajoWhite;
+                                    }
+                                </style>
+                                <table class="table-header">
+                                    <h2 style="margin-bottom: 50px;">Job Safety Analysis</h2>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 60%;">
+                                                <strong>Lokasi Pekerjaan:</strong><br /><br />
+                                                <span t-esc="doc.work_location"/>
+                                            </td>
+                                            <td colspan="2">
+                                                <strong>No. Form:</strong><br />
+                                                <span t-esc="doc.no_hse"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 60%;">
+                                                <strong>Jenis Pekerjaan:</strong><br /><br />
+                                                <span t-esc="doc.work_type"/>
+                                            </td>
+                                            <td colspan="2">
+                                                <strong>Tanggal:</strong><br />
+                                                <span t-esc="doc.date"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 60%;">
+                                                <strong>APD yang harus digunakan:</strong><br /><br />
+                                                <span t-esc="doc.protective_equip"/>
+                                            </td>
+                                            <td class="table-emergency" colspan="2">
+                                                <strong>In case of emergency</strong><br />
+                                                <strong>Contact the following:</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 60%;">
+                                                <strong>Peralatan yang diperlukan:</strong><br /><br />
+                                                <span t-esc="doc.tools"/>
+                                            </td>
+                                            <td>
+                                                <strong>Wakil Perusahaan:</strong><br />
+                                                <span t-esc="doc.company_representative.display_name"/>
+                                            </td>
+                                            <td>
+                                                <strong>Phone Number:</strong><br />
+                                                <span t-esc="doc.company_representative_phone"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 60%;">
+                                                <strong>Prosedur yang diperlukan ( misal. prosedur Operasi, perawatan, safety dll ):</strong><br /><br />
+                                                <span t-esc="doc.procedure"/>
+                                            </td>
+                                            <td>
+                                                <strong>Wakil Kontraktor:</strong><br />
+                                                <span t-esc="doc.contractor_representative.display_name"/>
+                                            </td>
+                                            <td>
+                                                <strong>Phone Number:</strong><br />
+                                                <span t-esc="doc.contractor_representative_phone"/>
+                                            </td>
+                                        </tr>
+                                        <t t-if="doc.emergency_contact_ids">
+                                            <tr>
+                                                <td style="width: 60%;"></td>
+                                                <td colspan="2">
+                                                    <strong>Tim Tanggap Darurat/Emergency:</strong><br /><br />
+                                                    <t t-foreach="doc.emergency_contact_ids" t-as="sub">
+                                                        <span style="display: inline-block; width: 150px;" t-esc="sub.emergency_response_team.display_name"/> 
+                                                        <span t-esc="sub.emergency_response_team_phone"/><br/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-else="">
+                                            <tr>
+                                                <td colspan="11">Tim Tanggap tidak ada</td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+        
+                                <table class="table-details">
+                                    <tbody>
+                                        <!-- <t t-if="doc.general_dangers_id">
+                                            <t t-foreach="doc.general_dangers_id" t-as="danger"> -->
+                                                <tr>
+                                                    <td colspan="2" style="border-bottom: none;"><strong>Bahaya Umum:</strong></td>
+                                                    <td rowspan="6"></td>
+                                                    <td colspan="2" style="width: 35%;">
+                                                        <strong>Daftar Perwakilan SIMOPs Untuk semua penggunaan SIMOPs:</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr>    
+                                                    <td style="width: 30%; border-top: none; border-right:none" rowspan="5">
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_1" /> Falling/Tripping/Slipping
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_2" /> Pinched/Entangled
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_3" /> Lack of Lighting
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_4" /> Lift/Bend/Pull/Rotate
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_5" /> Uneven/Graded Track
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_6" /> Rotating/Moving Equipment
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.other"/> Other
+                                                        </label>
+                                                        <t t-if="doc.other">
+                                                            <span>: <t t-esc="doc.notes" /></span>
+                                                        </t>
+                                                    </td>
+                                                    <td style="width: 30%; border-top: none; border-left: none;" rowspan="5">
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_7" /> Hot Surfaces
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_8" /> Extreme Weather
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_9" /> Animal Danger
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_10" /> Noisy
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_11" /> Vibration
+                                                        </label><br/>
+                                                        <label style="margin-bottom: 5px;">
+                                                            <input type="checkbox" t-att-checked="doc.danger_12" /> Vehicle Danger
+                                                        </label><br/>
+                                                    </td>
+                                                </tr>
+                                            <!-- </t>
+                                        </t> -->
+                                        <t t-if="doc.simops_ids">
+                                            <t t-foreach="doc.simops_ids" t-as="simops">
+                                                <tr>
+                                                    <td>
+                                                        <strong><t t-esc="simops.safety_man.display_name"/></strong>
+                                                    </td>
+                                                    <!-- <td style="width: 20%;">
+                                                        <strong><t t-esc="simops.safety_man.display_name"/></strong>
+                                                    </td> -->
+                                                    <!-- <td style="width: 15%;">
+                                                        <t t-esc="simops.desc"/>
+                                                    </td> -->
+                                                </tr>                                                         
+                                            </t>
+                                            <!-- Tambahkan baris kosong jika jumlah simops kurang dari 4 -->
+                                            <t t-set="remaining_rows" t-value="6 - len(doc.simops_ids)"/>
+                                            <t t-if="remaining_rows > 0">
+                                                <t t-foreach="range(remaining_rows)" t-as="i">
+                                                    <tr>
+                                                        <td>&#160;</td>
+                                                        <!-- <td style="width: 20%;"><br/></td> -->
+                                                        <!-- <td style="width: 15%;"><br/></td> -->
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <tr>
+                                                <td></td>
+                                                <!-- <td style="width: 20%;"><br/></td>
+                                                <td style="width: 15%;"><br/></td> -->
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                                <div style="page-break-before: always;"></div>
+                                
+                                <table class="table-details">
+                                    <thead>
+                                        <tr>
+                                            <th><strong>Work Stages</strong></th>
+                                            <th><strong>Danger Information</strong></th>
+                                            <th><strong>Protection &amp; Prevention</strong></th>
+                                            <th><strong>Responsible for APD</strong></th>
+                                            <th><strong>Responsible for Equipment</strong></th>
+                                            <th><strong>Risk Level</strong></th>
+                                            <th><strong>Job Checking</strong></th>                                </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.work_stages_ids" t-as="line">
+                                            <tr>
+                                                <td><span t-esc="line.work_stages"/></td>
+                                                <td><span t-esc="line.danger_information"/></td>
+                                                <td><span t-esc="line.protection_prevention"/></td>
+                                                <td><span t-esc="line.person_responsible_apd"/></td>
+                                                <td><span t-esc="line.responsible_verifying_equip"/></td>
+                                                <td><span t-esc="line.risk"/></td>
+                                                <td><span t-esc="line.job_checking"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

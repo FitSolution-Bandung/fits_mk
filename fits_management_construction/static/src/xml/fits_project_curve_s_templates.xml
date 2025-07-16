@@ -1,0 +1,21 @@
+<templates xml:space="preserve">
+    <t t-name="fits_management_construction.CurveSChart" owl="1">
+        <div class="modal-body">
+            <div class="d-flex justify-content-end">
+                <div class="action-buttons d-flex gap-2">
+                    <button type="button" t-on-click="printToPDF" class="btn btn-secondary">
+                        <i class="fa fa-print me-1"/>Print to PDF
+                    </button>
+                    <button type="button" t-on-click="saveAsImage" class="btn btn-secondary">
+                        <i class="fa fa-download me-1"/>Save as Image
+                    </button>
+                </div>
+            </div>
+            <div class="o_curve_s_chart" t-att-class="props.className">
+                <div class="chart-container" style="position: relative; height: 70vh; width: 95%; margin: 0 auto;">
+                    <canvas t-ref="chart"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

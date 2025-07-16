@@ -1,0 +1,233 @@
+
+<odoo>
+    <data>
+        <record id="action_report_stakeholder_analysis" model="ir.actions.report">
+            <field name="name">Stakeholder Analysis Report</field>
+            <field name="model">stakeholder.analysis</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_stakeholder_analysis_template</field>
+            <field name="report_file">fits_management_construction.report_stakeholder_analysis_template</field>
+            <field name="binding_model_id" ref="model_stakeholder_analysis"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <template id="report_stakeholder_analysis_template" name="Stakeholder Analysis Template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <style>
+                        body{
+                            font-family: Arial; 
+                        }
+
+                        .table-details {
+                            border-collapse: collapse;
+                            width: 100%;
+                            margin-top: 20px;
+                            margin-bottom: 50px;
+                        }
+
+                        .table-details th,
+                        .table-details td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            vertical-align: top;
+                        }
+
+                        .table-header{
+                            margin-bottom: 20px;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        .table-header th,
+                        .table-header td{
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+                        
+                        .table-chart{
+                            width: 100%;
+                            margin: 0 auto;
+                            border-collapse: collapse;
+                        }
+                        
+                        .table-chart td {
+                            padding: 8px;
+                        }
+                    </style>
+
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <table class="table-header">
+                                <h2 style="text-align: center; margin-bottom: 50px;">Stakeholder Analysis</h2>
+                                <tbody>
+                                    <tr>
+                                        <td>No Stakeholder</td>
+                                        <td><span t-esc="doc.no_stakeholder"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Project Name</td>
+                                        <td><span t-esc="doc.name_analysis"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+    
+                            <table class="table-details">
+                                <thead>
+                                    <tr>
+                                        <th><strong>No</strong></th>
+                                        <th><strong>Stakeholder Name</strong></th>
+                                        <th><strong>Contact Person</strong></th>
+                                        <th><strong>Impact</strong></th>
+                                        <th><strong>Influence</strong></th>
+                                        <th><strong>Important</strong></th>
+                                        <th><strong>Contribute</strong></th>
+                                        <th><strong>Block the Project</strong></th>
+                                        <th><strong>Engaging</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="row_number" t-value="0"/>
+                                    <t t-if="doc.stakeholder_analysis_ids">
+                                        <t t-foreach="doc.stakeholder_analysis_ids" t-as="line">
+                                            <tr>
+                                                <td><span t-esc="row_number + 1"/></td>
+                                                <t t-set="row_number" t-value="row_number + 1"/>
+                                                <td><span t-esc="line.name.display_name"/></td>
+                                                <td><span t-esc="line.cp"/></td>
+                                                <td><span t-esc="dict(line._fields['impact'].selection).get(line.impact)"/></td>
+                                                <td><span t-esc="dict(line._fields['influence'].selection).get(line.influence)"/></td>
+                                                <td><span t-esc="line.important"/></td>
+                                                <td><span t-esc="line.contribute"/></td>
+                                                <td><span t-esc="line.block_project"/></td>
+                                                <td><span t-esc="line.engaging"/></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <tr>
+                                            <td colspan="11">No Stakeholder Analysis Available</td>
+                                        </tr>
+                                    </t>                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+
+                    <div style="page-break-before: always;"></div>
+
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <t t-if="doc.stakeholder_analysis_ids">
+                                <div>
+                                    <h2 style="text-align: center; margin-bottom: 50px;">Power Interest of Stakeholders</h2>  
+                                        <t t-set="grouped_stakeholders" t-value="{
+                                            'high_low': [],
+                                            'high_high': [],
+                                            'low_low': [],
+                                            'low_high': []
+                                        }"/> 
+                                        <t t-foreach="doc.stakeholder_analysis_ids" t-as="line">
+                                            <t t-if="line.impact == 'high' and line.influence == 'low'">
+                                                <t t-set="grouped_stakeholders" t-value="{
+                                                    'high_low': grouped_stakeholders['high_low'] + [line.name.display_name],
+                                                    'high_high': grouped_stakeholders['high_high'],
+                                                    'low_low': grouped_stakeholders['low_low'],
+                                                    'low_high': grouped_stakeholders['low_high']
+                                                }"/>
+                                            </t>
+                                            <t t-if="line.impact == 'high' and line.influence == 'high'">
+                                                <t t-set="grouped_stakeholders" t-value="{
+                                                    'high_low': grouped_stakeholders['high_low'],
+                                                    'high_high': grouped_stakeholders['high_high'] + [line.name.display_name],
+                                                    'low_low': grouped_stakeholders['low_low'],
+                                                    'low_high': grouped_stakeholders['low_high']
+                                                }"/>
+                                            </t>
+                                            <t t-if="line.impact == 'low' and line.influence == 'low'">
+                                                <t t-set="grouped_stakeholders" t-value="{
+                                                    'high_low': grouped_stakeholders['high_low'],
+                                                    'high_high': grouped_stakeholders['high_high'],
+                                                    'low_low': grouped_stakeholders['low_low'] + [line.name.display_name],
+                                                    'low_high': grouped_stakeholders['low_high']
+                                                }"/>
+                                            </t>
+                                            <t t-if="line.impact == 'low' and line.influence == 'high'">
+                                                <t t-set="grouped_stakeholders" t-value="{
+                                                    'high_low': grouped_stakeholders['high_low'],
+                                                    'high_high': grouped_stakeholders['high_high'],
+                                                    'low_low': grouped_stakeholders['low_low'],
+                                                    'low_high': grouped_stakeholders['low_high'] + [line.name.display_name]
+                                                }"/>
+                                            </t>
+                                        </t>
+                
+                                        <table class="table-chart">
+                                            <tbody style="border: none;">
+                                                <tr style="border: none;">
+                                                    <td rowspan="2" style="width: 50px; text-align: center; vertical-align: middle; border: none; letter-spacing: 2px; font-size: 16px; font-weight: bold; -webkit-transform: rotate(-90deg);">
+                                                        POWER OF STAKEHOLDER <br/><br/><br/> 
+                                                        <svg width="100%" height="20">
+                                                            <line x1="0" y1="10" x2="98%" y2="10" stroke="black" stroke-width="2"/>
+                                                            <polygon points="125,5 135,10 125,15" fill="black" />
+                                                        </svg>
+                                                    </td>
+                                                    <td style="background-color: LightBlue; text-align: center; border-left: 3px solid black;">
+                                                        <strong>High Power, Low Interest</strong><br/><br/>
+                                                        <t t-foreach="grouped_stakeholders['high_low']" t-as="name">
+                                                            <span t-esc="name"/><br/>
+                                                        </t>
+                                                    </td>
+                                                    <td style="background-color: LightCoral; text-align: center;">
+                                                        <strong>High Power, High Interest</strong><br/><br/>
+                                                        <t t-foreach="grouped_stakeholders['high_high']" t-as="name">
+                                                            <span t-esc="name"/><br/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <tr style="border: none;">
+                                                    <td style="background-color: LightGreen; text-align: center; border-left: 3px solid black; border-bottom: 3px solid black;">
+                                                        <strong>Low Power, Low Interest</strong><br/><br/>
+                                                        <t t-foreach="grouped_stakeholders['low_low']" t-as="name">
+                                                            <span t-esc="name"/><br/>
+                                                        </t>
+                                                    </td>
+                                                    <td style="background-color: LightBlue; text-align: center; border-bottom: 3px solid black;">
+                                                        <strong>Low Power, High Interest</strong><br/><br/>
+                                                        <t t-foreach="grouped_stakeholders['low_high']" t-as="name">
+                                                            <span t-esc="name"/><br/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <tr style="border: none;">
+                                                    <td style="border: none;"></td>
+                                                    <td colspan="2" style="text-align: center; border: none;">
+                                                        <div style="margin-left: 20%; margin-right: 20%;">
+                                                            <br/><br/>
+                                                            <svg width="200px" height="20">
+                                                                <line x1="0" y1="10" x2="180" y2="10" stroke="black" stroke-width="2"/> 
+                                                                <polygon points="180,5 190,10 180,15" fill="black" /> 
+                                                            </svg>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="border: none;">
+                                                    <td style="border: none;"></td>
+                                                    <td colspan="2" style="text-align: center; border: none; letter-spacing: 2px; font-size: 16px; font-weight: bold; height: 50px; vertical-align: middle;">INTEREST OF STAKEHOLDER</td>
+                                                </tr> 
+                                            </tbody>
+                                        </table> 
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <tr>
+                                    <p style="text-align: center;">No Stakeholder Analysis Available</p>
+                                </tr>
+                            </t>  
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

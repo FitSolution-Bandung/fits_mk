@@ -1,0 +1,169 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_daily_report_tree">
+            <field name="name">daily.report.tree</field>
+            <field name="model">daily.report</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Report" default_group_by='project' expand='0'>
+                    <!-- <header>
+                        <button name="action_confirm_all" type="object" string="Confirm All" class="btn-primary"  groups="fits_management_construction.group_management_construction_manager"/>
+                    </header> -->
+                    <field name="no_dr"/>
+                    <field name="date"/>
+                    <field name="project"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_daily_report_form">
+            <field name="name">daily.report.form</field>
+            <field name="model">daily.report</field>
+            <field name="arch" type="xml">
+                <form string="Daily Report">
+                    <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                                invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Done" name="action_done" type="object" class="oe_highlight"
+                                invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button name="action_refresh" type="object" class="btn-primary" icon="fa-refresh"
+                                position="after" invisible="status != 'draft'"/>
+                        <field name="status" widget="statusbar" options="{'clickable': 0}"
+                               statusbar_visible="draft,confirm,done"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_document_report"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-file"
+                                    string="Document Report">
+                            </button>
+                        </div>
+                        <group name="header">
+                            <group>
+                                <field name="no_dr" readonly="1"/>
+                                <field name="date" readonly="status != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="project" readonly="status != 'draft'"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="WBS">
+                                <field name="wbs_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="wbs_category"/>    
+                                        <field name="wbs" widget="many2one"/>
+                                        <field name="plan_weight"/>
+                                        <field name="actual_weight"/>
+                                        <field name="progress"/>
+                                        <field name="total_progress"/>
+                                        <field name="project_id" nolabel="1" column_invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Material on Site">
+                                <field name="mos_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="product"/>
+                                        <field name="volume"/>
+                                        <field name="uom"/>
+                                        <field name="origin_location"/>
+                                        <field name="destination_location"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Equipment Used">
+                                <field name="equipment_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="product"/>
+                                        <field name="product_ids" nolabel="1" column_invisible="1"/>
+                                        <field name="amount"/>
+                                        <field name="location"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Manpower">
+                                <field name="manpower_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="job_title"/>
+                                        <field name="amount"/>
+                                        <field name="location"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Weather">
+                                <field name="weather_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="weather"/>
+                                        <field name="started_time" widget='float_time'/>
+                                        <field name="ended_time" widget='float_time'/>
+                                        <field name="location"/>
+                                        <!-- <field name="responsibility"/> -->
+                                        <field name="result"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Note">
+                                <field name="note_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom" >
+                                        <field name="note_point"/>
+                                        <field name="desc"/>
+                                        <field name="name_mp"/>
+                                        <field name="name_mp_ids" column_invisible='1' nolabel='1'/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Sign">
+                                <group>
+                                    <group>
+                                        <field name="leader" readonly="status != 'draft'"/>
+                                    </group>
+                                    <group>
+                                        <field name="supervisor" readonly="status != 'draft'"/>
+                                    </group>
+                                    <field name="name_mp_ids" invisible='1' nolabel='1'/>                                    
+                                </group>
+                            </page>
+                            <page string='Monitoring'>
+                                <field name="monitoring_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="pdf_file" widget="binary" filename="pdf_filename"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form> 
+            </field>
+        </record>
+        <record id="action_daily_report" model="ir.actions.act_window">
+            <field name="name">Daily Report</field>
+            <field name="res_model">daily.report</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_confirm_all_daily" model="ir.actions.server">
+            <field name="name">Confirm All</field>
+            <field name="model_id" ref="model_daily_report"/>
+            <field name="binding_model_id" ref="fits_management_construction.model_daily_report"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">action = model.action_confirm_all()</field>
+        </record>
+
+        <menuitem id="menu_daily_report" parent="menu_root_daily_report"
+                  action="action_daily_report" sequence="2"/>
+    </data>
+</odoo>

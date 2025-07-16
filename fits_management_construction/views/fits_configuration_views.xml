@@ -1,0 +1,547 @@
+<odoo>
+    <data>
+        <!-- <record id="view_stakeholder_kanban" model="ir.ui.view">
+            <field name="name">stakeholder.kanban</field>
+            <field name="model">stakeholder</field>
+            <field name="inherit_id" ref="base.view_partner_kanban"/>
+            <field name="arch" type="xml">
+                <kanban>
+                    <template>
+                        <t t-name="kanban-box">
+                            <div class="o_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_details">
+                                    <strong>
+                                        <field name="name" class="o_field_text o_field_widget"/>
+                                    </strong>
+                                    <div>
+                                        <em>
+                                            <field name="company_type" class="o_field_text"/>
+                                        </em>
+                                    </div>
+                                    <div class="o_kanban_subtitle">
+                                        <field name="email" class="o_field_text"/>
+                                    </div>
+                                    <div>
+                                        <field name="phone" class="o_field_text"/>
+                                    </div>
+                                    <div class="o_kanban_location">
+                                        <t t-if="record.state_id.raw_value or record.city.raw_value">
+                                            <span t-if="record.state_id.raw_value"><field name="state_id" class="o_field_text"/></span>
+                                            <span t-if="record.city.raw_value"><span>, </span><field name="city" class="o_field_text"/></span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </template>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_stakeholder" model="ir.actions.act_window">
+            <field name="name">Stakeholders</field>
+            <field name="res_model">stakeholder</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <a href="#" class="btn btn-primary">Create a Stakeholder</a>
+                </p>
+            </field>
+        </record> -->
+        <record id="view_inherit_stakeholder_kanban" model="ir.ui.view">
+            <field name="name">stakeholder.kanban.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <!-- <field name="inherit_id" ref="crm.crm_lead_partner_kanban_view"/> -->
+            <field name="arch" type="xml">
+                <xpath expr="//div[contains(@class, 'oe_kanban_bottom_left')]" position="inside">
+                    <div>
+                        <strong>
+                            <field name="name" class="o_field_text o_field_widget"/>
+                        </strong>
+                    </div>
+                </xpath>
+                <!-- <xpath expr="//field[@name='mobile']" position="after">
+                    <field name="opportunity_count" groups="sales_team.group_sale_salesman"/>
+                </xpath> -->
+            </field>
+        </record>
+        
+
+        <record id="action_stakeholder" model="ir.actions.act_window">
+            <field name="name">Stakeholders</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="domain">[('company_type', '=', 'company')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <a href="#" class="btn btn-primary">Create a Stakeholder</a>
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_stakeholder" parent="menu_parent_risk_mitigation_configuration" action="action_stakeholder"
+                  sequence="1"/>
+
+        <record id="view_field_condition_type_tree" model="ir.ui.view">
+            <field name="name">field.condition.type.tree</field>
+            <field name="model">field.condition.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_field_condition_type_form" model="ir.ui.view">
+            <field name="name">field.condition.type.form</field>
+            <field name="model">field.condition.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_field_condition_type" model="ir.actions.act_window">
+            <field name="name">Field Condition Type</field>
+            <field name="res_model">field.condition.type</field>
+        </record>
+        <menuitem id="menu_field_condition_type" parent="menu_parent_risk_mitigation_configuration"
+                  action="action_field_condition_type"
+                  sequence="2"/>
+
+        <record id="view_likelihood_tree" model="ir.ui.view">
+            <field name="name">likelihood.tree</field>
+            <field name="model">likelihood</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="no"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_likelihood_form" model="ir.ui.view">
+            <field name="name">likelihood.form</field>
+            <field name="model">likelihood</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="no"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_likelihood" model="ir.actions.act_window">
+            <field name="name">Likelihood</field>
+            <field name="res_model">likelihood</field>
+        </record>
+        <menuitem id="menu_likelihood" parent="menu_parent_risk_mitigation_configuration" action="action_likelihood"
+                  sequence="3"/>
+
+        <record id="view_impact_tree" model="ir.ui.view">
+            <field name="name">impact.tree</field>
+            <field name="model">impact</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="no"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_impact_form" model="ir.ui.view">
+            <field name="name">impact.form</field>
+            <field name="model">impact</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="no"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_impact" model="ir.actions.act_window">
+            <field name="name">Impact</field>
+            <field name="res_model">impact</field>
+        </record>
+        <menuitem id="menu_impact" parent="menu_parent_risk_mitigation_configuration" action="action_impact"
+                  sequence="4"/>
+
+        <record id="view_risk_scale_tree" model="ir.ui.view">
+            <field name="name">risk.scale.tree</field>
+            <field name="model">risk.scale</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="scale_from"/>
+                    <field name="scale_to"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_risk_scale_form" model="ir.ui.view">
+            <field name="name">risk.scale.form</field>
+            <field name="model">risk.scale</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="scale_from"/>
+                            <field name="scale_to"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_risk_scale" model="ir.actions.act_window">
+            <field name="name">Risk Scale</field>
+            <field name="res_model">risk.scale</field>
+        </record>
+        <menuitem id="menu_risk_scale" parent="menu_parent_risk_mitigation_configuration" action="action_risk_scale"
+                  sequence="5"/>
+
+        <record id="view_risk_mitigation_type_tree" model="ir.ui.view">
+            <field name="name">risk.mitigation.type.tree</field>
+            <field name="model">risk.mitigation.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_risk_mitigation_type_form" model="ir.ui.view">
+            <field name="name">risk.mitigation.type.form</field>
+            <field name="model">risk.mitigation.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_risk_mitigation_type" model="ir.actions.act_window">
+            <field name="name">Risk Mitigation Type</field>
+            <field name="res_model">risk.mitigation.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_risk_mitigation_type" parent="menu_parent_risk_mitigation_configuration"
+                  action="action_risk_mitigation_type"
+                  sequence="6"/>
+
+            <record id="view_general_danger_tree" model="ir.ui.view">
+            <field name="name">general.danger.tree</field>
+            <field name="model">general.danger</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_general_danger_form" model="ir.ui.view">
+            <field name="name">general.danger.form</field>
+            <field name="model">general.danger</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_general_danger" model="ir.actions.act_window">
+            <field name="name">General Danger</field>
+            <field name="res_model">general.danger</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_general_danger" parent="menu_parent_risk_mitigation_configuration"
+                    action="action_general_danger"
+                    sequence="7"/>
+
+        <record id="view_location_tree" model="ir.ui.view">
+            <field name="name">location.tree</field>
+            <field name="model">location</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="province"/>
+                    <field name="states"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_location_form" model="ir.ui.view">
+            <field name="name">location.form</field>
+            <field name="model">location</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="province"/>
+                            <field name="states"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_location" model="ir.actions.act_window">
+            <field name="name">Location</field>
+            <field name="res_model">location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_location" parent="menu_parent_rab_configuration"
+                  action="action_location"
+                  sequence="1"/>
+
+        <!-- <record id="view_unit_category_tree" model="ir.ui.view">
+            <field name="name">unit.category.tree</field>
+            <field name="model">unit.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_unit_category_form" model="ir.ui.view">
+            <field name="name">unit.category.form</field>
+            <field name="model">unit.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_unit_category" model="ir.actions.act_window">
+            <field name="name">Unit Category</field>
+            <field name="res_model">unit.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_unit_category" parent="menu_parent_rab_configuration"
+                  action="action_unit_category"
+                  sequence="2"/>
+
+        <record id="view_building_category_tree" model="ir.ui.view">
+            <field name="name">building.category.tree</field>
+            <field name="model">building.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_building_category_form" model="ir.ui.view">
+            <field name="name">building.category.form</field>
+            <field name="model">building.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_building_category" model="ir.actions.act_window">
+            <field name="name">Building Category</field>
+            <field name="res_model">building.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_building_category" parent="menu_parent_rab_configuration"
+                  action="action_building_category"
+                  sequence="3"/> -->
+
+        <record id="view_uom_category_tree" model="ir.ui.view">
+            <field name="name">uom.category.tree</field>
+            <field name="model">uom.category</field>
+            <field name="arch" type="xml">
+                <tree string="Units of Measure categories">
+                    <field name="name"/>
+                    <field name="uom_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_uom_category_form" model="ir.ui.view">
+            <field name="name">uom.category.form</field>
+            <field name="model">uom.category</field>
+            <field name="arch" type="xml">
+                <form string="Units of Measure categories">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="reference_uom_id" invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Units of Measure" name="uom_lines">
+                                <field name="uom_ids" force_save="1" context="{'default_uom_type': 'smaller', 'default_category_id': id}">
+                                    <tree editable="bottom">
+                                        <field name="name" decoration-bf="uom_type == 'reference'"/>
+                                        <field name="uom_type" decoration-bf="uom_type == 'reference'"/>
+                                        <field name="factor" column_invisible="True"/>
+                                        <field name="factor_inv" column_invisible="True"/>
+                                        <field name="ratio" string="Ratio" readonly="uom_type == 'reference'" digits="[42,5]"/>
+                                        <field name="active"/>
+                                        <field name="rounding" digits="[42, 5]"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_uom_category" model="ir.actions.act_window">
+            <field name="name">Unit Of Measure</field>
+            <field name="res_model">uom.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="uom.product_uom_categ_tree_view"/>
+        </record>
+        <menuitem id="menu_uom_category" parent="menu_parent_rab_configuration"
+                  action="action_uom_category"
+                  sequence="4"/>
+
+        <record id="view_wbs_category_tree" model="ir.ui.view">
+            <field name="name">wbs.category.tree</field>
+            <field name="model">wbs.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="wbs_category"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_wbs_category_form" model="ir.ui.view">
+            <field name="name">wbs.category.form</field>
+            <field name="model">wbs.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_unit_price_analysis"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-calculator">
+                                <field name="unit_price_analysis_count" widget="statinfo" string="AHS"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="code"/>
+                            <field name="wbs_category"/>
+                        </group>
+                        <notebook>
+                            <page string="WBS">
+                                <field name="wbs_ids">
+                                    <tree editable="bottom">
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="level"/>
+                                        <field name="wbs_category" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_wbs_category_hierarchy" model="ir.ui.view">
+            <field name="name">wbs.category.hierarchy</field>
+            <field name="model">wbs.category</field>
+            <field name="arch" type="xml">
+                <hierarchy child_field="wbs_ids" draggable="1">
+                    <field name="wbs_category"/>
+                    <templates>
+                        <t t-name="hierarchy-box">
+                            <div class="o_hierarchy_node_body d-flex flex-column text-center">
+                                <div class="w-100 position-relative">
+                                    <field class="fw-bold" name="wbs_category"></field>
+    
+                                    <a class="btn btn-sm btn-primary" href="/web?model=wbs&amp;view_type=list&amp;search_view_id=wbs_list_view&amp;context={%20'default_wbs_category': %20id%20%7D}" target="_blank">
+                                        <i class="fa fa-eye"/> View WBS
+                                    </a>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </hierarchy>
+            </field>
+        </record>
+        <record id="action_wbs_category" model="ir.actions.act_window">
+            <field name="name">WBS Category</field>
+            <field name="res_model">wbs.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_wbs_category" parent="menu_parent_rab_configuration"
+                  action="action_wbs_category"
+                  sequence="5"/>
+
+        <record id="view_wbs_tree" model="ir.ui.view">
+            <field name="name">wbs.tree</field>
+            <field name="model">wbs</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="level"/>
+                    <field name="wbs_category"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_wbs_form" model="ir.ui.view">
+            <field name="name">wbs.form</field>
+            <field name="model">wbs</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_unit_price_analysis"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-calculator">
+                                <field name="unit_price_analysis_count" widget="statinfo" string="AHS"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="number"/>
+                            <field name="name"/>
+                            <field name="level"/>
+                            <field name="wbs_category"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_wbs" model="ir.actions.act_window">
+            <field name="name">WBS</field>
+            <field name="res_model">wbs</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_wbs" parent="menu_parent_rab_configuration"
+                  action="action_wbs"
+                  sequence="6"/>
+    </data>
+</odoo>

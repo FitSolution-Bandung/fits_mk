@@ -1,0 +1,168 @@
+<odoo>
+    <data>
+
+        <record id="view_project_curve_s_tree" model="ir.ui.view">
+            <field name="name">project.curve.s.tree</field>
+            <field name="model">project.curve.s</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="project_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_project_curve_s_form" model="ir.ui.view">
+            <field name="name">project.curve.s.form</field>
+            <field name="model">project.curve.s</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Calculate" name="calculate_progress" type="object" class="oe_highlight"/>
+                        <div class="oe_button_box" name="button_curva_box">
+                            <button type="object"
+                                string="Detail S Curve"
+                                name="show_curva"     
+                                class="btn-secondary"  
+                                icon="fa-line-chart">   
+                            </button>
+                        </div>
+                        <!-- <div class="oe_button_box" name="button_curva_box">
+                            <button type="object"
+                                string="Detail S Curve"
+                                name="show_curva"     
+                                class="btn-secondary"  
+                                icon="fa-line-chart">   
+                            </button>
+                        </div> -->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="project_id" readonly="1"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="plan_weight"/>
+                                <field name="plan_weight_b"/>
+                                <field name="actual_weight"/>
+                                <field name="deviasi"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="S Curve Line">
+                                <field name="line_ids">
+                                    <tree editable="bottom">
+                                        <field name="date"/>    
+                                        <field name="plan_weight"/>
+                                        <field name="plan_weight_b"/>
+                                        <field name="actual_weight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_project_curve_s" model="ir.actions.act_window">
+            <field name="name">Project S Curve</field>
+            <field name="res_model">project.curve.s</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_line_curve_tree" model="ir.ui.view">
+            <field name="name">line.curves.tree</field>
+            <field name="model">curve.s.line</field>
+            <field name="arch" type="xml">
+                <tree string="Line S Curve">
+                    <field name="date"/>
+                    <field name="plan_weight"/>
+                    <field name="plan_weight_b"/>
+                    <field name="actual_weight"/>
+                </tree>    
+            </field>
+        </record> 	 
+        
+        <record id="view_curve_line_search_form" model="ir.ui.view">
+            <field name="name">curve.s.line.search.form</field>
+            <field name="model">curve.s.line</field>
+            <field name="arch" type="xml">
+            <search string="S Curve">
+                    <field name="task_id"/>  
+                    <group expand="0" string="Group By">
+                        <filter string="date" name="date" context="{'group_by':'date:day'}"/>
+                        <filter string="task_id" name="task" context="{'group_by':'task_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_curve_s_custom" model="ir.ui.view">
+            <field name="name">curve.s.custom.view</field>
+            <field name="model">curve.s.line</field>
+            <field name="arch" type="xml">
+                <form string="S Curve">
+                    <div class="oe_structure"/>
+                    
+                    <!-- Tempat untuk menampilkan grafik kurva S -->
+                    <div class="o_graphic_container" id="curve_s_graph" style="width: 100%; height: 400px;">
+                        <!-- Grafik akan di-render di sini menggunakan Chart.js -->
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- <record id="action_curve_s_chart" model="ir.actions.client">
+            <field name="name">S Curve Chart</field>
+            <field name="tag">curve_s_chart</field>
+            <field name="params">{'curveId': 0}</field>
+        </record> -->
+        
+        <!-- <record id="view_curve_s_custom" model="ir.ui.view">
+            <field name="name">curve.s.custom.view</field>
+            <field name="model">curve.s.line</field>
+            <field name="arch" type="xml">
+                <form string="S Curve">
+                    <div class="oe_structure"/>
+                    <div class="o_graphic_container" style="width: 100%; height: 400px;">
+                        <canvas id="curveSChart"></canvas>
+                    </div>
+                </form>
+            </field>
+        </record> -->
+
+    </data>
+</odoo>
+ <!-- <record id="view_s_curve_pivot" model="ir.ui.view">
+            <field name="name">s.curve.pivot</field>
+            <field name="model">curve.s.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Curve S" disable_linking="True">
+                       <field name="plan_weight" type="measure"/>
+                       <field name="plan_weight_b" type="measure"/>
+                       <field name="actual_weight" type="measure"/>
+                       <field name="date" interval="day" type="col"/>
+                </pivot>
+            </field>
+        </record>
+    
+        <record id="view_s_curve_graph" model="ir.ui.view">
+            <field name="name">s.curve.graph</field>
+            <field name="model">curve.s.line</field>
+            <field name="arch" type="xml">
+                <graph string="Curve S" type="line">
+                    <field name="plan_weight" type="measure"/>
+                    <field name="plan_weight_b" type="measure"/>
+                    <field name="actual_weight" type="measure"/>
+                    <field name="date" interval="day" type="col"/>
+                </graph>
+            </field>
+        </record> -->
+    
+        <!-- Action to open S Curve with graph view -->
+        <!-- <record id="action_curve_line" model="ir.actions.act_window">
+            <field name="name">S-Curve</field>
+            <field name="res_model">curve.s.line</field>
+            <field name="view_mode">graph,tree,form</field>
+            <field name="view_id" ref="view_s_curve_graph"/>
+        </record> -->

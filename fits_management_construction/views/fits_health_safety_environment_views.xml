@@ -1,0 +1,168 @@
+<odoo>
+    <record id="view_health_safety_environment_form" model="ir.ui.view">
+        <field name="name">health.safety.environment.form</field>
+        <field name="model">health.safety.environment</field>
+        <field name="arch" type="xml">
+            <form string="Health Safety Environment">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                            invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                           statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                     <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button string="Analysis &amp; Risk Mitigation" class="oe_stat_button" type="object" name="get_analysis_risk_mitigation"
+                                    icon="fa-check-square-o"/>
+                        </div> -->
+                    <group>
+                        <field name="no_hse" readonly="1"/>
+                        <!-- <field name="analysis_risk_mitigation_id" invisible="1"/> -->
+                        <field name="work_type" readonly="status != 'draft'"/>
+                        <field name="work_location" readonly="status != 'draft'"/>
+                        <field name="date" readonly="status != 'draft'"/>
+                        <field name="protective_equip" readonly="status != 'draft'"/>
+                        <field name="tools" readonly="status != 'draft'"/>
+                        <field name="procedure" readonly="status != 'draft'"/>
+                    </group>
+                    <notebook>
+                        <page string="Work Stages">
+                            <field name="work_stages_ids" readonly="status != 'draft'">
+                                <tree string="Work Stages">
+                                    <field name="work_stages"/>
+                                    <field name="danger_information"/>
+                                    <field name="protection_prevention"/>
+                                    <field name="person_responsible_apd"/>
+                                    <field name="responsible_verifying_equip"/>
+                                    <field name="risk"/>
+                                    <field name="job_checking"/>
+                                </tree>
+                                <form string="Add Work Stage">
+                                    <sheet>
+                                        <group>
+                                            <field name="work_stages"/>
+                                            <field name="danger_information"/>
+                                            <field name="protection_prevention"/>
+                                            <field name="person_responsible_apd"/>
+                                            <field name="responsible_verifying_equip"/>
+                                            <field name="risk"/>
+                                            <field name="job_checking"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="emergency_contact" string="Emergency Contact">
+                            <group string="Company Representative" name="active_group">
+                                <field name="company_representative" readonly="status != 'draft'"/>
+                                <field name="company_representative_phone" readonly="1"/>
+                            </group>
+                            <group string="Contractor Representative" name="active_group">
+                                <field name="contractor_representative" readonly="status != 'draft'"/>
+                                <field name="contractor_representative_phone" readonly="1"/>
+                            </group>
+                            <group string="Emergency Response Team" name="active_group">
+                                <field name="emergency_contact_ids" colspan="2" nolabel="1" readonly="status != 'draft'">
+                                    <tree editable="1">
+                                        <field name="emergency_response_team"/>
+                                        <field name="emergency_response_team_phone"/>
+                                    </tree>
+                                </field>
+                            </group>
+
+                        </page>
+                        <page name="general_dangers" string="General Dangers">
+                            <!-- <field name="general_dangers_id" readonly="status != 'draft'"> -->
+                                <!-- <tree string="General Dangers">
+                                    <field name="danger_1"/>
+                                    <field name="danger_2"/>
+                                <field name="danger_3"/>
+                                    <field name="danger_4"/>
+                                    <field name="danger_5"/>
+                                    <field name="danger_6"/>
+                                    <field name="danger_7"/>
+                                    <field name="danger_8"/>
+                                    <field name="danger_9"/>
+                                    <field name="danger_10"/>
+                                    <field name="danger_11"/>
+                                    <field name="danger_12"/>
+                                    <field name="other"/>
+                                </tree> -->
+                                <!-- <form> -->
+                                    <!-- <sheet> -->
+                                        <group>
+                                            <group>
+                                                <field name="danger_1" readonly="status != 'draft'"/>
+                                                <field name="danger_2" readonly="status != 'draft'"/>
+                                                <field name="danger_3" readonly="status != 'draft'"/>
+                                                <field name="danger_4" readonly="status != 'draft'"/>
+                                                <field name="danger_5" readonly="status != 'draft'"/>
+                                                <field name="danger_6" readonly="status != 'draft'"/>
+                                                <field name="other" readonly="status != 'draft'"/>
+                                            </group>
+                                            <group>
+                                                <field name="danger_7" readonly="status != 'draft'"/>
+                                                <field name="danger_8" readonly="status != 'draft'"/>
+                                                <field name="danger_9" readonly="status != 'draft'"/>
+                                                <field name="danger_10" readonly="status != 'draft'"/>
+                                                <field name="danger_11" readonly="status != 'draft'"/>
+                                                <field name="danger_12" readonly="status != 'draft'"/>
+                                                <field name="notes" invisible="other == False" readonly="status != 'draft'"/>
+                                            </group>  
+                                        </group>
+                                    <!-- </sheet> -->
+                                <!-- </form> -->
+                            <!-- </field> -->
+                        </page>
+                        <page name="simops" string="SIMOPs">
+                            <field name="simops_ids" readonly="status != 'draft'">
+                                <tree editable='bottom'>
+                                    <field name="safety_man" />
+                                    <field name='desc'/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_health_safety_environment_tree" model="ir.ui.view">
+        <field name="name">health.safety.environment.tree</field>
+        <field name="model">health.safety.environment</field>
+        <field name="arch" type="xml">
+            <tree string="Job Safety Analysis">
+                <field name="no_hse"/>
+                <field name="work_type"/>
+                <field name="work_location"/>
+                <field name="date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_health_safety_environment" model="ir.actions.act_window">
+        <field name="name">Job Safety Analysis</field>
+        <field name="res_model">health.safety.environment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_health_safety_environment" name="Job Safety Analysis" parent="menu_root_pre_cons_phase"
+              action="action_health_safety_environment" sequence="2"/>
+</odoo>

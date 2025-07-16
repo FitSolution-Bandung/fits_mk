@@ -1,0 +1,95 @@
+<odoo>
+    <record model="ir.ui.view" id="view_work_request_tree">
+        <field name="name">work.request.tree</field>
+        <field name="model">work.request</field>
+        <field name="arch" type="xml">
+            <tree string="Work Request">
+                <field name="no_contract"/>
+                <field name="name_project"/>
+                <field name="contract_date"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_work_request_form">
+        <field name="name">work.request.form</field>
+        <field name="model">work.request</field>
+        <field name="arch" type="xml">
+            <form string="Work Request">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="no_contract"/>
+                            <field name="contract_date" readonly="status != 'draft'"/>                   
+                            <field name="work_activities" readonly="status != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="name_project" readonly="status != 'draft'"/>
+                            <field name="package" readonly="status != 'draft'"/>
+                            <field name="construction_provider" readonly="status != 'draft'"/>                                      
+                        </group>
+                    </group>
+                    <notebook>
+                        <!--  sesuaikan dengan ada yang di JSA -->
+                        <page string="Work Details">
+                            <group string="Work Detail Information" name="work_detail_ids">
+                                <group>
+                                    <field name="work_detail" readonly="status != 'draft'"/>
+                                    <field name="notes" readonly="status != 'draft'"/>
+                                </group>
+                                <group>
+                                    <field name="start_date" readonly="status != 'draft'"/>
+                                    <field name="finish_date" readonly="status != 'draft'"/>
+                                </group>
+                            </group>
+                            <group string="Work Location">
+                                <field name="location_ids" colspan="2" nolabel="1" readonly="status != 'draft'">
+                                    <tree editable="1">
+                                        <field name="location"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Document Status">
+                            <field name="document_status_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="document"/>
+                                    <field name="status"/>
+                                    <field name="date"/>
+                                    <field name="reference"/>
+                                    <field name="verification"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_work_request" model="ir.actions.act_window">
+        <field name="name">Work Request</field>
+        <field name="res_model">work.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_work_request" parent="menu_root_additional_form" action="action_work_request" sequence="3"/>
+</odoo>

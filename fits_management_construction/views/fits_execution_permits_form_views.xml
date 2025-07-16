@@ -1,0 +1,75 @@
+<odoo>
+    <record model="ir.ui.view" id="view_execution_permits_tree">
+        <field name="name">execution.permits.tree</field>
+        <field name="model">execution.permits</field>
+        <field name="arch" type="xml">
+            <tree string="Execution Permits">
+                <field name="attachment"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_execution_permits_form">
+        <field name="name">execution.permits.form</field>
+        <field name="model">execution.permits</field>
+        <field name="arch" type="xml">
+            <form string="Execution Permits Form">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="attachment" readonly="status != 'draft'"/>
+                            <field name="name_client" readonly="status != 'draft'"/>                    
+                            <field name="name_consultant" readonly="status != 'draft'"/>                    
+                        </group>
+                        <group>
+                            <field name="province" readonly="status != 'draft'"/>                   
+                            <field name="city" readonly="status != 'draft'"/>                   
+                            <field name="date" readonly="status != 'draft'"/>                   
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Execution Permits">
+                            <field name="execution_permits_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="name_items"/>    
+                                    <field name="permits_number"/>
+                                    <field name="submission_date"/>
+                                    <field name="approval_date"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_execution_permits" model="ir.actions.act_window">
+        <field name="name">Execution Permits</field>
+        <field name="res_model">execution.permits</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_execution_permits" parent="menu_root_additional_form" action="action_execution_permits" sequence="2"/>
+</odoo>

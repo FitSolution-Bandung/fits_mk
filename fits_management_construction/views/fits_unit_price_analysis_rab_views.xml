@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_unit_price_analysis_tree">
+            <field name="name">unit.price.analysis.tree</field>
+            <field name="model">unit.price.analysis</field>
+            <field name="arch" type="xml">
+                <tree string="Unit Price Analysis">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_unit_price_analysis_form">
+            <field name="name">unit.price.analysis.form</field>
+            <field name="model">unit.price.analysis</field>
+            <field name="arch" type="xml">
+                <form string="Unit Price Analysis">
+                    <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                                invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+                        <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                                invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                        />
+                        <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                                invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                        />
+                        <field name="status" widget="statusbar" options="{'clickable': 0}"
+                               statusbar_visible="draft,confirm,cancelled"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_boq"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-money">
+                                <field name="boq_count" widget="statinfo" string="Bill of Quantity"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="no_ahs"/>
+                            <field name="name" readonly="status != 'draft'"/>
+                            <field name="wbs_category" readonly="status != 'draft'"/>
+                            <field name="wbs" readonly="status != 'draft'"/>
+                            <field name="code" readonly="status != 'draft'"/>
+                        </group>
+                        <notebook>
+                            <page string="Material">
+                                <field name="ahs_material_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="product" widget="many2one"/>
+                                        <field name="koefisien"/>
+                                        <field name="uom"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Wages">
+                                <field name="ahs_wages_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="product" widget="many2one"/>
+                                        <field name="koefisien"/>
+                                        <field name="uom"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Equipment">
+                                <field name="ahs_equipment_ids" readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="product" widget="many2one"/>
+                                        <field name="koefisien"/>
+                                        <field name="uom"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_unit_price_analysis" model="ir.actions.act_window">
+            <field name="name">Unit Price Analysis</field>
+            <field name="res_model">unit.price.analysis</field>
+        </record>
+        <menuitem id="menu_unit_price_analysis" parent="menu_root_rab_mk"
+                  action="action_unit_price_analysis" sequence="3"/>
+    </data>
+</odoo>

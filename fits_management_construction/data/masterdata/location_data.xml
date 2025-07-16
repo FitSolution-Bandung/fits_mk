@@ -1,0 +1,2058 @@
+<odoo>
+    <record id="location_1" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Barat</field>
+    </record>
+    <record id="location_2" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Barat Daya</field>
+    </record>
+    <record id="location_3" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Besar</field>
+    </record>
+    <record id="location_4" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Jaya</field>
+    </record>
+    <record id="location_5" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Selatan</field>
+    </record>
+    <record id="location_6" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Singkil</field>
+    </record>
+    <record id="location_7" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Tamiang</field>
+    </record>
+    <record id="location_8" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Tengah</field>
+    </record>
+    <record id="location_9" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Tenggara</field>
+    </record>
+    <record id="location_10" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Timur</field>
+    </record>
+    <record id="location_11" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Aceh Utara</field>
+    </record>
+    <record id="location_12" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Bener Meriah</field>
+    </record>
+    <record id="location_13" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Bireuen</field>
+    </record>
+    <record id="location_14" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Gayo Lues</field>
+    </record>
+    <record id="location_15" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Nagan Raya</field>
+    </record>
+    <record id="location_16" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Pidie</field>
+    </record>
+    <record id="location_17" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Pidie Jaya</field>
+    </record>
+    <record id="location_18" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Kab. Simeulue</field>
+    </record>
+    <record id="location_19" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Banda Aceh</field>
+    </record>
+    <record id="location_20" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Langsa</field>
+    </record>
+    <record id="location_21" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Lhokseumawe</field>
+    </record>
+    <record id="location_22" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Sabang</field>
+    </record>
+    <record id="location_23" model="location">
+        <field name="province" ref="base.state_id_ac"/>
+        <field name="states">Subulussalam</field>
+    </record>
+    <record id="location_24" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Asahan</field>
+    </record>
+    <record id="location_25" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Batu Bara</field>
+    </record>
+    <record id="location_26" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Dairi</field>
+    </record>
+    <record id="location_27" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Deli Serdang</field>
+    </record>
+    <record id="location_28" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Humbang Hasundutan</field>
+    </record>
+    <record id="location_29" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Karo</field>
+    </record>
+    <record id="location_30" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Labuhanbatu</field>
+    </record>
+    <record id="location_31" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Labuhanbatu Selatan</field>
+    </record>
+    <record id="location_32" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Labuhanbatu Utara</field>
+    </record>
+    <record id="location_33" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Langkat</field>
+    </record>
+    <record id="location_34" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Mandailing Natal</field>
+    </record>
+    <record id="location_35" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Nias</field>
+    </record>
+    <record id="location_36" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Nias Barat</field>
+    </record>
+    <record id="location_37" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Nias Selatan</field>
+    </record>
+    <record id="location_38" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Nias Utara</field>
+    </record>
+    <record id="location_39" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Padang Lawas</field>
+    </record>
+    <record id="location_40" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Padang Lawas Utara</field>
+    </record>
+    <record id="location_41" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Pakpak Bharat</field>
+    </record>
+    <record id="location_42" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Samosir</field>
+    </record>
+    <record id="location_43" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Serdang Bedagai</field>
+    </record>
+    <record id="location_44" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Simalungun</field>
+    </record>
+    <record id="location_45" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Tapanuli Selatan</field>
+    </record>
+    <record id="location_46" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Tapanuli Tengah</field>
+    </record>
+    <record id="location_47" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Tapanuli Utara</field>
+    </record>
+    <record id="location_48" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Kab. Toba</field>
+    </record>
+    <record id="location_49" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Binjai</field>
+    </record>
+    <record id="location_50" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Gunungsitoli</field>
+    </record>
+    <record id="location_51" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Medan</field>
+    </record>
+    <record id="location_52" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Padang Sidempuan</field>
+    </record>
+    <record id="location_53" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Pematangsiantar</field>
+    </record>
+    <record id="location_54" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Sibolga</field>
+    </record>
+    <record id="location_55" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Tanjungbalai</field>
+    </record>
+    <record id="location_56" model="location">
+        <field name="province" ref="base.state_id_su"/>
+        <field name="states">Tebing Tinggi</field>
+    </record>
+    <record id="location_57" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Agam</field>
+    </record>
+    <record id="location_58" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Dharmasraya</field>
+    </record>
+    <record id="location_59" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Kepulauan Mentawai</field>
+    </record>
+    <record id="location_60" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Lima Puluh Kota</field>
+    </record>
+    <record id="location_61" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Padang Pariaman</field>
+    </record>
+    <record id="location_62" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Pasaman</field>
+    </record>
+    <record id="location_63" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Pasaman Barat</field>
+    </record>
+    <record id="location_64" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Pesisir Selatan</field>
+    </record>
+    <record id="location_65" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Sijunjung</field>
+    </record>
+    <record id="location_66" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Solok</field>
+    </record>
+    <record id="location_67" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Solok Selatan</field>
+    </record>
+    <record id="location_68" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Kab. Tanah Datar</field>
+    </record>
+    <record id="location_69" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Bukittinggi</field>
+    </record>
+    <record id="location_70" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Padang</field>
+    </record>
+    <record id="location_71" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Padang Panjang</field>
+    </record>
+    <record id="location_72" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Pariaman</field>
+    </record>
+    <record id="location_73" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Payakumbuh</field>
+    </record>
+    <record id="location_74" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Sawahlunto</field>
+    </record>
+    <record id="location_75" model="location">
+        <field name="province" ref="base.state_id_sb"/>
+        <field name="states">Solok</field>
+    </record>
+    <record id="location_76" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Bengkalis</field>
+    </record>
+    <record id="location_77" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Indragiri Hilir</field>
+    </record>
+    <record id="location_78" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Indragiri Hulu</field>
+    </record>
+    <record id="location_79" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Kampar</field>
+    </record>
+    <record id="location_80" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Kepulauan Meranti</field>
+    </record>
+    <record id="location_81" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Kuantan Singingi</field>
+    </record>
+    <record id="location_82" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Pelalawan</field>
+    </record>
+    <record id="location_83" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Rokan Hilir</field>
+    </record>
+    <record id="location_84" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Rokan Hulu</field>
+    </record>
+    <record id="location_85" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Kab. Siak</field>
+    </record>
+    <record id="location_86" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Dumai</field>
+    </record>
+    <record id="location_87" model="location">
+        <field name="province" ref="base.state_id_ri"/>
+        <field name="states">Pekanbaru</field>
+    </record>
+    <record id="location_88" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Batanghari</field>
+    </record>
+    <record id="location_89" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Bungo</field>
+    </record>
+    <record id="location_90" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Kerinci</field>
+    </record>
+    <record id="location_91" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Merangin</field>
+    </record>
+    <record id="location_92" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Muaro Jambi</field>
+    </record>
+    <record id="location_93" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Sarolangun</field>
+    </record>
+    <record id="location_94" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Tanjung Jabung Barat</field>
+    </record>
+    <record id="location_95" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Tanjung Jabung Timur</field>
+    </record>
+    <record id="location_96" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Kab. Tebo</field>
+    </record>
+    <record id="location_97" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Jambi</field>
+    </record>
+    <record id="location_98" model="location">
+        <field name="province" ref="base.state_id_ja"/>
+        <field name="states">Sungai Penuh</field>
+    </record>
+    <record id="location_99" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Banyuasin</field>
+    </record>
+    <record id="location_100" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Empat Lawang</field>
+    </record>
+    <record id="location_101" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Lahat</field>
+    </record>
+    <record id="location_102" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Muara Enim</field>
+    </record>
+    <record id="location_103" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Musi Banyuasin</field>
+    </record>
+    <record id="location_104" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Musi Rawas</field>
+    </record>
+    <record id="location_105" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Musi Rawas Utara</field>
+    </record>
+    <record id="location_106" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Ogan Ilir</field>
+    </record>
+    <record id="location_107" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Ogan Komering Ilir</field>
+    </record>
+    <record id="location_108" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Ogan Komering Ulu</field>
+    </record>
+    <record id="location_109" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Ogan Komering Ulu Selatan</field>
+    </record>
+    <record id="location_110" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Ogan Komering Ulu Timur</field>
+    </record>
+    <record id="location_111" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Kab. Penukal Abab Lematang Ilir</field>
+    </record>
+    <record id="location_112" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Lubuklinggau</field>
+    </record>
+    <record id="location_113" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Pagar Alam</field>
+    </record>
+    <record id="location_114" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Palembang</field>
+    </record>
+    <record id="location_115" model="location">
+        <field name="province" ref="base.state_id_ss"/>
+        <field name="states">Prabumulih</field>
+    </record>
+    <record id="location_116" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Bengkulu Selatan</field>
+    </record>
+    <record id="location_117" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Bengkulu Tengah</field>
+    </record>
+    <record id="location_118" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Bengkulu Utara</field>
+    </record>
+    <record id="location_119" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Kaur</field>
+    </record>
+    <record id="location_120" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Kepahiang</field>
+    </record>
+    <record id="location_121" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Lebong</field>
+    </record>
+    <record id="location_122" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Mukomuko</field>
+    </record>
+    <record id="location_123" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Rejang Lebong</field>
+    </record>
+    <record id="location_124" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Kab. Seluma</field>
+    </record>
+    <record id="location_125" model="location">
+        <field name="province" ref="base.state_id_be"/>
+        <field name="states">Bengkulu</field>
+    </record>
+    <record id="location_126" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Lampung Barat</field>
+    </record>
+    <record id="location_127" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Lampung Selatan</field>
+    </record>
+    <record id="location_128" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Lampung Tengah</field>
+    </record>
+    <record id="location_129" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Lampung Timur</field>
+    </record>
+    <record id="location_130" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Lampung Utara</field>
+    </record>
+    <record id="location_131" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Mesuji</field>
+    </record>
+    <record id="location_132" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Pesawaran</field>
+    </record>
+    <record id="location_133" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Pesisir Barat</field>
+    </record>
+    <record id="location_134" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Pringsewu</field>
+    </record>
+    <record id="location_135" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Tanggamus</field>
+    </record>
+    <record id="location_136" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Tulang Bawang</field>
+    </record>
+    <record id="location_137" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Tulang Bawang Barat</field>
+    </record>
+    <record id="location_138" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Kab. Way Kanan</field>
+    </record>
+    <record id="location_139" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Bandar Lampung</field>
+    </record>
+    <record id="location_140" model="location">
+        <field name="province" ref="base.state_id_la"/>
+        <field name="states">Metro</field>
+    </record>
+    <record id="location_141" model="location">
+        <field name="province" ref="base.state_id_bb"/>
+        <field name="states">Kab. Bangka</field>
+    </record>
+    <record id="location_142" model="location">
+        <field name="province" ref="base.state_id_bb"/>
+        <field name="states">Kab. Bangka Barat</field>
+    </record>
+    <record id="location_143" model="location">
+        <field name="province" ref="base.state_id_bb"/>
+        <field name="states">Kab. Bangka Selatan</field>
+    </record>
+    <record id="location_144" model="location">
+        <field name="province" ref="base.state_id_bb"/>
+        <field name="states">Kab. Bangka Tengah</field>
+    </record>
+    <record id="location_145" model="location">
+        <field name="province" ref="base.state_id_bb"/>
+        <field name="states">Kab. Belitung</field>
+    </record>
+    <record id="location_146" model="location">
+        <field name="province" ref="base.state_id_bb"/>
+        <field name="states">Kab. Belitung Timur</field>
+    </record>
+    <record id="location_147" model="location">
+        <field name="province" ref="base.state_id_bb"/>
+        <field name="states">Pangkalpinang</field>
+    </record>
+    <record id="location_148" model="location">
+        <field name="province" ref="base.state_id_kr"/>
+        <field name="states">Kab. Bintan</field>
+    </record>
+    <record id="location_149" model="location">
+        <field name="province" ref="base.state_id_kr"/>
+        <field name="states">Kab. Karimun</field>
+    </record>
+    <record id="location_150" model="location">
+        <field name="province" ref="base.state_id_kr"/>
+        <field name="states">Kab. Kepulauan Anambas</field>
+    </record>
+    <record id="location_151" model="location">
+        <field name="province" ref="base.state_id_kr"/>
+        <field name="states">Kab. Lingga</field>
+    </record>
+    <record id="location_152" model="location">
+        <field name="province" ref="base.state_id_kr"/>
+        <field name="states">Kab. Natuna</field>
+    </record>
+    <record id="location_153" model="location">
+        <field name="province" ref="base.state_id_kr"/>
+        <field name="states">Batam</field>
+    </record>
+    <record id="location_154" model="location">
+        <field name="province" ref="base.state_id_kr"/>
+        <field name="states">Tanjungpinang</field>
+    </record>
+    <record id="location_155" model="location">
+        <field name="province" ref="base.state_id_jk"/>
+        <field name="states">Kab. Kepulauan Seribu</field>
+    </record>
+    <record id="location_156" model="location">
+        <field name="province" ref="base.state_id_jk"/>
+        <field name="states">Jakarta Barat</field>
+    </record>
+    <record id="location_157" model="location">
+        <field name="province" ref="base.state_id_jk"/>
+        <field name="states">Jakarta Pusat</field>
+    </record>
+    <record id="location_158" model="location">
+        <field name="province" ref="base.state_id_jk"/>
+        <field name="states">Jakarta Selatan</field>
+    </record>
+    <record id="location_159" model="location">
+        <field name="province" ref="base.state_id_jk"/>
+        <field name="states">Jakarta Timur</field>
+    </record>
+    <record id="location_160" model="location">
+        <field name="province" ref="base.state_id_jk"/>
+        <field name="states">Jakarta Utara</field>
+    </record>
+    <record id="location_161" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Bandung</field>
+    </record>
+    <record id="location_162" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Bandung Barat</field>
+    </record>
+    <record id="location_163" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Bekasi</field>
+    </record>
+    <record id="location_164" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Bogor</field>
+    </record>
+    <record id="location_165" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Ciamis</field>
+    </record>
+    <record id="location_166" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Cianjur</field>
+    </record>
+    <record id="location_167" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Cirebon</field>
+    </record>
+    <record id="location_168" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Garut</field>
+    </record>
+    <record id="location_169" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Indramayu</field>
+    </record>
+    <record id="location_170" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Karawang</field>
+    </record>
+    <record id="location_171" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Kuningan</field>
+    </record>
+    <record id="location_172" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Majalengka</field>
+    </record>
+    <record id="location_173" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Pangandaran</field>
+    </record>
+    <record id="location_174" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Purwakarta</field>
+    </record>
+    <record id="location_175" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Subang</field>
+    </record>
+    <record id="location_176" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Sukabumi</field>
+    </record>
+    <record id="location_177" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Sumedang</field>
+    </record>
+    <record id="location_178" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Kab. Tasikmalaya</field>
+    </record>
+    <record id="location_179" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Bandung</field>
+    </record>
+    <record id="location_180" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Banjar</field>
+    </record>
+    <record id="location_181" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Bekasi</field>
+    </record>
+    <record id="location_182" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Bogor</field>
+    </record>
+    <record id="location_183" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Cimahi</field>
+    </record>
+    <record id="location_184" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Cirebon</field>
+    </record>
+    <record id="location_185" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Depok</field>
+    </record>
+    <record id="location_186" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Sukabumi</field>
+    </record>
+    <record id="location_187" model="location">
+        <field name="province" ref="base.state_id_jb"/>
+        <field name="states">Tasikmalaya</field>
+    </record>
+    <record id="location_188" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Banjarnegara</field>
+    </record>
+    <record id="location_189" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Banyumas</field>
+    </record>
+    <record id="location_190" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Batang</field>
+    </record>
+    <record id="location_191" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Blora</field>
+    </record>
+    <record id="location_192" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Boyolali</field>
+    </record>
+    <record id="location_193" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Brebes</field>
+    </record>
+    <record id="location_194" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Cilacap</field>
+    </record>
+    <record id="location_195" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Demak</field>
+    </record>
+    <record id="location_196" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Grobogan</field>
+    </record>
+    <record id="location_197" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Jepara</field>
+    </record>
+    <record id="location_198" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Karanganyar</field>
+    </record>
+    <record id="location_199" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Kebumen</field>
+    </record>
+    <record id="location_200" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Kendal</field>
+    </record>
+    <record id="location_201" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Klaten</field>
+    </record>
+    <record id="location_202" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Kudus</field>
+    </record>
+    <record id="location_203" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Magelang</field>
+    </record>
+    <record id="location_204" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Pati</field>
+    </record>
+    <record id="location_205" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Pekalongan</field>
+    </record>
+    <record id="location_206" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Pemalang</field>
+    </record>
+    <record id="location_207" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Purbalingga</field>
+    </record>
+    <record id="location_208" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Purworejo</field>
+    </record>
+    <record id="location_209" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Rembang</field>
+    </record>
+    <record id="location_210" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Semarang</field>
+    </record>
+    <record id="location_211" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Sragen</field>
+    </record>
+    <record id="location_212" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Sukoharjo</field>
+    </record>
+    <record id="location_213" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Tegal</field>
+    </record>
+    <record id="location_214" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Temanggung</field>
+    </record>
+    <record id="location_215" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Wonogiri</field>
+    </record>
+    <record id="location_216" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Kab. Wonosobo</field>
+    </record>
+    <record id="location_217" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Magelang</field>
+    </record>
+    <record id="location_218" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Pekalongan</field>
+    </record>
+    <record id="location_219" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Salatiga</field>
+    </record>
+    <record id="location_220" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Semarang</field>
+    </record>
+    <record id="location_221" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Surakarta</field>
+    </record>
+    <record id="location_222" model="location">
+        <field name="province" ref="base.state_id_jt"/>
+        <field name="states">Tegal</field>
+    </record>
+    <record id="location_223" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Bangkalan</field>
+    </record>
+    <record id="location_224" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Banyuwangi</field>
+    </record>
+    <record id="location_225" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Blitar</field>
+    </record>
+    <record id="location_226" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Bojonegoro</field>
+    </record>
+    <record id="location_227" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Bondowoso</field>
+    </record>
+    <record id="location_228" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Gresik</field>
+    </record>
+    <record id="location_229" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Jember</field>
+    </record>
+    <record id="location_230" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Jombang</field>
+    </record>
+    <record id="location_231" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Kediri</field>
+    </record>
+    <record id="location_232" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Lamongan</field>
+    </record>
+    <record id="location_233" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Lumajang</field>
+    </record>
+    <record id="location_234" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Madiun</field>
+    </record>
+    <record id="location_235" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Magetan</field>
+    </record>
+    <record id="location_236" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Malang</field>
+    </record>
+    <record id="location_237" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Mojokerto</field>
+    </record>
+    <record id="location_238" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Nganjuk</field>
+    </record>
+    <record id="location_239" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Ngawi</field>
+    </record>
+    <record id="location_240" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Pacitan</field>
+    </record>
+    <record id="location_241" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Pamekasan</field>
+    </record>
+    <record id="location_242" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Pasuruan</field>
+    </record>
+    <record id="location_243" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Ponorogo</field>
+    </record>
+    <record id="location_244" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Probolinggo</field>
+    </record>
+    <record id="location_245" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Sampang</field>
+    </record>
+    <record id="location_246" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Sidoarjo</field>
+    </record>
+    <record id="location_247" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Situbondo</field>
+    </record>
+    <record id="location_248" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Sumenep</field>
+    </record>
+    <record id="location_249" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Trenggalek</field>
+    </record>
+    <record id="location_250" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Tuban</field>
+    </record>
+    <record id="location_251" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kab. Tulungagung</field>
+    </record>
+    <record id="location_252" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Batu</field>
+    </record>
+    <record id="location_253" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Blitar</field>
+    </record>
+    <record id="location_254" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Kediri</field>
+    </record>
+    <record id="location_255" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Madiun</field>
+    </record>
+    <record id="location_256" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Malang</field>
+    </record>
+    <record id="location_257" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Mojokerto</field>
+    </record>
+    <record id="location_258" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Pasuruan</field>
+    </record>
+    <record id="location_259" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Probolinggo</field>
+    </record>
+    <record id="location_260" model="location">
+        <field name="province" ref="base.state_id_ji"/>
+        <field name="states">Surabaya</field>
+    </record>
+    <record id="location_261" model="location">
+        <field name="province" ref="base.state_id_yo"/>
+        <field name="states">Kab. Bantul</field>
+    </record>
+    <record id="location_262" model="location">
+        <field name="province" ref="base.state_id_yo"/>
+        <field name="states">Kab. Gunungkidul</field>
+    </record>
+    <record id="location_263" model="location">
+        <field name="province" ref="base.state_id_yo"/>
+        <field name="states">Kab. Kulon Progo</field>
+    </record>
+    <record id="location_264" model="location">
+        <field name="province" ref="base.state_id_yo"/>
+        <field name="states">Kab. Sleman</field>
+    </record>
+    <record id="location_265" model="location">
+        <field name="province" ref="base.state_id_yo"/>
+        <field name="states">Yogyakarta</field>
+    </record>
+    <record id="location_266" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Kab. Lebak</field>
+    </record>
+    <record id="location_267" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Kab. Pandeglang</field>
+    </record>
+    <record id="location_268" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Kab. Serang</field>
+    </record>
+    <record id="location_269" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Kab. Tangerang</field>
+    </record>
+    <record id="location_270" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Cilegon</field>
+    </record>
+    <record id="location_271" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Serang</field>
+    </record>
+    <record id="location_272" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Tangerang</field>
+    </record>
+    <record id="location_273" model="location">
+        <field name="province" ref="base.state_id_bt"/>
+        <field name="states">Tangerang Selatan</field>
+    </record>
+    <record id="location_274" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Badung</field>
+    </record>
+    <record id="location_275" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Bangli</field>
+    </record>
+    <record id="location_276" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Buleleng</field>
+    </record>
+    <record id="location_277" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Gianyar</field>
+    </record>
+    <record id="location_278" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Jembrana</field>
+    </record>
+    <record id="location_279" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Karangasem</field>
+    </record>
+    <record id="location_280" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Klungkung</field>
+    </record>
+    <record id="location_281" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Kab. Tabanan</field>
+    </record>
+    <record id="location_282" model="location">
+        <field name="province" ref="base.state_id_ba"/>
+        <field name="states">Denpasar</field>
+    </record>
+    <record id="location_283" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Bima</field>
+    </record>
+    <record id="location_284" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Dompu</field>
+    </record>
+    <record id="location_285" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Lombok Barat</field>
+    </record>
+    <record id="location_286" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Lombok Tengah</field>
+    </record>
+    <record id="location_287" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Lombok Timur</field>
+    </record>
+    <record id="location_288" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Lombok Utara</field>
+    </record>
+    <record id="location_289" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Sumbawa</field>
+    </record>
+    <record id="location_290" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Kab. Sumbawa Barat</field>
+    </record>
+    <record id="location_291" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Bima</field>
+    </record>
+    <record id="location_292" model="location">
+        <field name="province" ref="base.state_id_nb"/>
+        <field name="states">Mataram</field>
+    </record>
+    <record id="location_293" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Alor</field>
+    </record>
+    <record id="location_294" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Belu</field>
+    </record>
+    <record id="location_295" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Ende</field>
+    </record>
+    <record id="location_296" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Flores Timur</field>
+    </record>
+    <record id="location_297" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Kupang</field>
+    </record>
+    <record id="location_298" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Lembata</field>
+    </record>
+    <record id="location_299" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Malaka</field>
+    </record>
+    <record id="location_300" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Manggarai</field>
+    </record>
+    <record id="location_301" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Manggarai Barat</field>
+    </record>
+    <record id="location_302" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Manggarai Timur</field>
+    </record>
+    <record id="location_303" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Nagekeo</field>
+    </record>
+    <record id="location_304" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Ngada</field>
+    </record>
+    <record id="location_305" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Rote Ndao</field>
+    </record>
+    <record id="location_306" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Sabu Raijua</field>
+    </record>
+    <record id="location_307" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Sikka</field>
+    </record>
+    <record id="location_308" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Sumba Barat</field>
+    </record>
+    <record id="location_309" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Sumba Barat Daya</field>
+    </record>
+    <record id="location_310" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Sumba Tengah</field>
+    </record>
+    <record id="location_311" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Sumba Timur</field>
+    </record>
+    <record id="location_312" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Timor Tengah Selatan</field>
+    </record>
+    <record id="location_313" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kab. Timor Tengah Utara</field>
+    </record>
+    <record id="location_314" model="location">
+        <field name="province" ref="base.state_id_nt"/>
+        <field name="states">Kupang</field>
+    </record>
+    <record id="location_315" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Bengkayang</field>
+    </record>
+    <record id="location_316" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Kapuas Hulu</field>
+    </record>
+    <record id="location_317" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Kayong Utara</field>
+    </record>
+    <record id="location_318" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Ketapang</field>
+    </record>
+    <record id="location_319" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Kubu Raya</field>
+    </record>
+    <record id="location_320" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Landak</field>
+    </record>
+    <record id="location_321" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Melawi</field>
+    </record>
+    <record id="location_322" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Mempawah</field>
+    </record>
+    <record id="location_323" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Sambas</field>
+    </record>
+    <record id="location_324" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Sanggau</field>
+    </record>
+    <record id="location_325" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Sekadau</field>
+    </record>
+    <record id="location_326" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Kab. Sintang</field>
+    </record>
+    <record id="location_327" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Pontianak</field>
+    </record>
+    <record id="location_328" model="location">
+        <field name="province" ref="base.state_id_kb"/>
+        <field name="states">Singkawang</field>
+    </record>
+    <record id="location_329" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Barito Selatan</field>
+    </record>
+    <record id="location_330" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Barito Timur</field>
+    </record>
+    <record id="location_331" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Barito Utara</field>
+    </record>
+    <record id="location_332" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Gunung Mas</field>
+    </record>
+    <record id="location_333" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Kapuas</field>
+    </record>
+    <record id="location_334" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Katingan</field>
+    </record>
+    <record id="location_335" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Kotawaringin Barat</field>
+    </record>
+    <record id="location_336" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Kotawaringin Timur</field>
+    </record>
+    <record id="location_337" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Lamandau</field>
+    </record>
+    <record id="location_338" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Murung Raya</field>
+    </record>
+    <record id="location_339" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Pulang Pisau</field>
+    </record>
+    <record id="location_340" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Sukamara</field>
+    </record>
+    <record id="location_341" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Kab. Seruyan</field>
+    </record>
+    <record id="location_342" model="location">
+        <field name="province" ref="base.state_id_kt"/>
+        <field name="states">Palangka Raya</field>
+    </record>
+    <record id="location_343" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Balangan</field>
+    </record>
+    <record id="location_344" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Banjar</field>
+    </record>
+    <record id="location_345" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Barito Kuala</field>
+    </record>
+    <record id="location_346" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Hulu Sungai Selatan</field>
+    </record>
+    <record id="location_347" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Hulu Sungai Tengah</field>
+    </record>
+    <record id="location_348" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Hulu Sungai Utara</field>
+    </record>
+    <record id="location_349" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Kotabaru</field>
+    </record>
+    <record id="location_350" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Tabalong</field>
+    </record>
+    <record id="location_351" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Tanah Bumbu</field>
+    </record>
+    <record id="location_352" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Tanah Laut</field>
+    </record>
+    <record id="location_353" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Kab. Tapin</field>
+    </record>
+    <record id="location_354" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Banjarbaru</field>
+    </record>
+    <record id="location_355" model="location">
+        <field name="province" ref="base.state_id_ks"/>
+        <field name="states">Banjarmasin</field>
+    </record>
+    <record id="location_356" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Kab. Berau</field>
+    </record>
+    <record id="location_357" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Kab. Kutai Barat</field>
+    </record>
+    <record id="location_358" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Kab. Kutai Kartanegara</field>
+    </record>
+    <record id="location_359" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Kab. Kutai Timur</field>
+    </record>
+    <record id="location_360" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Kab. Mahakam Ulu</field>
+    </record>
+    <record id="location_361" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Kab. Paser</field>
+    </record>
+    <record id="location_362" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Kab. Penajam Paser Utara</field>
+    </record>
+    <record id="location_363" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Balikpapan</field>
+    </record>
+    <record id="location_364" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Bontang</field>
+    </record>
+    <record id="location_365" model="location">
+        <field name="province" ref="base.state_id_ki"/>
+        <field name="states">Samarinda</field>
+    </record>
+    <record id="location_366" model="location">
+        <field name="province" ref="base.state_id_ku"/>
+        <field name="states">Kab. Bulungan</field>
+    </record>
+    <record id="location_367" model="location">
+        <field name="province" ref="base.state_id_ku"/>
+        <field name="states">Kab. Malinau</field>
+    </record>
+    <record id="location_368" model="location">
+        <field name="province" ref="base.state_id_ku"/>
+        <field name="states">Kab. Nunukan</field>
+    </record>
+    <record id="location_369" model="location">
+        <field name="province" ref="base.state_id_ku"/>
+        <field name="states">Kab. Tana Tidung</field>
+    </record>
+    <record id="location_370" model="location">
+        <field name="province" ref="base.state_id_ku"/>
+        <field name="states">Tarakan</field>
+    </record>
+    <record id="location_371" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Bolaang Mongondow</field>
+    </record>
+    <record id="location_372" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Bolaang Mongondow Selatan</field>
+    </record>
+    <record id="location_373" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Bolaang Mongondow Timur</field>
+    </record>
+    <record id="location_374" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Bolaang Mongondow Utara</field>
+    </record>
+    <record id="location_375" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Kepulauan Sangihe</field>
+    </record>
+    <record id="location_376" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Kepulauan Siau Tagulandang Biaro</field>
+    </record>
+    <record id="location_377" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Kepulauan Talaud</field>
+    </record>
+    <record id="location_378" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Minahasa</field>
+    </record>
+    <record id="location_379" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Minahasa Selatan</field>
+    </record>
+    <record id="location_380" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Minahasa Tenggara</field>
+    </record>
+    <record id="location_381" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kab. Minahasa Utara</field>
+    </record>
+    <record id="location_382" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Bitung</field>
+    </record>
+    <record id="location_383" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Kotamobagu</field>
+    </record>
+    <record id="location_384" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Manado</field>
+    </record>
+    <record id="location_385" model="location">
+        <field name="province" ref="base.state_id_sa"/>
+        <field name="states">Tomohon</field>
+    </record>
+    <record id="location_386" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Banggai</field>
+    </record>
+    <record id="location_387" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Banggai Kepulauan</field>
+    </record>
+    <record id="location_388" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Banggai Laut</field>
+    </record>
+    <record id="location_389" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Buol</field>
+    </record>
+    <record id="location_390" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Donggala</field>
+    </record>
+    <record id="location_391" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Morowali</field>
+    </record>
+    <record id="location_392" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Morowali Utara</field>
+    </record>
+    <record id="location_393" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Parigi Moutong</field>
+    </record>
+    <record id="location_394" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Poso</field>
+    </record>
+    <record id="location_395" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Sigi</field>
+    </record>
+    <record id="location_396" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Tojo Una-Una</field>
+    </record>
+    <record id="location_397" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Kab. Tolitoli</field>
+    </record>
+    <record id="location_398" model="location">
+        <field name="province" ref="base.state_id_st"/>
+        <field name="states">Palu</field>
+    </record>
+    <record id="location_399" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Bantaeng</field>
+    </record>
+    <record id="location_400" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Barru</field>
+    </record>
+    <record id="location_401" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Bone</field>
+    </record>
+    <record id="location_402" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Bulukumba</field>
+    </record>
+    <record id="location_403" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Enrekang</field>
+    </record>
+    <record id="location_404" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Gowa</field>
+    </record>
+    <record id="location_405" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Jeneponto</field>
+    </record>
+    <record id="location_406" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Kepulauan Selayar</field>
+    </record>
+    <record id="location_407" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Luwu</field>
+    </record>
+    <record id="location_408" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Luwu Timur</field>
+    </record>
+    <record id="location_409" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Luwu Utara</field>
+    </record>
+    <record id="location_410" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Maros</field>
+    </record>
+    <record id="location_411" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Pangkajene dan Kepulauan</field>
+    </record>
+    <record id="location_412" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Pinrang</field>
+    </record>
+    <record id="location_413" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Sidenreng Rappang</field>
+    </record>
+    <record id="location_414" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Sinjai</field>
+    </record>
+    <record id="location_415" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Soppeng</field>
+    </record>
+    <record id="location_416" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Takalar</field>
+    </record>
+    <record id="location_417" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Tana Toraja</field>
+    </record>
+    <record id="location_418" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Toraja Utara</field>
+    </record>
+    <record id="location_419" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Kab. Wajo</field>
+    </record>
+    <record id="location_420" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Makassar</field>
+    </record>
+    <record id="location_421" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Palopo</field>
+    </record>
+    <record id="location_422" model="location">
+        <field name="province" ref="base.state_id_sn"/>
+        <field name="states">Parepare</field>
+    </record>
+    <record id="location_423" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Bombana</field>
+    </record>
+    <record id="location_424" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Buton</field>
+    </record>
+    <record id="location_425" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Buton Selatan</field>
+    </record>
+    <record id="location_426" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Buton Tengah</field>
+    </record>
+    <record id="location_427" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Buton Utara</field>
+    </record>
+    <record id="location_428" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Kolaka</field>
+    </record>
+    <record id="location_429" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Kolaka Timur</field>
+    </record>
+    <record id="location_430" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Kolaka Utara</field>
+    </record>
+    <record id="location_431" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Konawe</field>
+    </record>
+    <record id="location_432" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Konawe Kepulauan</field>
+    </record>
+    <record id="location_433" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Konawe Selatan</field>
+    </record>
+    <record id="location_434" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Konawe Utara</field>
+    </record>
+    <record id="location_435" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Muna</field>
+    </record>
+    <record id="location_436" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Muna Barat</field>
+    </record>
+    <record id="location_437" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kab. Wakatobi</field>
+    </record>
+    <record id="location_438" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Baubau</field>
+    </record>
+    <record id="location_439" model="location">
+        <field name="province" ref="base.state_id_sg"/>
+        <field name="states">Kendari</field>
+    </record>
+    <record id="location_440" model="location">
+        <field name="province" ref="base.state_id_go"/>
+        <field name="states">Kab. Boalemo</field>
+    </record>
+    <record id="location_441" model="location">
+        <field name="province" ref="base.state_id_go"/>
+        <field name="states">Kab. Bone Bolango</field>
+    </record>
+    <record id="location_442" model="location">
+        <field name="province" ref="base.state_id_go"/>
+        <field name="states">Kab. Gorontalo</field>
+    </record>
+    <record id="location_443" model="location">
+        <field name="province" ref="base.state_id_go"/>
+        <field name="states">Kab. Gorontalo Utara</field>
+    </record>
+    <record id="location_444" model="location">
+        <field name="province" ref="base.state_id_go"/>
+        <field name="states">Kab. Pohuwato</field>
+    </record>
+    <record id="location_445" model="location">
+        <field name="province" ref="base.state_id_go"/>
+        <field name="states">Gorontalo</field>
+    </record>
+    <record id="location_446" model="location">
+        <field name="province" ref="base.state_id_sr"/>
+        <field name="states">Kab. Majene</field>
+    </record>
+    <record id="location_447" model="location">
+        <field name="province" ref="base.state_id_sr"/>
+        <field name="states">Kab. Mamasa</field>
+    </record>
+    <record id="location_448" model="location">
+        <field name="province" ref="base.state_id_sr"/>
+        <field name="states">Kab. Mamuju</field>
+    </record>
+    <record id="location_449" model="location">
+        <field name="province" ref="base.state_id_sr"/>
+        <field name="states">Kab. Mamuju Tengah</field>
+    </record>
+    <record id="location_450" model="location">
+        <field name="province" ref="base.state_id_sr"/>
+        <field name="states">Kab. Pasangkayu</field>
+    </record>
+    <record id="location_451" model="location">
+        <field name="province" ref="base.state_id_sr"/>
+        <field name="states">Kab. Polewali Mandar</field>
+    </record>
+    <record id="location_452" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Buru</field>
+    </record>
+    <record id="location_453" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Buru Selatan</field>
+    </record>
+    <record id="location_454" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Kepulauan Aru</field>
+    </record>
+    <record id="location_455" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Kepulauan Tanimbar</field>
+    </record>
+    <record id="location_456" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Maluku Barat Daya</field>
+    </record>
+    <record id="location_457" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Maluku Tengah</field>
+    </record>
+    <record id="location_458" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Maluku Tenggara</field>
+    </record>
+    <record id="location_459" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Seram Bagian Barat</field>
+    </record>
+    <record id="location_460" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Kab. Seram Bagian Timur</field>
+    </record>
+    <record id="location_461" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Ambon</field>
+    </record>
+    <record id="location_462" model="location">
+        <field name="province" ref="base.state_id_ma"/>
+        <field name="states">Tual</field>
+    </record>
+    <record id="location_463" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Halmahera Barat</field>
+    </record>
+    <record id="location_464" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Halmahera Tengah</field>
+    </record>
+    <record id="location_465" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Halmahera Timur</field>
+    </record>
+    <record id="location_466" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Halmahera Selatan</field>
+    </record>
+    <record id="location_467" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Halmahera Utara</field>
+    </record>
+    <record id="location_468" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Kepulauan Sula</field>
+    </record>
+    <record id="location_469" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Pulau Morotai</field>
+    </record>
+    <record id="location_470" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Kab. Pulau Taliabu</field>
+    </record>
+    <record id="location_471" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Ternate</field>
+    </record>
+    <record id="location_472" model="location">
+        <field name="province" ref="base.state_id_mu"/>
+        <field name="states">Tidore Kepulauan</field>
+    </record>
+    <record id="location_473" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Biak Numfor</field>
+    </record>
+    <record id="location_474" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Jayapura</field>
+    </record>
+    <record id="location_475" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Keerom</field>
+    </record>
+    <record id="location_476" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Kepulauan Yapen</field>
+    </record>
+    <record id="location_477" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Mamberamo Raya</field>
+    </record>
+    <record id="location_478" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Sarmi</field>
+    </record>
+    <record id="location_479" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Supiori</field>
+    </record>
+    <record id="location_480" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Kab. Waropen</field>
+    </record>
+    <record id="location_481" model="location">
+        <field name="province" ref="base.state_id_pa"/>
+        <field name="states">Jayapura</field>
+    </record>
+    <record id="location_482" model="location">
+        <field name="province" ref="base.state_id_pb"/>
+        <field name="states">Kab. Fakfak</field>
+    </record>
+    <record id="location_483" model="location">
+        <field name="province" ref="base.state_id_pb"/>
+        <field name="states">Kab. Kaimana</field>
+    </record>
+    <record id="location_484" model="location">
+        <field name="province" ref="base.state_id_pb"/>
+        <field name="states">Kab. Manokwari</field>
+    </record>
+    <record id="location_485" model="location">
+        <field name="province" ref="base.state_id_pb"/>
+        <field name="states">Kab. Manokwari Selatan</field>
+    </record>
+    <record id="location_486" model="location">
+        <field name="province" ref="base.state_id_pb"/>
+        <field name="states">Kab. Pegunungan Arfak</field>
+    </record>
+    <record id="location_487" model="location">
+        <field name="province" ref="base.state_id_pb"/>
+        <field name="states">Kab. Teluk Bintuni</field>
+    </record>
+    <record id="location_488" model="location">
+        <field name="province" ref="base.state_id_pb"/>
+        <field name="states">Kab. Teluk Wondama</field>
+    </record>
+    <record id="location_489" model="location">
+        <field name="province" ref="base.state_id_ps"/>
+        <field name="states">Kab. Asmat</field>
+    </record>
+    <record id="location_490" model="location">
+        <field name="province" ref="base.state_id_ps"/>
+        <field name="states">Kab. Boven Digoel</field>
+    </record>
+    <record id="location_491" model="location">
+        <field name="province" ref="base.state_id_ps"/>
+        <field name="states">Kab. Mappi</field>
+    </record>
+    <record id="location_492" model="location">
+        <field name="province" ref="base.state_id_ps"/>
+        <field name="states">Kab. Merauke</field>
+    </record>
+    <record id="location_493" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Deiyai</field>
+    </record>
+    <record id="location_494" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Dogiyai</field>
+    </record>
+    <record id="location_495" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Intan Jaya</field>
+    </record>
+    <record id="location_496" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Mimika</field>
+    </record>
+    <record id="location_497" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Nabire</field>
+    </record>
+    <record id="location_498" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Paniai</field>
+    </record>
+    <record id="location_499" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Puncak</field>
+    </record>
+    <record id="location_500" model="location">
+        <field name="province" ref="base.state_id_pt"/>
+        <field name="states">Kab. Puncak Jaya</field>
+    </record>
+    <record id="location_501" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Jayawijaya</field>
+    </record>
+    <record id="location_502" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Lanny Jaya</field>
+    </record>
+    <record id="location_503" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Mamberamo Tengah</field>
+    </record>
+    <record id="location_504" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Nduga</field>
+    </record>
+    <record id="location_505" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Pegunungan Bintang</field>
+    </record>
+    <record id="location_506" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Tolikara</field>
+    </record>
+    <record id="location_507" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Yalimo</field>
+    </record>
+    <record id="location_508" model="location">
+        <field name="province" ref="base.state_id_pp"/>
+        <field name="states">Kab. Yahukimo</field>
+    </record>
+    <!-- <record id="location_509" model="location">
+        <field name="province" ref="base.state_id_pd"/>
+        <field name="states">Kab. Maybrat</field>
+    </record>
+    <record id="location_510" model="location">
+        <field name="province" ref="base.state_id_pd"/>
+        <field name="states">Kab. Raja Ampat</field>
+    </record>
+    <record id="location_511" model="location">
+        <field name="province" ref="base.state_id_pd"/>
+        <field name="states">Kab. Sorong</field>
+    </record>
+    <record id="location_512" model="location">
+        <field name="province" ref="base.state_id_pd"/>
+        <field name="states">Kab. Sorong Selatan</field>
+    </record>
+    <record id="location_513" model="location">
+        <field name="province" ref="base.state_id_pd"/>
+        <field name="states">Kab. Tambrauw</field>
+    </record>
+    <record id="location_514" model="location">
+        <field name="province" ref="base.state_id_pd"/>
+        <field name="states">Sorong</field>
+    </record>                                  -->
+</odoo>

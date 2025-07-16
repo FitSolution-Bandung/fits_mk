@@ -1,0 +1,32 @@
+<odoo>
+    <record id="riskscale_1" model="risk.scale">
+        <field name="name">Very Low</field>
+        <field name="scale_from">1</field>
+        <field name="scale_to">2</field>
+        <field name="description">Risiko dengan tingkat yang sangat rendah karena memiliki dampak yang sangat kecil atau tidak signifikan serta kemungkinan terjadinya sangat jarang atau hampir tidak mungkin terjadi.</field>
+    </record>
+    <record id="riskscale_2" model="risk.scale">
+        <field name="name">Low</field>
+        <field name="scale_from">3</field>
+        <field name="scale_to">6</field>
+        <field name="description">Risiko dengan tingkat rendah karena memiliki dampak yang kecil atau tidak signifikan dan kemungkinan terjadinya sangat jarang (very low)</field>
+    </record>
+    <record id="riskscale_3" model="risk.scale">
+        <field name="name">Medium</field>
+        <field name="scale_from">7</field>
+        <field name="scale_to">12</field>
+        <field name="description">Risiko dengan tingkat sedang karena memiliki dampak yang sedang hingga signifikan dan kemungkinan terjadinya jarang (low) sampai sangat mungkin (high)</field>
+    </record>
+    <record id="riskscale_4" model="risk.scale">
+        <field name="name">High</field>
+        <field name="scale_from">13</field>
+        <field name="scale_to">16</field>
+        <field name="description">Risiko dengan tingkat tinggi karena memiliki dampak yang sangat signifikan dan kemungkinan terjadinya sangat mungkin (high)</field>
+    </record>
+    <record id="riskscale_5" model="risk.scale">
+        <field name="name">Very High</field>
+        <field name="scale_from">17</field>
+        <field name="scale_to">25</field>
+        <field name="description">Risiko dengan tingkat yang sangat tinggi karena memiliki dampak yang sangat besar atau kritis dan kemungkinan terjadinya hampir pasti atau sangat sering terjadi.</field>
+    </record>
+</odoo>

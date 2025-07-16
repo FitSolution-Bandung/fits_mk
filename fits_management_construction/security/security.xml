@@ -1,0 +1,28 @@
+<odoo> 
+    <data>
+        <record id="module_category_management_construction" model="ir.module.category">
+            <field name="name">Management Construction</field>
+            <field name="sequence">10</field>
+            <field name="parent_id" ref="base.module_category_services"/>
+            <!-- <field name="description">Aapasd</field> -->
+        </record>
+        
+        <record id="group_management_construction_owner" model="res.groups">
+            <field name="name">Owner</field>
+            <field name="category_id" ref="module_category_management_construction"/>
+        </record>
+
+        <record id="group_management_construction_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_management_construction"/>
+            <field name="implied_ids" eval="[(6, 0, [ref('group_management_construction_owner')])]"/>
+        </record>
+
+        <record id="group_management_construction_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_category_management_construction"/>
+            <field name="implied_ids" eval="[(6, 0, [ref('group_management_construction_user')])]"/>
+        </record>
+
+    </data>
+</odoo>

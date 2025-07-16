@@ -1,0 +1,22 @@
+<odoo>
+    <record id="risktype_1" model="risk.mitigation.type">
+        <field name="name">Risk Avoidance</field>
+        <field name="description">Menghindari risiko sepenuhnya dengan mengambil tindakan yang mencegah terjadinya risiko tersebut.</field>
+    </record>
+    <record id="risktype_2" model="risk.mitigation.type">
+        <field name="name">Risk Transfer</field>
+        <field name="description">Mengalihkan risiko kepada pihak ketiga seperti perusahaan asuransi atau mitra bisnis, yang akan mengambil risiko tersebut dan bertanggung jawab atas dampaknya.</field>
+    </record>
+    <record id="risktype_3" model="risk.mitigation.type">
+        <field name="name">Risk Reduction</field>
+        <field name="description">Mengurangi kemungkinan terjadinya risiko atau dampak risiko dengan mengambil tindakan yang dapat membatasi atau mengurangi risiko.</field>
+    </record>
+    <record id="risktype_4" model="risk.mitigation.type">
+        <field name="name">Risk Acceptance</field>
+        <field name="description">Menerima risiko dan dampaknya jika terjadi, karena risiko tersebut sudah dalam batas yang dapat diterima atau tidak mungkin untuk dihindari, dialihkan, atau dikurangi.</field>
+    </record>
+    <record id="risktype_5" model="risk.mitigation.type">
+        <field name="name">Risk Acceptance (Positive Risk)</field>
+        <field name="description">Menerima risiko yang memiliki potensi positif, seperti kesempatan bisnis atau keuntungan yang besar, dengan mengambil tindakan yang dapat memaksimalkan potensi tersebut dan mengurangi dampak negatifnya jika terjadi.</field>
+    </record>
+</odoo>

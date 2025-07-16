@@ -1,0 +1,76 @@
+<odoo>
+    <record model="ir.ui.view" id="view_defect_list_tree">
+        <field name="name">defect.list.tree</field>
+        <field name="model">defect.list</field>
+        <field name="arch" type="xml">
+            <tree string="Defect List">
+                <field name="name_project"/>
+                <field name="package"/>
+                <field name="inspection_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_defect_list_form">
+        <field name="name">defect.list.form</field>
+        <field name="model">defect.list</field>
+        <field name="arch" type="xml">
+            <form string="Defect List">
+                <header>
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight"
+                    invisible="status != 'draft'" groups="fits_management_construction.group_management_construction_manager"/>
+
+                    <button string="Cancelled" name="action_canceled" type="object" class="oe_highlight"
+                            invisible="status != 'confirm'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <button string="Set To Draft" name="action_draft" type="object" class="oe_highlight"
+                            invisible="status != 'cancelled'" groups="fits_management_construction.group_management_construction_manager"
+                    />
+                    <field name="status" widget="statusbar" options="{'clickable': 1}"
+                        statusbar_visible="draft,confirm,cancelled" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                invisible="active == True"/>
+                    <group name="header">
+                        <group>
+                            <field name="name_project" readonly="status != 'draft'"/>
+                            <field name="package" readonly="status != 'draft'"/>
+                            <field name="name_contractor" readonly="status != 'draft'"/>                    
+                            <field name="name_consultant" readonly="status != 'draft'"/>                    
+                        </group>
+                        <group>
+                            <field name="province" readonly="status != 'draft'"/>                   
+                            <field name="city" readonly="status != 'draft'"/>                   
+                            <field name="inspection_date" readonly="status != 'draft'"/>                   
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Defect List">
+                            <field name="defect_list_ids" readonly="status != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="name_items"/>    
+                                    <field name="no_room"/>
+                                    <field name="condition"/>
+                                    <field name="img_condition" widget="image"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form> 
+        </field>
+    </record>
+    <record id="action_defect_form" model="ir.actions.act_window">
+        <field name="name">Defect List</field>
+        <field name="res_model">defect.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_defect_form" parent="menu_root_additional_form" action="action_defect_form" sequence="1"/>
+</odoo>

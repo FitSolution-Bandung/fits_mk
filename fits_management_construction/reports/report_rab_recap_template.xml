@@ -1,0 +1,188 @@
+<odoo>
+    <data>
+
+        <record id="action_report_rab_recap" model="ir.actions.report">
+            <field name="name">RAB Recap Report</field>
+            <field name="model">budget.plan</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">fits_management_construction.report_rab_recap_template</field>
+            <field name="report_file">fits_management_construction.report_rab_recap_template</field>
+            <field name="binding_model_id" ref="model_budget_plan"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_rab_landscape"/>
+        </record>
+        
+        <template id="report_rab_recap_template" name="RAB Recap Template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <style>
+                                body{
+                                    font-family: Arial;
+                                    font-size: 14px;
+                                }
+                                .table-bordered {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                    margin-top: 20px;
+                                }
+                                .table-bordered th,
+                                .table-bordered td {
+                                    border: 1px solid black;
+                                    padding: 8px;
+                                    vertical-align: top;
+                                }
+
+                                .table-spec{
+                                    vertical-align: top;
+                                    text-align: center;
+                                }
+                            </style>
+                            <div style="text-align: center;">
+                                <h3>Rekapitulasi Rencana Anggaran Biaya</h3>
+                                <p><strong>Proyek <t t-esc="doc.project.display_name"/></strong></p>
+                            </div>
+            
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th rowspan="2">NO</th>
+                                        <th rowspan="2">KEGIATAN</th>
+                                        <th>SUB TOTAL</th>
+                                        <th>SUB TOTAL</th>
+                                        <th>SUB TOTAL</th>
+                                        <th rowspan="2">TOTAL</th>
+                                    </tr>
+                                    <tr style="text-align: center;">
+                                        <th>BAHAN</th>
+                                        <th>PERALATAN</th>
+                                        <th>UPAH KERJA</th>
+                                    </tr>
+                                    <tr class="table-spec">
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6=3+4+5</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="categories" t-value="doc.rab_mk_ids.mapped('wbs.wbs_category').filtered(lambda c: c)"/>
+                                    <t t-foreach="categories" t-as="category">
+                                        <!-- Menghitung total per kategori -->
+                                        <t t-set="category_lines" t-value="doc.rab_mk_ids.filtered(lambda l: l.wbs.wbs_category.id == category.id)"/>
+                                        
+                                        <!-- Sum material, equipment, and wages per category with volume applied -->
+                                        <t t-set="sum_material" t-value="sum(line.material * line.volume for line in category_lines)"/>
+                                        <t t-set="sum_equipment" t-value="sum(line.equipment * line.volume for line in category_lines)"/>
+                                        <t t-set="sum_wages" t-value="sum(line.wages * line.volume for line in category_lines)"/>
+                                        <t t-set="sum_total" t-value="sum_material + sum_equipment + sum_wages"/>
+
+                                        <tr>
+                                            <td style="text-align: center;"><t t-esc="category.code"/></td>
+                                            <td><t t-esc="category.display_name"/></td>
+                                            <td style="text-align: right;">Rp. <t t-esc="sum_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;">Rp. <t t-esc="sum_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align: right;">Rp. <t t-esc="sum_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align: right;">Rp. <t t-esc="sum_total" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;"><strong>Jumlah I</strong></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.total_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.total_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.total_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.total_price" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+
+                                    <!-- perlu dibuat tampungan perhitungan -->
+                                    <t t-set="selisih_equip_1" t-value="doc.profit_equipment + doc.total_equipment"/>
+                                    <t t-set="selisih_material_1" t-value="doc.profit_material + doc.total_material"/>
+                                    <t t-set="selisih_wages_1" t-value="doc.profit_wages + doc.total_wages"/>
+                                    <t t-set="selisih_total_1" t-value="selisih_equip_1 + selisih_material_1 + selisih_wages_1"/>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;">
+                                            <strong>
+                                                Keuntungan 
+                                                <t t-if="doc.profit is not None">
+                                                    <t t-esc="int(doc.profit)"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-esc="1"/>
+                                                </t>%
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.profit_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.profit_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.profit_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.profit_total" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;"><strong>Jumlah II</strong></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_profit_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_profit_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_profit_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_profit_total" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;">
+                                            <strong>
+                                                Pajak 
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.total_tax_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.total_tax_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.total_tax_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <t t-set="total_tax_all" t-value="doc.total_tax_material + doc.total_tax_equipment + doc.total_tax_wages"/>
+                                        <td style="text-align: right;">Rp. <t t-esc="total_tax_all" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;"><strong>Jumlah III</strong></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_tax_material" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_tax_equipment" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_tax_wages" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align: right;">Rp. <t t-esc="doc.selisih_tax_total" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+
+                                    <!-- aman -->
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;"><strong>Dibulatkan</strong></td>
+                                        <td style="text-align: right;"><strong>Rp. <t t-esc="doc.sum_material" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td style="text-align: right;"><strong>Rp. <t t-esc="doc.sum_equipment" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td style="text-align: right;"><strong>Rp. <t t-esc="doc.sum_wages" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td style="text-align: right;"><strong>Rp. <t t-esc="doc.sum_total" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                    </tr>
+
+                                    <!-- perlu dibuat converter -->
+                                    <t t-set="equip_percent_rounded" t-value="(doc.sum_equipment /  doc.sum_total) * 100"/>
+                                    <t t-set="material_percent_rounded" t-value="(doc.sum_material / doc.sum_total) * 100"/>
+                                    <t t-set="wages_percent_rounded" t-value="(doc.sum_wages / doc.sum_total) * 100"/>
+                                    
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;"><strong>%</strong></td>
+                                        <td style="text-align: right;"><strong><t t-esc="material_percent_rounded" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td style="text-align: right;"><strong><t t-esc="equip_percent_rounded" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td style="text-align: right;"><strong><t t-esc="wages_percent_rounded" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

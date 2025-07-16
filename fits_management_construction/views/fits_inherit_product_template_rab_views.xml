@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_inherit_product_template_form">
+            <field name="name">inherit.product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_view_unit_price_analysis"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-calculator"
+                            invisible="not rab_category">
+                        <field name="unit_price_analysis_count" widget="statinfo" string="AHS"/>
+                    </button>
+                    <button name="action_view_wbs"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-folder-o"
+                            invisible="rab_category">
+                        <field name="wbs_count" widget="statinfo" string="WBS"/>
+                    </button>
+                </xpath>
+                <xpath expr="//form/sheet/div[@name='options']" position="inside">
+                    <span class="d-inline-block">
+                        <field name="is_rab"/>
+                        <label for="is_rab"/>
+                    </span>
+                </xpath>
+                <field name="categ_id" position="after">
+                    <field name="rab_category" invisible="is_rab != True"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
