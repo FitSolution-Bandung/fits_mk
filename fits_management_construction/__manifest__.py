@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Construction Management Indonesia",
-
     'summary': "Addon Manajemen Konstruksi yang bisa diterapkan di Indonesia mencakup pekerjaan perencanaan, pelaksanaan, dan pemeliharaan",
-
     'author': "PT Fujicon Priangan Perdana",
-    'website': "https://erp.fujicon-japan.com/",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
+    'website': "https://fujicon-japan.com/",
+    'sequence': -100,
+    'images': ['images/simako.gif'],
+    'version': '17.0.0.0.1',
+    'price': 653.00,
+    'currency': 'USD',
+    'license': 'AGPL-3',
     'category': 'Services',
-    # 'version': '0.1',
-
-    # any module necessary for this one to work correctly
     'depends': ['base','hr','contacts','project','stock', 'sale_management', 'hr_attendance',
                 'web', 'base_setup', 'web_editor', 'product', 'purchase', 'sale_project', 'sale_management'],
     'assets': {
@@ -27,16 +24,10 @@
         'web.assets_frontend': [
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
         ],
-        # 'web_editor.backend_assets_wysiwyg': [
-        #     'fits_management_construction/static/src/js/wysiwyg/**/*',
-        #     'https://cdn.jsdelivr.net/npm/showdown/dist/showdown.js'
-        # ],
-        # 'web_editor.assets_wysiwyg': [
-        #     'fits_management_construction/static/lib/showdown.js',
-        # ]
+        
     },
 
-    # always loaded
+    
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -60,7 +51,6 @@
         'data/masterdata/risk_mitigation_type_data.xml',
         'data/masterdata/risk_scale_data.xml',
         'data/masterdata/location_data.xml',
-        # 'data/masterdata/res_user_data.xml',
         'reports/report_risk_mitigation_template.xml',
         'reports/report_stakeholder_analysis_template.xml',
         'reports/report_health_safety_environment_template.xml',
@@ -86,7 +76,6 @@
         'reports/report_supervision_form_template.xml',
         'reports/report_weather_monitoring_template.xml',
         'reports/report_final_submission_template.xml',
-        # 'reports/report_bills_of_materials.xml',
         'views/fits_management_construction_menu_views.xml',
         'views/fits_analysis_risk_mitigation_views.xml',
         'views/fits_health_safety_environment_views.xml',
@@ -103,7 +92,6 @@
         'views/fits_inherit_project_manpower_absensi_views.xml',
         'views/fits_inherit_rfq_views.xml',
         'views/fits_inherit_resconfig_setting_views.xml',
-        # 'views/fits_inherit_project_template_absensi_views.xml',
         'views/fits_inherit_attendances_template_views.xml',
         'views/fits_inherit_hr_employee_views.xml',
         'views/fits_inherit_sale_order_views.xml',
@@ -117,10 +105,6 @@
         'views/fits_goods_submission_form_views.xml',
         'views/fits_nonconformance_report_form_views.xml',
         'views/fits_project_curve_s_views.xml',
-        # 'views/fits_project_curve_s_templates.xml',
-        # 'static/src/xml/fits_project_curve_s_templates.xml',
-        # 'views/assets.xml',
-        # 'views/fits_project_curve_s_tgitemplates.xml',
         'views/fits_document_inoutbond_views.xml',
         'views/fits_feasibility_inspection_document_views.xml',
         'views/fits_work_correction_views.xml',
@@ -131,15 +115,12 @@
         'views/fits_supervision_views.xml',
         'views/fits_weather_monitoring_views.xml',
         'views/fits_final_submission_views.xml',
-        # 'views/fits_inherit_res_user_views.xml',
-        # 'views/fits_bills_of_materials_views.xml',
     ],
     'controllers': [ 
         'controllers/unit_price_data_api.py',
         'controllers/fits_project_curve_s_controller.py',
         'controllers/fits_daily_report_pdf.py'
     ],
-    # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
