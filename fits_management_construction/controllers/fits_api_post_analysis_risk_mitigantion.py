@@ -4,7 +4,7 @@ import json
 
 class AnalysisRiskMitigationAPI(http.Controller):
 
-    @http.route('/api/analysis_risk_mitigation', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/analysis_risk_mitigation', type='json', auth='user', methods=['POST'], csrf=False)
     def create_analysis_risk_mitigation(self, **kwargs):
         try:
             # Extract the required data from the POST request
@@ -55,7 +55,7 @@ class AnalysisRiskMitigationAPI(http.Controller):
                 })
 
             # Create the analysis.risk.mitigation record
-            analysis = request.env['analysis.risk.mitigation'].sudo().create({
+            analysis = request.env['analysis.risk.mitigation'].create({
                 'name': name,
                 'risk_mitigation_ids': [(0, 0, rm) for rm in risk_mitigation_data],
                 'field_conditions_ids': [(0, 0, fc) for fc in field_conditions_ids],

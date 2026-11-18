@@ -3,10 +3,13 @@ from odoo.http import request
 import base64
 
 class StakeholderAnalysisController(http.Controller):
-    @http.route('/download/stakeholder_analysis_excel/<int:record_id>', type='http', auth="public", csrf=False)
+    @http.route('/download/stakeholder_analysis_excel/<int:record_id>', type='http', auth="user")
     def download_stakeholder_analysis_excel(self, record_id, **kwargs):
-        record = request.env['stakeholder.analysis'].browse(record_id)
-        if not record or not record.excel_file:
+        record = request.env['stakeholder.analysis'].browse(record_id).exists()
+        if not record:
+            return request.not_found()
+        record.check_access('read')
+        if not record.excel_file:
             return request.not_found()
 
         # File response

@@ -322,8 +322,8 @@ class RiskMitigation(models.Model):
 
     # @api.onchange('risk_identification')
     # def generate_action_suggestion(self):
-    #     openai_api_key = "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"  # Mengambil API key dari variabel lingkungan
-    #     # openai_org_key = "org-wDFeqJ9bCffVTD7dN4x3hHYJ"
+    #     openai_api_key = self.env["ir.config_parameter"].sudo().get_param("fits_management_construction.openai_api_key")
+    #     # openai_org_key: removed (do not hard-code credentials)
     #     if not openai_api_key:
     #         self.action = "Error: OpenAI API key not found in environment variables."
     #         return
