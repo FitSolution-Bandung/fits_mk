@@ -4,13 +4,13 @@
             <field name="name">unit.price.data.tree</field>
             <field name="model">unit.price.data</field>
             <field name="arch" type="xml">
-                <tree string="Unit Price Data">
+                <list string="Unit Price Data">
                     <field name="no_upd"/>
                     <field name="name"/>
                     <field name="province"/>
                     <field name="location"/>
                     <field name="status" />
-                </tree>
+                </list>
             </field>
         </record>
         <record model="ir.ui.view" id="view_unit_price_data_form">
@@ -53,38 +53,34 @@
                         <notebook>
                             <page string="Material">
                                 <field name="price_material_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="material" widget="many2one"/>
                                         <field name="uom"/>
                                         <field name="unit_price"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Wages">
                                 <field name="price_wages_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="work_item" widget="many2one"/>
                                         <field name="uom"/>
                                         <field name="wages"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Equipment">
                                 <field name="price_equipment_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="equipment" widget="many2one"/>
                                         <field name="uom"/>
                                         <field name="unit_price"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form>
             </field>
         </record>

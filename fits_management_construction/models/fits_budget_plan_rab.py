@@ -153,7 +153,7 @@ class BudgetPlan(models.Model):
             'name': 'Sale Order',
             'domain': [('rab_id', '=', self.id)],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'sale.order',
             'type': 'ir.actions.act_window',
             'context': {'default_rab_id': self.id, 'default_project':self.project.id},
@@ -363,13 +363,8 @@ class RabMK(models.Model):
 
         return super(RabMK, self).write(values)
 
-    _sql_constraints = [
-        ('accountable_required_fields',
-            "CHECK(display_type IS NOT NULL OR (product_id IS NOT NULL AND quantity IS NOT NULL))",
-            "Missing required fields on accountable warranty request line."),
-        ('non_accountable_null_fields',
-            "CHECK(display_type IS NULL OR (product_id IS NULL AND quantity = 0))",
-            "Forbidden values on non-accountable warranty request line"),]
+    # Former _sql_constraints referenced product_id/quantity, which this model
+    # does not have; they never applied and were dropped in the 19.0 port.
 
     def _compute_volume_and_uom(self):
         for record in self:

@@ -31,7 +31,7 @@
                     </page>
                     <page string="Progress">
                         <field name="progress_ids" >
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="date" />
                                 <field name="project" />
                                 <field name="plan" sum="Total Plan"/>
@@ -40,7 +40,7 @@
                                 <field name="plan_weight" sum="Total Plan Weight"/>
                                 <field name="plan_weight_b" sum="Total Plan Weight B"/>
                                 <field name="actual_weight" sum="Total Actual Weight"/>
-                            </tree>
+                            </list>
                         </field>
                     </page>
                 </xpath>

@@ -6,8 +6,8 @@ from odoo.exceptions import ValidationError
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    start_date = fields.Datetime(sting='Started Date')
-    end_date = fields.Datetime(sting='Ended Date')
+    start_date = fields.Datetime(string='Started Date')
+    end_date = fields.Datetime(string='Ended Date')
     task_cost = fields.Float(string='Task Cost')
     task_weight = fields.Float(string='Task Weight (%)', compute='_get_task_weight')
     actual_weight = fields.Float(string='Actual Weight (%)', compute='_get_actual_weight')
@@ -52,7 +52,7 @@ class ProjectTask(models.Model):
                     continue  
 
                 daily_plan = 100.0 / total_days
-                daily_plan_weight = self.task_weight / total_days
+                daily_plan_weight = task.task_weight / total_days
 
                 current_date = start_date
                 while current_date <= end_date:
@@ -71,6 +71,7 @@ class ProjectTask(models.Model):
 
 class TaskProgress(models.Model):
     _name = 'task.progress'
+    _description = 'Task Progress'
 
     date = fields.Date(string='Date')
     project = fields.Many2one('project.project', string='Project')

@@ -30,7 +30,6 @@ from . import fits_document_inbond_outbond
 from . import fits_feasibility_inspection_document
 from . import fits_work_correction
 from . import fits_inherit_resconfig_settings
-from . import fits_group_utility
 from . import fits_working_drawing
 from . import fits_field_change
 from . import fits_implementation_permits

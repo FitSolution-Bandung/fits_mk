@@ -28,7 +28,7 @@ class DocumentReport(models.Model):
             'name': 'Daily Report',
             'domain': [('id', '=', self.daily_report.id)],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'daily.report',
             'type': 'ir.actions.act_window',
             'context': {'default_id': self.daily_report.id},

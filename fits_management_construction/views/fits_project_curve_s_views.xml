@@ -5,9 +5,9 @@
             <field name="name">project.curve.s.tree</field>
             <field name="model">project.curve.s</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="project_id"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -50,12 +50,12 @@
                         <notebook>
                             <page string="S Curve Line">
                                 <field name="line_ids">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="date"/>    
                                         <field name="plan_weight"/>
                                         <field name="plan_weight_b"/>
                                         <field name="actual_weight"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
@@ -67,19 +67,19 @@
         <record id="action_project_curve_s" model="ir.actions.act_window">
             <field name="name">Project S Curve</field>
             <field name="res_model">project.curve.s</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
 
         <record id="view_line_curve_tree" model="ir.ui.view">
             <field name="name">line.curves.tree</field>
             <field name="model">curve.s.line</field>
             <field name="arch" type="xml">
-                <tree string="Line S Curve">
+                <list string="Line S Curve">
                     <field name="date"/>
                     <field name="plan_weight"/>
                     <field name="plan_weight_b"/>
                     <field name="actual_weight"/>
-                </tree>    
+                </list>    
             </field>
         </record> 	 
         
@@ -89,7 +89,7 @@
             <field name="arch" type="xml">
             <search string="S Curve">
                     <field name="task_id"/>  
-                    <group expand="0" string="Group By">
+                    <group>
                         <filter string="date" name="date" context="{'group_by':'date:day'}"/>
                         <filter string="task_id" name="task" context="{'group_by':'task_id'}"/>
                     </group>
@@ -163,6 +163,6 @@
         <!-- <record id="action_curve_line" model="ir.actions.act_window">
             <field name="name">S-Curve</field>
             <field name="res_model">curve.s.line</field>
-            <field name="view_mode">graph,tree,form</field>
+            <field name="view_mode">graph,list,form</field>
             <field name="view_id" ref="view_s_curve_graph"/>
         </record> -->

@@ -99,6 +99,7 @@ class StakeholderAnalysis(models.Model):
 
 class StakeholderAnalysisDetail(models.Model):
     _name = 'stakeholder.analysis.detail'
+    _description = 'Stakeholder Analysis Detail'
     _rec_name = 'name'
 
     name            = fields.Many2one('res.partner', string='Stakeholder', required=True)

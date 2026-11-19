@@ -20,7 +20,7 @@ class ProjectProject(models.Model):
             'name': 'Budget Plans',
             'domain': [('project', '=', self.id),('status', '=', 'confirm')],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'budget.plan',
             'type': 'ir.actions.act_window',
             'context': {'default_project': self.id},
@@ -38,7 +38,7 @@ class ProjectProject(models.Model):
             'name': 'Bill of Quantity',
             'domain': [('project', '=', self.id),('status', '=', 'confirm')],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'boq',
             'type': 'ir.actions.act_window',
             'context': {'default_project': self.id},
@@ -49,7 +49,7 @@ class ProjectProject(models.Model):
         return {
             'name': 'S-Curve',
             'domain': [('project_id', '=', self.id)],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'project.curve.s',
             'type': 'ir.actions.act_window',
             'context': {'default_project_id': self.id},
@@ -64,15 +64,11 @@ class ProjectProject(models.Model):
     progress_project = fields.Float(string='Progress Project')
 
     def update_progress_project(self):
+        TaskProgress = self.env['task.progress']
         for project in self:
-            progres = self.env['task.progress']
-            groups = progres.read_group([('project', '=', project.id)], ['actual_weight'], ['project'])
-            
-            total_actual_weight = 0
-            for group in groups:
-                total_actual_weight += group.get('actual_weight', 0)
-
-            project.progress_project = total_actual_weight
+            [(total,)] = TaskProgress._read_group(
+                [('project', '=', project.id)], aggregates=['actual_weight:sum'])
+            project.progress_project = total or 0.0
 
     def refresh_progress_project(self):
         self.update_progress_project()
@@ -129,54 +125,43 @@ class ProjectCurveS(models.Model):
         return self.project_id.date_start
 
     def calculate_progress(self):
-        for x in self:
-            x.line_ids = [(5, 0, 0)]
-            progres = self.env['task.progress']
-            groups = progres.read_group(
-                [('project', '=', x.project_id.id), ('date', '>=', x.start_date), ('date', '<=', x.end_date)],
-                ['date', 'plan_weight', 'plan_weight_b', 'actual_weight'],
-                ['date:day']
+        """Rebuild the cumulative S-curve lines (plan A, plan B, actual) per day."""
+        TaskProgress = self.env['task.progress']
+        for curve in self:
+            curve.line_ids = [(5, 0, 0)]
+            domain = [('project', '=', curve.project_id.id)]
+            if curve.start_date:
+                domain.append(('date', '>=', curve.start_date))
+            if curve.end_date:
+                domain.append(('date', '<=', curve.end_date))
+            groups = TaskProgress._read_group(
+                domain,
+                groupby=['date:day'],
+                aggregates=['plan_weight:sum', 'plan_weight_b:sum', 'actual_weight:sum'],
+                order='date:day',
             )
-            # last_updated_date = self.get_last_updated_date_for_project()
-            # last_updated_date = self.get_last_updated_date_for_project(x.project_id)
-            # _logger.info(f"Last updated date for project {x.project_id.name}: {last_updated_date}")
-
-            bobot_plan = 0
-            bobot_plan_b = 0
-            bobot_actual = 0
-
-            for group in groups:
-                print('>>>>>>', group['date:day'], group.get('plan_weight', 0), group.get('plan_weight_b', 0), group.get('actual_weight', 0))
-
-                date_str = group['date:day']
-                try:
-                    date_obj = datetime.strptime(date_str, '%d %b %Y')
-                    formatted_date = date_obj.strftime('%Y-%m-%d') 
-                except ValueError as e:
-                    print(f"Error converting date: {e}")
+            plan = plan_b = actual = 0.0
+            lines = []
+            for day, day_plan, day_plan_b, day_actual in groups:
+                if not day:
                     continue
+                plan += day_plan or 0.0
+                plan_b += day_plan_b or 0.0
+                actual += day_actual or 0.0
+                lines.append({
+                    'curve_id': curve.id,
+                    'project_id': curve.project_id.id,
+                    'date': day,
+                    'plan_weight': plan,
+                    'plan_weight_b': plan_b,
+                    'actual_weight': actual,
+                })
+            self.env['curve.s.line'].create(lines)
+            curve.plan_weight = plan
+            curve.plan_weight_b = plan_b
+            curve.actual_weight = actual
+            curve.deviasi = actual - plan
 
-                rec_bobot_plan = bobot_plan + group.get('plan_weight', 0)
-                rec_bobot_plan_b = bobot_plan_b + group.get('plan_weight_b', 0)
-                rec_bobot_actual = bobot_actual + group.get('actual_weight', 0)
-
-                data = {
-                    "curve_id": self.id,
-                    "date": formatted_date,
-                    "plan_weight": rec_bobot_plan,
-                    "plan_weight_b": rec_bobot_plan_b,
-                    "actual_weight": rec_bobot_actual  
-                }
-                x.line_ids.create(data)
-                bobot_plan = rec_bobot_plan
-                bobot_plan_b = rec_bobot_plan_b
-                bobot_actual = rec_bobot_actual
-
-            x.plan_weight = bobot_plan
-            x.plan_weight_b = bobot_plan_b
-            x.actual_weight = bobot_actual  
-            x.deviasi = x.actual_weight - x.plan_weight  
- 
     def get_curve_s_data(self):
         self.ensure_one()
         curve_lines = self.line_ids.sorted(key=lambda r: r.date)
@@ -198,6 +183,7 @@ class ProjectCurveS(models.Model):
     
 class CurveSLine(models.Model):
     _name = 'curve.s.line'
+    _description = 'S-Curve Line'
     
     curve_id = fields.Many2one('project.curve.s', string='S Curve', ondelete='cascade')
     date = fields.Date('Date')

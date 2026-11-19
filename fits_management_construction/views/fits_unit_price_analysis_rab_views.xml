@@ -4,11 +4,11 @@
             <field name="name">unit.price.analysis.tree</field>
             <field name="model">unit.price.analysis</field>
             <field name="arch" type="xml">
-                <tree string="Unit Price Analysis">
+                <list string="Unit Price Analysis">
                     <field name="code"/>
                     <field name="name"/>
                     <field name="status"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -51,38 +51,34 @@
                         <notebook>
                             <page string="Material">
                                 <field name="ahs_material_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="product" widget="many2one"/>
                                         <field name="koefisien"/>
                                         <field name="uom"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Wages">
                                 <field name="ahs_wages_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="product" widget="many2one"/>
                                         <field name="koefisien"/>
                                         <field name="uom"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Equipment">
                                 <field name="ahs_equipment_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="product" widget="many2one"/>
                                         <field name="koefisien"/>
                                         <field name="uom"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form>
             </field>
         </record>

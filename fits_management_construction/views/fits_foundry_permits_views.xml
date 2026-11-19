@@ -3,12 +3,12 @@
         <field name="name">foundry.permits.tree</field>
         <field name="model">foundry.permits</field>
         <field name="arch" type="xml">
-            <tree string="Foundry Permits">
+            <list string="Foundry Permits">
                 <field name="no_permits"/>
                 <field name="name_project"/>
                 <field name="package"/>
                 <field name="date"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record model="ir.ui.view" id="view_foundry_permits_form">
@@ -50,36 +50,32 @@
                     <notebook>
                         <page string="Work Details">
                             <field name="work_detail_ids" readonly="status != 'draft'">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="name_items"/>    
                                     <field name="volume"/>
                                     <field name="concrete_class"/>
                                     <field name="description"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Approval Notes">
                             <field name="approval_notes_ids" readonly="status != 'draft'">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="work_types"/>
                                     <field name="approval_notes"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form> 
         </field>
     </record>
     <record id="action_foundry_permits" model="ir.actions.act_window">
         <field name="name">Foundry Permits</field>
         <field name="res_model">foundry.permits</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem id="menu_foundry_permits" parent="menu_root_additional_form" action="action_foundry_permits" sequence="5"/>
 </odoo>

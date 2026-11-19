@@ -10,7 +10,7 @@
 # from google.ai import generativelanguage as glm
 
 # class EditorAIController(http.Controller):
-#     @http.route("/fits_management_construction/generate_text", type="json", auth="user")
+#     @http.route("/fits_management_construction/generate_text", type="jsonrpc", auth="user")
 #     def generate_text(self, prompt):
 #         try:
 #             config_parameter = request.env["ir.config_parameter"].sudo()

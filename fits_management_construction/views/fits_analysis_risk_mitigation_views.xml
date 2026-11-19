@@ -4,11 +4,11 @@
             <field name="name">analysis.risk.mitigation.tree</field>
             <field name="model">analysis.risk.mitigation</field>
             <field name="arch" type="xml">
-                <tree string="Analysis &amp; Risk Mitigation">
+                <list string="Analysis &amp; Risk Mitigation">
                     <field name="no_mitigation"/>
                     <field name="name"/>
                     <field name="status"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -51,7 +51,7 @@
                         <notebook>
                             <page string="Risk Mitigation">
                                 <field name="risk_mitigation_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="category"/>
                                         <field name="risk_identification"/>
                                         <field name="reason"/>
@@ -63,34 +63,30 @@
                                         <field name="risk_level"/>
                                         <field name="mitigation"/>
                                         <field name="action"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
 
                             <page string="Field Conditions">
                                 <field name="field_conditions_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="condition"/>
                                         <field name="description"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
 
                             <page string="Material Distributions">
                                 <field name="material_distribution_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="attachment" widget="binary" filename="file_name"/>
                                         <field name="file_name"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form>
             </field>
         </record>

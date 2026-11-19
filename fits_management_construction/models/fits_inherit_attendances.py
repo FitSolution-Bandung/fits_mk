@@ -11,6 +11,7 @@ class AttendancesTemplate(models.Model):
 
 class BackDateAttendance(models.Model):
     _name = 'back.date.attendance'
+    _description = 'Back Date Attendance'
 
     employee = fields.Many2one('hr.employee', string='Employee')
     check_in = fields.Datetime('Check In')
@@ -35,7 +36,7 @@ class BackDateAttendance(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Attendance Overview'),
             'res_model': 'hr.attendance',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
             'domain': [('check_in', '>=', self.check_in), ('check_out', '<=', self.check_out)],
         }

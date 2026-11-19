@@ -3,10 +3,10 @@
         <field name="name">document.inbond.outbond.tree</field>
         <field name="model">document.inbond.outbond</field>
         <field name="arch" type="xml">
-            <tree string="Document Inbond Outbond Form">
+            <list string="Document Inbond Outbond Form">
                 <field name="no_doc_inoutbond"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -38,7 +38,7 @@
                     <notebook>
                         <page string="Document Inbond Outbond List">
                             <field name="document_inbond_outbond_ids" readonly="status != 'draft'">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="date"/>    
                                     <field name="no_doc"/>
                                     <field name="summary"/>
@@ -46,23 +46,19 @@
                                     <field name="destination"/>
                                     <field name="inbond_status"/>
                                     <field name="outbond_status"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form> 
         </field>
     </record>
     <record id="action_document_inbond_outbond_form" model="ir.actions.act_window">
         <field name="name">Document Inbond Outbond</field>
         <field name="res_model">document.inbond.outbond</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem id="menu_document_inbond_outbond_form" parent="menu_root_additional_form" action="action_document_inbond_outbond_form" sequence="12"/>
 </odoo>

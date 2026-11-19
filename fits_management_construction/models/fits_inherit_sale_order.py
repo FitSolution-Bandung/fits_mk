@@ -19,7 +19,7 @@ class SaleOrder(models.Model):
             'name': 'Budget Plan',
             'domain': [('sale_order_ids', '=', self.id)],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'budget.plan',
             'type': 'ir.actions.act_window',
             'context': {'default_sale_order_ids':self.id},

@@ -4,7 +4,7 @@
             <field name="name">daily.report.tree</field>
             <field name="model">daily.report</field>
             <field name="arch" type="xml">
-                <tree string="Daily Report" default_group_by='project' expand='0'>
+                <list string="Daily Report" default_group_by='project' expand='0'>
                     <!-- <header>
                         <button name="action_confirm_all" type="object" string="Confirm All" class="btn-primary"  groups="fits_management_construction.group_management_construction_manager"/>
                     </header> -->
@@ -12,7 +12,7 @@
                     <field name="date"/>
                     <field name="project"/>
                     <field name="status"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -57,7 +57,7 @@
                         <notebook>
                             <page string="WBS">
                                 <field name="wbs_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="wbs_category"/>    
                                         <field name="wbs" widget="many2one"/>
                                         <field name="plan_weight"/>
@@ -65,59 +65,59 @@
                                         <field name="progress"/>
                                         <field name="total_progress"/>
                                         <field name="project_id" nolabel="1" column_invisible="1"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Material on Site">
                                 <field name="mos_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="product"/>
                                         <field name="volume"/>
                                         <field name="uom"/>
                                         <field name="origin_location"/>
                                         <field name="destination_location"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Equipment Used">
                                 <field name="equipment_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="product"/>
                                         <field name="product_ids" nolabel="1" column_invisible="1"/>
                                         <field name="amount"/>
                                         <field name="location"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Manpower">
                                 <field name="manpower_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="job_title"/>
                                         <field name="amount"/>
                                         <field name="location"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Weather">
                                 <field name="weather_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="weather"/>
                                         <field name="started_time" widget='float_time'/>
                                         <field name="ended_time" widget='float_time'/>
                                         <field name="location"/>
                                         <!-- <field name="responsibility"/> -->
                                         <field name="result"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Note">
                                 <field name="note_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom" >
+                                    <list editable="bottom" >
                                         <field name="note_point"/>
                                         <field name="desc"/>
                                         <field name="name_mp"/>
                                         <field name="name_mp_ids" column_invisible='1' nolabel='1'/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Sign">
@@ -133,25 +133,21 @@
                             </page>
                             <page string='Monitoring'>
                                 <field name="monitoring_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="pdf_file" widget="binary" filename="pdf_filename"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form> 
             </field>
         </record>
         <record id="action_daily_report" model="ir.actions.act_window">
             <field name="name">Daily Report</field>
             <field name="res_model">daily.report</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
 
         <record id="action_confirm_all_daily" model="ir.actions.server">

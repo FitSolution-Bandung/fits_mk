@@ -1,7 +1,10 @@
 from odoo import models, fields, api, exceptions
 from datetime import datetime
 from odoo.exceptions import ValidationError
-from pdf2image import convert_from_bytes
+try:
+    from pdf2image import convert_from_bytes
+except ImportError:  # optional: needs pdf2image + poppler
+    convert_from_bytes = None
 from io import BytesIO
 import base64, logging
 
@@ -118,7 +121,7 @@ class DailyReport(models.Model):
             'name': 'Document Report',
             'domain': [('daily_report', '=', self.id)],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'document.report',
             'type': 'ir.actions.act_window',
             'context': {'default_daily_report': self.id},
@@ -262,6 +265,7 @@ class DailyReport(models.Model):
 
 class WBS(models.Model):
     _name = 'wbs.dr'
+    _description = 'Daily Report WBS'
 
     daily_report_id = fields.Many2one('daily.report', string="Daily Report")
     wbs_category = fields.Many2one('wbs.category', string='WBS Category')
@@ -270,7 +274,7 @@ class WBS(models.Model):
     actual_weight = fields.Float(string="Actual Weight", compute='_get_actual_weight')
     progress = fields.Float(string="Progress (%)")
     total_progress = fields.Float(string="Total Progress (%)", readonly=True, compute="_onchange_progress")
-    total_actual = fields.Float(string="Bobot Aktual", invisible=True, compute="_get_total_actual")
+    total_actual = fields.Float(string="Bobot Aktual", compute="_get_total_actual")
     project_id = fields.Many2one('project.project', string='Project', related='daily_report_id.project', store=True)
     is_highlighted = fields.Boolean(
             compute="_compute_is_highlighted",
@@ -395,6 +399,7 @@ class WBS(models.Model):
                 
 class MaterialonSite(models.Model):
     _name = 'mos.dr'
+    _description = 'Daily Report Material on Site'
 
     daily_report_id = fields.Many2one('daily.report', string="Daily Report")
     product = fields.Many2one('product.template', string='Product', domain="[('rab_category', '=', 'material')]")
@@ -405,6 +410,7 @@ class MaterialonSite(models.Model):
 
 class EquipmentUsed(models.Model):
     _name = 'equipment.dr'
+    _description = 'Daily Report Equipment'
 
     daily_report_id = fields.Many2one('daily.report', string="Daily Report")
     product = fields.Many2one('product.template', string="Product", domain="[('id', 'in', product_ids)]")
@@ -432,6 +438,7 @@ class EquipmentUsed(models.Model):
 
 class Manpower(models.Model):
     _name = 'manpower.dr'
+    _description = 'Daily Report Manpower'
 
     daily_report_id = fields.Many2one('daily.report', string="Daily Report")
     job_title = fields.Char(string="Job Title")
@@ -461,6 +468,7 @@ class Manpower(models.Model):
 
 class Weather(models.Model):
     _name = 'weather.dr'
+    _description = 'Daily Report Weather'
 
     daily_report_id = fields.Many2one('daily.report', string="Daily Report")
     weather = fields.Many2one('field.condition.type', string="Weather")
@@ -472,6 +480,7 @@ class Weather(models.Model):
 
 class Note(models.Model):
     _name = 'note.dr'
+    _description = 'Daily Report Note'
 
     daily_report_id = fields.Many2one('daily.report', string="Daily Report")
     note_point = fields.Char('Note Point')
@@ -496,6 +505,7 @@ class Note(models.Model):
 
 class Monitoring(models.Model):
     _name = 'monitoring.dr'
+    _description = 'Daily Report Monitoring'
 
     daily_report_id = fields.Many2one('daily.report', string="Daily Report")
     pdf_file = fields.Binary(string='PDF File', attachment=True)
@@ -504,7 +514,7 @@ class Monitoring(models.Model):
     @api.depends('pdf_file')
     def _compute_pdf_image(self):
         for record in self:
-            if record.pdf_file:
+            if record.pdf_file and convert_from_bytes:
                 try:
                     # Decode PDF file from base64
                     pdf_data = base64.b64decode(record.pdf_file)

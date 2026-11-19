@@ -3,10 +3,10 @@
         <field name="name">execution.permits.tree</field>
         <field name="model">execution.permits</field>
         <field name="arch" type="xml">
-            <tree string="Execution Permits">
+            <list string="Execution Permits">
                 <field name="attachment"/>
                 <field name="date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -47,29 +47,25 @@
                     <notebook>
                         <page string="Execution Permits">
                             <field name="execution_permits_ids" readonly="status != 'draft'">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="name_items"/>    
                                     <field name="permits_number"/>
                                     <field name="submission_date"/>
                                     <field name="approval_date"/>
                                     <field name="description"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form> 
         </field>
     </record>
     <record id="action_execution_permits" model="ir.actions.act_window">
         <field name="name">Execution Permits</field>
         <field name="res_model">execution.permits</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem id="menu_execution_permits" parent="menu_root_additional_form" action="action_execution_permits" sequence="2"/>
 </odoo>

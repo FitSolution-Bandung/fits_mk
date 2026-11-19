@@ -4,13 +4,13 @@
             <field name="name">budget.plan.tree</field>
             <field name="model">budget.plan</field>
             <field name="arch" type="xml">
-                <tree string="Budget Plan">
+                <list string="Budget Plan">
                     <field name="no_rab"/>
                     <field name="name"/>
                     <field name="project"/>
                     <field name="customer" />
                     <field name="status"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -68,7 +68,7 @@
                         <notebook>
                             <page string="RAB">
                                 <field name="rab_mk_ids" widget="section_and_note_one2many" mode="tree" context="{'default_display_type': False}" readonly="status != 'draft'">
-                                    <tree editable="bottom" order="sequence asc">
+                                    <list editable="bottom" order="sequence asc">
                                         <control>
                                             <create name="add_product_control" 
                                                     string="Add a Product"/>
@@ -92,7 +92,7 @@
                                         <field name="subtotal_price" invisible="display_type" sum="Subtotal Price"/>
                                         <field name="taxes_id" invisible="display_type"/>
                                         <field name="taxed" invisible="display_type" sum="Total Price"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page string="Info">
@@ -132,11 +132,7 @@
                             </group>
                         </div> -->
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form>
             </field>
         </record>

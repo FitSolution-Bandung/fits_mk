@@ -33,7 +33,7 @@ class DailyReportAPI(http.Controller):
 
         return request.make_response(json.dumps(data), headers=[('Content-Type', 'application/json')])
     
-    @http.route('/api/daily_report', type='json', auth='user', methods=['POST'], csrf=False)
+    @http.route('/api/daily_report', type='jsonrpc', auth='user', methods=['POST'], csrf=False)
     def post_daily_report(self, **kwargs):
         required_fields = ['date', 'wbs_id', 'actual_weight']
 

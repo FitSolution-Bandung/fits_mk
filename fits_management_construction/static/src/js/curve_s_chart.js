@@ -7,13 +7,8 @@ import { loadJsPDF, loadHtml2Canvas, loadChartJS } from "../js/library";
 
 class CurveSChart extends Component {
   static template = "fits_management_construction.CurveSChart";
-  static props = {
-    action: { type: Object, optional: true },
-    actionId: { type: Number, optional: true },
-    className: { type: String, optional: true },
-    context: { type: Object, optional: true },
-    state: { type: Object, optional: true },
-  };
+  // client action: accept whatever the action service passes (action, actionId, updateActionState, ...)
+  static props = ["*"];
 
   setup() {
     this.actionService = useService("action");
@@ -21,9 +16,6 @@ class CurveSChart extends Component {
     this.http = useService("http");
     this.chart = null;
     this.orm = useService("orm");
-    this.rpc = useService("rpc");
-    this.view = useService("view");
-    this.company = useService("company");
 
     const curveId =
       this.props.action?.context?.active_id ||

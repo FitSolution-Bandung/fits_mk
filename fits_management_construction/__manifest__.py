@@ -6,13 +6,13 @@
     'website': "https://fujicon-japan.com/",
     'sequence': -100,
     'images': ['images/simako.gif'],
-    'version': '17.0.0.0.1',
+    'version': '19.0.1.0.0',
     'price': 653.00,
     'currency': 'USD',
     'license': 'AGPL-3',
     'category': 'Services',
     'depends': ['base','hr','contacts','project','stock', 'sale_management', 'hr_attendance',
-                'web', 'base_setup', 'web_editor', 'product', 'purchase', 'sale_project', 'sale_management'],
+                'web', 'base_setup', 'html_editor', 'product', 'purchase', 'sale_project', 'sale_management'],
     'assets': {
         'web.assets_backend': [
             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js',
@@ -96,7 +96,6 @@
         'views/fits_inherit_hr_employee_views.xml',
         'views/fits_inherit_sale_order_views.xml',
         'views/fits_inherit_project_task_views.xml',
-        'views/fits_inherit_document_layout_views.xml',
         'views/fits_defect_list_form_views.xml',
         'views/fits_overtime_permission_form_views.xml',
         'views/fits_execution_permits_form_views.xml',

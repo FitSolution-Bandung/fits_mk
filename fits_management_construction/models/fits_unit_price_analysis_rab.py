@@ -65,7 +65,7 @@ class UnitPriceAnalysis(models.Model):
                 ('status', '=', 'confirm')
             ],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'boq',
             'type': 'ir.actions.act_window',
             'context': {'default_boq_mk_ids.ahs': self.id},

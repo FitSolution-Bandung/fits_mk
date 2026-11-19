@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <kanban>
                     <template>
-                        <t t-name="kanban-box">
+                        <t t-name="card">
                             <div class="o_kanban_card oe_kanban_global_click">
                                 <div class="o_kanban_details">
                                     <strong>
@@ -47,31 +47,13 @@
                 </p>
             </field>
         </record> -->
-        <record id="view_inherit_stakeholder_kanban" model="ir.ui.view">
-            <field name="name">stakeholder.kanban.view</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
-            <!-- <field name="inherit_id" ref="crm.crm_lead_partner_kanban_view"/> -->
-            <field name="arch" type="xml">
-                <xpath expr="//div[contains(@class, 'oe_kanban_bottom_left')]" position="inside">
-                    <div>
-                        <strong>
-                            <field name="name" class="o_field_text o_field_widget"/>
-                        </strong>
-                    </div>
-                </xpath>
-                <!-- <xpath expr="//field[@name='mobile']" position="after">
-                    <field name="opportunity_count" groups="sales_team.group_sale_salesman"/>
-                </xpath> -->
-            </field>
-        </record>
         
 
         <record id="action_stakeholder" model="ir.actions.act_window">
             <field name="name">Stakeholders</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">kanban,form</field>
-            <field name="domain">[('company_type', '=', 'company')]</field>
+            <field name="domain">[('is_company', '=', True)]</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     <a href="#" class="btn btn-primary">Create a Stakeholder</a>
@@ -85,9 +67,9 @@
             <field name="name">field.condition.type.tree</field>
             <field name="model">field.condition.type</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_field_condition_type_form" model="ir.ui.view">
@@ -115,10 +97,10 @@
             <field name="name">likelihood.tree</field>
             <field name="model">likelihood</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="no"/>
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_likelihood_form" model="ir.ui.view">
@@ -150,10 +132,10 @@
             <field name="name">impact.tree</field>
             <field name="model">impact</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="no"/>
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_impact_form" model="ir.ui.view">
@@ -185,12 +167,12 @@
             <field name="name">risk.scale.tree</field>
             <field name="model">risk.scale</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
                     <field name="scale_from"/>
                     <field name="scale_to"/>
                     <field name="description"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_risk_scale_form" model="ir.ui.view">
@@ -220,10 +202,10 @@
             <field name="name">risk.mitigation.type.tree</field>
             <field name="model">risk.mitigation.type</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
                     <field name="description"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_risk_mitigation_type_form" model="ir.ui.view">
@@ -243,7 +225,7 @@
         <record id="action_risk_mitigation_type" model="ir.actions.act_window">
             <field name="name">Risk Mitigation Type</field>
             <field name="res_model">risk.mitigation.type</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
         <menuitem id="menu_risk_mitigation_type" parent="menu_parent_risk_mitigation_configuration"
                   action="action_risk_mitigation_type"
@@ -253,9 +235,9 @@
             <field name="name">general.danger.tree</field>
             <field name="model">general.danger</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_general_danger_form" model="ir.ui.view">
@@ -274,7 +256,7 @@
         <record id="action_general_danger" model="ir.actions.act_window">
             <field name="name">General Danger</field>
             <field name="res_model">general.danger</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
         <menuitem id="menu_general_danger" parent="menu_parent_risk_mitigation_configuration"
                     action="action_general_danger"
@@ -284,10 +266,10 @@
             <field name="name">location.tree</field>
             <field name="model">location</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="province"/>
                     <field name="states"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_location_form" model="ir.ui.view">
@@ -307,7 +289,7 @@
         <record id="action_location" model="ir.actions.act_window">
             <field name="name">Location</field>
             <field name="res_model">location</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
         <menuitem id="menu_location" parent="menu_parent_rab_configuration"
                   action="action_location"
@@ -317,9 +299,9 @@
             <field name="name">unit.category.tree</field>
             <field name="model">unit.category</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_unit_category_form" model="ir.ui.view">
@@ -338,7 +320,7 @@
         <record id="action_unit_category" model="ir.actions.act_window">
             <field name="name">Unit Category</field>
             <field name="res_model">unit.category</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
         <menuitem id="menu_unit_category" parent="menu_parent_rab_configuration"
                   action="action_unit_category"
@@ -348,9 +330,9 @@
             <field name="name">building.category.tree</field>
             <field name="model">building.category</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_building_category_form" model="ir.ui.view">
@@ -369,69 +351,23 @@
         <record id="action_building_category" model="ir.actions.act_window">
             <field name="name">Building Category</field>
             <field name="res_model">building.category</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
         <menuitem id="menu_building_category" parent="menu_parent_rab_configuration"
                   action="action_building_category"
                   sequence="3"/> -->
-
-        <record id="view_uom_category_tree" model="ir.ui.view">
-            <field name="name">uom.category.tree</field>
-            <field name="model">uom.category</field>
-            <field name="arch" type="xml">
-                <tree string="Units of Measure categories">
-                    <field name="name"/>
-                    <field name="uom_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                </tree>
-            </field>
-        </record>
-        <record id="view_uom_category_form" model="ir.ui.view">
-            <field name="name">uom.category.form</field>
-            <field name="model">uom.category</field>
-            <field name="arch" type="xml">
-                <form string="Units of Measure categories">
-                    <sheet>
-                        <group>
-                            <field name="name"/>
-                            <field name="reference_uom_id" invisible="1"/>
-                        </group>
-                        <notebook>
-                            <page string="Units of Measure" name="uom_lines">
-                                <field name="uom_ids" force_save="1" context="{'default_uom_type': 'smaller', 'default_category_id': id}">
-                                    <tree editable="bottom">
-                                        <field name="name" decoration-bf="uom_type == 'reference'"/>
-                                        <field name="uom_type" decoration-bf="uom_type == 'reference'"/>
-                                        <field name="factor" column_invisible="True"/>
-                                        <field name="factor_inv" column_invisible="True"/>
-                                        <field name="ratio" string="Ratio" readonly="uom_type == 'reference'" digits="[42,5]"/>
-                                        <field name="active"/>
-                                        <field name="rounding" digits="[42, 5]"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-        <record id="action_uom_category" model="ir.actions.act_window">
-            <field name="name">Unit Of Measure</field>
-            <field name="res_model">uom.category</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="uom.product_uom_categ_tree_view"/>
-        </record>
         <menuitem id="menu_uom_category" parent="menu_parent_rab_configuration"
-                  action="action_uom_category"
+                  action="uom.product_uom_form_action"
                   sequence="4"/>
 
         <record id="view_wbs_category_tree" model="ir.ui.view">
             <field name="name">wbs.category.tree</field>
             <field name="model">wbs.category</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="code"/>
                     <field name="wbs_category"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_wbs_category_form" model="ir.ui.view">
@@ -455,12 +391,12 @@
                         <notebook>
                             <page string="WBS">
                                 <field name="wbs_ids">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="number"/>
                                         <field name="name"/>
                                         <field name="level"/>
                                         <field name="wbs_category" readonly="1"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
@@ -493,7 +429,7 @@
         <record id="action_wbs_category" model="ir.actions.act_window">
             <field name="name">WBS Category</field>
             <field name="res_model">wbs.category</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
         <menuitem id="menu_wbs_category" parent="menu_parent_rab_configuration"
                   action="action_wbs_category"
@@ -503,12 +439,12 @@
             <field name="name">wbs.tree</field>
             <field name="model">wbs</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="number"/>
                     <field name="name"/>
                     <field name="level"/>
                     <field name="wbs_category"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_wbs_form" model="ir.ui.view">
@@ -538,7 +474,7 @@
         <record id="action_wbs" model="ir.actions.act_window">
             <field name="name">WBS</field>
             <field name="res_model">wbs</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
         <menuitem id="menu_wbs" parent="menu_parent_rab_configuration"
                   action="action_wbs"

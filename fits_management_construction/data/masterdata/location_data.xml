@@ -2000,35 +2000,35 @@
         <field name="states">Kab. Puncak Jaya</field>
     </record>
     <record id="location_501" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Jayawijaya</field>
     </record>
     <record id="location_502" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Lanny Jaya</field>
     </record>
     <record id="location_503" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Mamberamo Tengah</field>
     </record>
     <record id="location_504" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Nduga</field>
     </record>
     <record id="location_505" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Pegunungan Bintang</field>
     </record>
     <record id="location_506" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Tolikara</field>
     </record>
     <record id="location_507" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Yalimo</field>
     </record>
     <record id="location_508" model="location">
-        <field name="province" ref="base.state_id_pp"/>
+        <field name="province" ref="base.state_id_pe"/>
         <field name="states">Kab. Yahukimo</field>
     </record>
     <!-- <record id="location_509" model="location">

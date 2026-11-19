@@ -21,7 +21,7 @@ class WorkRequest(models.Model):
         ('cancelled', 'Cancelled')
     ], string='Status', default='draft')
 
-    work_detail_ids = fields.Many2one('work.request.detail', string="Work Details")
+    # work_detail_ids: model work.request.detail was never defined (commented out below)
     document_status_ids = fields.One2many('document.status', 'work_request_id', string="Document Status")
     location_ids = fields.One2many('location.work.request', 'work_request_id', string="Document Status")
     active = fields.Boolean(string="Active", default=True)

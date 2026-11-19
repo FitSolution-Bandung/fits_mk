@@ -4,12 +4,12 @@
             <field name="name">boq.tree</field>
             <field name="model">boq</field>
             <field name="arch" type="xml">
-                <tree string="Bill Of Quantity">
+                <list string="Bill Of Quantity">
                     <field name="no_boq"/>
                     <field name="name"/>
                     <field name="project"/>
                     <field name="status" />
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -67,7 +67,7 @@
                         <notebook>
                             <page string="BOQ">
                                 <field name="boq_mk_ids" readonly="status != 'draft'">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <!-- <field name="number"/> -->
                                         <!-- <field name="wbs_category"/>
                                         <field name="wbs_category_ids" invisible="1" nolabel="1"/>
@@ -78,16 +78,12 @@
                                         <field name="uom"/>
                                         <field name="volume"/>
                                         <field name="attachment" widget="binary"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
                 </form>
             </field>
         </record>

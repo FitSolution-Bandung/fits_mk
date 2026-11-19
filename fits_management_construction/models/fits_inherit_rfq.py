@@ -16,7 +16,7 @@ class PurchaseOrder(models.Model):
             'name': 'Bill Of Quantity',
             'domain': [('id', '=', self.boq_id.id)],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'boq',
             'type': 'ir.actions.act_window',
             'context': {'default_boq_ids': self.boq_id.id},

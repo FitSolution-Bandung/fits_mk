@@ -96,23 +96,6 @@ class BuildingCategory(models.Model):
 
     name = fields.Char(string="Name")
 
-class UomMK(models.Model):
-    _inherit = 'uom.category'
-
-    @api.model
-    def toggle_menu_item_visibility(self):
-        # Membaca status checkbox group_uom
-        is_enabled = self.env['ir.config_parameter'].sudo().get_param('uom.group_uom', default=False)
-
-        try:
-            # Menemukan menu item berdasarkan external ID
-            menu = self.env.ref('fts_management_construction.menu_uom_category')  # Ganti 'module_name' dengan nama modul Anda
-
-            # Mengubah status aktif menu
-            menu.sudo().write({'active': is_enabled})
-        except ValueError:
-            # Jika menu tidak ditemukan
-            pass
 
 
 class WBSCategory(models.Model):
@@ -142,7 +125,7 @@ class WBSCategory(models.Model):
                 ('status', '=', 'confirm')
             ],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'unit.price.analysis',
             'type': 'ir.actions.act_window',
             'context': {'default_wbs_category': self.id},
@@ -154,7 +137,7 @@ class WBS(models.Model):
     _rec_name = 'name'
 
     number = fields.Char(string="Number")
-    name = fields.Many2one('product.template', string="Name", domain="[('is_rab', '=', 'True'), ('detailed_type', '=', 'service')]")
+    name = fields.Many2one('product.template', string="Name", domain="[('is_rab', '=', 'True'), ('type', '=', 'service')]")
     level = fields.Selection([('2', '2'), ('3', '3'), ('4', '4')], string="Level")
     wbs_category = fields.Many2one('wbs.category', string="WBS Category", ondelete='cascade')
 
@@ -176,7 +159,7 @@ class WBS(models.Model):
                 ('status', '=', 'confirm')
             ],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'unit.price.analysis',
             'type': 'ir.actions.act_window',
             'context': {'default_wbs': self.id},

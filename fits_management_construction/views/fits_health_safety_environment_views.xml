@@ -38,7 +38,7 @@
                     <notebook>
                         <page string="Work Stages">
                             <field name="work_stages_ids" readonly="status != 'draft'">
-                                <tree string="Work Stages">
+                                <list string="Work Stages">
                                     <field name="work_stages"/>
                                     <field name="danger_information"/>
                                     <field name="protection_prevention"/>
@@ -46,7 +46,7 @@
                                     <field name="responsible_verifying_equip"/>
                                     <field name="risk"/>
                                     <field name="job_checking"/>
-                                </tree>
+                                </list>
                                 <form string="Add Work Stage">
                                     <sheet>
                                         <group>
@@ -73,17 +73,17 @@
                             </group>
                             <group string="Emergency Response Team" name="active_group">
                                 <field name="emergency_contact_ids" colspan="2" nolabel="1" readonly="status != 'draft'">
-                                    <tree editable="1">
+                                    <list editable="bottom">
                                         <field name="emergency_response_team"/>
                                         <field name="emergency_response_team_phone"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </group>
 
                         </page>
                         <page name="general_dangers" string="General Dangers">
                             <!-- <field name="general_dangers_id" readonly="status != 'draft'"> -->
-                                <!-- <tree string="General Dangers">
+                                <!-- <list string="General Dangers">
                                     <field name="danger_1"/>
                                     <field name="danger_2"/>
                                 <field name="danger_3"/>
@@ -97,7 +97,7 @@
                                     <field name="danger_11"/>
                                     <field name="danger_12"/>
                                     <field name="other"/>
-                                </tree> -->
+                                </list> -->
                                 <!-- <form> -->
                                     <!-- <sheet> -->
                                         <group>
@@ -126,19 +126,15 @@
                         </page>
                         <page name="simops" string="SIMOPs">
                             <field name="simops_ids" readonly="status != 'draft'">
-                                <tree editable='bottom'>
+                                <list editable='bottom'>
                                     <field name="safety_man" />
                                     <field name='desc'/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -147,20 +143,20 @@
         <field name="name">health.safety.environment.tree</field>
         <field name="model">health.safety.environment</field>
         <field name="arch" type="xml">
-            <tree string="Job Safety Analysis">
+            <list string="Job Safety Analysis">
                 <field name="no_hse"/>
                 <field name="work_type"/>
                 <field name="work_location"/>
                 <field name="date"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_health_safety_environment" model="ir.actions.act_window">
         <field name="name">Job Safety Analysis</field>
         <field name="res_model">health.safety.environment</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_health_safety_environment" name="Job Safety Analysis" parent="menu_root_pre_cons_phase"

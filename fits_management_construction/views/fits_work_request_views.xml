@@ -3,11 +3,11 @@
         <field name="name">work.request.tree</field>
         <field name="model">work.request</field>
         <field name="arch" type="xml">
-            <tree string="Work Request">
+            <list string="Work Request">
                 <field name="no_contract"/>
                 <field name="name_project"/>
                 <field name="contract_date"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record model="ir.ui.view" id="view_work_request_form">
@@ -59,37 +59,33 @@
                             </group>
                             <group string="Work Location">
                                 <field name="location_ids" colspan="2" nolabel="1" readonly="status != 'draft'">
-                                    <tree editable="1">
+                                    <list editable="bottom">
                                         <field name="location"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </group>
                         </page>
                         <page string="Document Status">
                             <field name="document_status_ids" readonly="status != 'draft'">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="document"/>
                                     <field name="status"/>
                                     <field name="date"/>
                                     <field name="reference"/>
                                     <field name="verification"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form> 
         </field>
     </record>
     <record id="action_work_request" model="ir.actions.act_window">
         <field name="name">Work Request</field>
         <field name="res_model">work.request</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem id="menu_work_request" parent="menu_root_additional_form" action="action_work_request" sequence="3"/>
 </odoo>

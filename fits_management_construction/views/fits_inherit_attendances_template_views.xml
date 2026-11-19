@@ -52,13 +52,13 @@
             <field name="name">back.date.attendance.tree</field>
             <field name="model">back.date.attendance</field>
             <field name="arch" type="xml">
-                <tree string="Backdate Attendance">
+                <list string="Backdate Attendance">
                     <field name="employee"/>
                     <field name="check_in"/>
                     <field name="check_out"/>
                     <field name="project"/>
                     <field name="status"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -105,7 +105,7 @@
         <record id="action_backdate_attendance" model="ir.actions.act_window">
             <field name="name">Backdate Attendance</field>
             <field name="res_model">back.date.attendance</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="search_view_id" ref="view_backdate_attendance_search"/>
             <field name="context">{'search_default_filter_draft': 1}</field>
         </record>

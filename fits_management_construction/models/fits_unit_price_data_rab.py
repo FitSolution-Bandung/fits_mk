@@ -64,7 +64,7 @@ class UnitPriceData(models.Model):
                 ('status', '=', 'confirm')
             ],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'budget.plan',
             'type': 'ir.actions.act_window',
             'context': {'default_unit_price_data': self.id},

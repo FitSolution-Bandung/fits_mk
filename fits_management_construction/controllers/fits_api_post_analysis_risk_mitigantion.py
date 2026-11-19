@@ -4,7 +4,7 @@ import json
 
 class AnalysisRiskMitigationAPI(http.Controller):
 
-    @http.route('/api/analysis_risk_mitigation', type='json', auth='user', methods=['POST'], csrf=False)
+    @http.route('/api/analysis_risk_mitigation', type='jsonrpc', auth='user', methods=['POST'], csrf=False)
     def create_analysis_risk_mitigation(self, **kwargs):
         try:
             # Extract the required data from the POST request

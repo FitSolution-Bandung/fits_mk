@@ -70,7 +70,7 @@ class BillOfQuantity(models.Model):
             'name': _('RFQ'),
             'domain': [('boq_id', '=', self.id)],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'purchase.order',
             'type': 'ir.actions.act_window',
             'context': {'default_boq_id': self.id},
@@ -141,7 +141,7 @@ class BillOfQuantity(models.Model):
                 ('status', '=', 'confirm')
             ],
             'view_type': 'form',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'budget.plan',
             'type': 'ir.actions.act_window',
             'context': {'default_boq': self.id},
