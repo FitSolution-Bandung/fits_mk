@@ -5,6 +5,9 @@ from odoo import models, fields, api, exceptions
 # Model Execution Permits / Daftar izin Pelaksanaan
 class ImplementationPermits(models.Model):
     _name = 'implementation.permits'
+    _mk_project_field = 'project_id'
+    project_id = fields.Many2one('project.project', string='Project', required=True, index=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Implementation Permits'
     _rec_name = 'no_doc'
@@ -24,8 +27,12 @@ class ImplementationPermits(models.Model):
     month_name      = fields.Char(string="Month Name", compute="_compute_month_name")
     active = fields.Boolean(string="Active", default=True)
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_doc', 'New') == 'New':
             vals['no_doc'] = self.env['ir.sequence'].next_by_code('no.doc') or 'New'
         result = super(ImplementationPermits, self).create(vals)

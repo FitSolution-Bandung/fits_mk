@@ -2,6 +2,8 @@ from odoo import models, fields, api
 
 class DocumentReport(models.Model):
     _name = 'document.report'
+    _mk_project_field = 'project'
+    company_id = fields.Many2one('res.company', string='Company', related='project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Document Report'
     _rec_name = 'no_doc'
@@ -34,8 +36,12 @@ class DocumentReport(models.Model):
             'context': {'default_id': self.daily_report.id},
         }
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_doc', 'New') == 'New':
             vals['no_doc'] = self.env['ir.sequence'].next_by_code('no.doc') or 'New'
         result = super(DocumentReport, self).create(vals)

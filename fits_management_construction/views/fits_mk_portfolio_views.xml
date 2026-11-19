@@ -1,0 +1,98 @@
+<odoo>
+    <!-- smart buttons on the project form -->
+    <record id="view_project_form_mk_buttons" model="ir.ui.view">
+        <field name="name">project.project.form.mk.buttons</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_mk_daily_reports" type="object" class="oe_stat_button" icon="fa-book"
+                        groups="fits_management_construction.group_management_construction_owner">
+                    <field name="mk_daily_report_count" widget="statinfo" string="Daily Reports"/>
+                </button>
+                <button name="action_view_mk_ncr" type="object" class="oe_stat_button" icon="fa-exclamation-triangle"
+                        groups="fits_management_construction.group_management_construction_owner">
+                    <field name="mk_ncr_open_count" widget="statinfo" string="Open NCR"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- portfolio: all projects with MK progress -->
+    <record id="view_project_mk_portfolio_list" model="ir.ui.view">
+        <field name="name">project.project.mk.portfolio.list</field>
+        <field name="model">project.project</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <list string="Project Portfolio" create="0"
+                  decoration-danger="mk_progress_state == 'critical'"
+                  decoration-warning="mk_progress_state == 'late'"
+                  decoration-success="mk_progress_state == 'on_track'">
+                <field name="name"/>
+                <field name="partner_id" optional="show"/>
+                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                <field name="date_start" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="mk_plan_weight"/>
+                <field name="mk_actual_weight"/>
+                <field name="mk_deviation"/>
+                <field name="mk_progress_state" widget="badge"
+                       decoration-danger="mk_progress_state == 'critical'"
+                       decoration-warning="mk_progress_state == 'late'"
+                       decoration-success="mk_progress_state == 'on_track'"/>
+                <field name="mk_daily_report_count" optional="show"/>
+                <field name="mk_ncr_open_count" optional="show"/>
+                <field name="mk_document_count" optional="hide"/>
+                <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_project_mk_portfolio_kanban" model="ir.ui.view">
+        <field name="name">project.project.mk.portfolio.kanban</field>
+        <field name="model">project.project</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <kanban create="0">
+                <field name="mk_progress_state"/>
+                <templates>
+                    <t t-name="card">
+                        <field name="name" class="fw-bold fs-5"/>
+                        <field name="partner_id" class="text-muted"/>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>Plan <field name="mk_plan_weight"/>%</span>
+                            <span>Actual <field name="mk_actual_weight"/>%</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-1">
+                            <span>Deviation <field name="mk_deviation"/>%</span>
+                            <field name="mk_progress_state" widget="badge"
+                                   decoration-danger="mk_progress_state == 'critical'"
+                                   decoration-warning="mk_progress_state == 'late'"
+                                   decoration-success="mk_progress_state == 'on_track'"/>
+                        </div>
+                        <div class="text-muted small mt-1">
+                            <field name="mk_daily_report_count"/> daily reports ·
+                            <field name="mk_ncr_open_count"/> open NCR
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_project_mk_portfolio" model="ir.actions.act_window">
+        <field name="name">Project Portfolio</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_ids" eval="[Command.clear(),
+            Command.create({'view_mode': 'kanban', 'view_id': ref('view_project_mk_portfolio_kanban')}),
+            Command.create({'view_mode': 'list', 'view_id': ref('view_project_mk_portfolio_list')})]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No project yet</p>
+            <p>Projects you can access appear here with their S-curve progress and MK documents.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_mk_portfolio" name="Project Portfolio"
+              parent="management_construction_root" action="action_project_mk_portfolio" sequence="1"/>
+</odoo>

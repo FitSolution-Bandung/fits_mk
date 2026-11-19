@@ -5,6 +5,7 @@
             <field name="model">supervision.form</field>
             <field name="arch" type="xml">
                 <list string="Supervision Form">
+                    <field name="project_id"/>
                     <field name="no_doc"/>
                     <field name="date"/>
                 </list>
@@ -34,6 +35,7 @@
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                                 invisible="active == True"/>
                         <group name="header">
+                            <field name="project_id"/>
                             <group>
                                 <field name="no_doc"/>
                                 <field name="date" readonly="status != 'draft'"/>

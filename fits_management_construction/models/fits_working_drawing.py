@@ -3,6 +3,8 @@ from odoo import models, fields, api, exceptions
 # Model Defect List / Daftar Cacat
 class WorkingDrawing(models.Model):
     _name = 'working.drawing'
+    _mk_project_field = 'name_project'
+    company_id = fields.Many2one('res.company', string='Company', related='name_project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Working Drawing'
     _rec_name = 'no_contract'
@@ -22,8 +24,12 @@ class WorkingDrawing(models.Model):
         ('cancelled', 'Cancelled')
     ], string='Status', default='draft')
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_contract', 'New') == 'New':
             vals['no_contract'] = self.env['ir.sequence'].next_by_code('no.contract') or 'New'
         result = super(WorkingDrawing, self).create(vals)

@@ -3,6 +3,9 @@ from odoo import models, fields, api, _, exceptions
 # Model Defect List / Daftar Cacat
 class DocumentInbondOutbond(models.Model):
     _name = 'document.inbond.outbond'
+    _mk_project_field = 'project_id'
+    project_id = fields.Many2one('project.project', string='Project', required=True, index=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Document Inbond Outbond'
     _rec_name = 'no_doc_inoutbond'
@@ -24,8 +27,12 @@ class DocumentInbondOutbond(models.Model):
 
     document_inbond_outbond_ids = fields.One2many('document.inbond.outbond.detail', 'document_inbond_outbond_id', string="Document Inbond Outbond Detail")
  
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_doc_inoutbond', 'New') == 'New':
             vals['no_doc_inoutbond'] = self.env['ir.sequence'].next_by_code('no.doc.inoutbond') or 'New'
         result = super(DocumentInbondOutbond, self).create(vals)

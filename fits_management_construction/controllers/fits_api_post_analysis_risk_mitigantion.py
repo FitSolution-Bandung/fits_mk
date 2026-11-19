@@ -17,6 +17,8 @@ class AnalysisRiskMitigationAPI(http.Controller):
 
             if not name:
                 return json.dumps({'error': 'Name is required'})
+            if not data.get('project_id'):
+                return json.dumps({'error': 'project_id is required'})
 
             # Function to find the corresponding Many2one record based on the provided code
             def find_record_by_code(model, code_field, code_value):
@@ -57,6 +59,7 @@ class AnalysisRiskMitigationAPI(http.Controller):
             # Create the analysis.risk.mitigation record
             analysis = request.env['analysis.risk.mitigation'].create({
                 'name': name,
+                'project_id': data.get('project_id'),
                 'risk_mitigation_ids': [(0, 0, rm) for rm in risk_mitigation_data],
                 'field_conditions_ids': [(0, 0, fc) for fc in field_conditions_ids],
             })

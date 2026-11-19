@@ -3,6 +3,8 @@ from odoo import models, fields, api, exceptions
 # Model Execution Permits / Daftar izin Pelaksanaan
 class FinalSubmissionForm(models.Model):
     _name = 'final.submission'
+    _mk_project_field = 'project_name'
+    company_id = fields.Many2one('res.company', string='Company', related='project_name.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Final Submission'
     _rec_name = 'no_doc'
@@ -30,8 +32,12 @@ class FinalSubmissionForm(models.Model):
 
     active = fields.Boolean(string="Active", default=True)
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_doc', 'New') == 'New':
             vals['no_doc'] = self.env['ir.sequence'].next_by_code('no.doc') or 'New'
         result = super(FinalSubmissionForm, self).create(vals)

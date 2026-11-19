@@ -6,6 +6,8 @@ from datetime import datetime
 # Model Defect List / Daftar Cacat
 class WeatherMonitoringForm(models.Model):
     _name = 'weather.monitoring'
+    _mk_project_field = 'name_project'
+    company_id = fields.Many2one('res.company', string='Company', related='name_project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Weather Monitoring'
     _rec_name = 'name_project'

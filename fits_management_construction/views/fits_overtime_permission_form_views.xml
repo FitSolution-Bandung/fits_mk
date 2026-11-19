@@ -4,6 +4,7 @@
         <field name="model">overtime.form</field>
         <field name="arch" type="xml">
             <list string="Overtime Permission">
+                    <field name="project_id"/>
                 <field name="attachment"/>
                 <field name="date"/>
             </list>
@@ -33,6 +34,7 @@
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                                 invisible="active == True"/>
                     <group name="header">
+                            <field name="project_id"/>
                         <group>
                             <field name="attachment" readonly="status != 'draft'"/>                   
                             <field name="name_consultant" readonly="status != 'draft'"/>                 

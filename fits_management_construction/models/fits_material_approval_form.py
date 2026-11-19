@@ -1,8 +1,10 @@
-from odoo import models, fields, exceptions
+from odoo import api, models, fields, exceptions
 
 # Model Defect List / Daftar Cacat
 class MaterialApprovalForm(models.Model):
     _name = 'material.approval'
+    _mk_project_field = 'name_project'
+    company_id = fields.Many2one('res.company', string='Company', related='name_project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Material Approval'
     _rec_name = 'no_doc'
@@ -20,7 +22,12 @@ class MaterialApprovalForm(models.Model):
     date                  = fields.Date(string="Date")
     name_subpackage       = fields.Char(string="Sub Package")
     
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
+    @api.model
+    def _fits_create_one(self, vals):
         if vals.get('no_doc', 'New') == 'New':
             vals['no_doc'] = self.env['ir.sequence'].next_by_code('no.doc') or 'New'
         result = super(MaterialApprovalForm, self).create(vals)

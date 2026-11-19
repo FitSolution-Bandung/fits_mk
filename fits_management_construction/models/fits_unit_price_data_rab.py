@@ -21,8 +21,12 @@ class UnitPriceData(models.Model):
     price_equipment_ids = fields.One2many('price.equipment', 'unit_price_data_id', string='Price Equipment')
     active = fields.Boolean(string="Active", default=True)
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_upd', 'New') == 'New':
             vals['no_upd'] = self.env['ir.sequence'].next_by_code('no.upd') or 'New'
         result = super(UnitPriceData, self).create(vals)

@@ -57,3 +57,18 @@ class TestCurveS(TransactionCase):
 
         self.project.update_progress_project()
         self.assertAlmostEqual(self.project.progress_project, 40.0)
+
+        # portfolio indicators read the latest S-curve
+        self.project.invalidate_recordset()
+        self.assertAlmostEqual(self.project.mk_deviation, -60.0)
+        self.assertEqual(self.project.mk_progress_state, "critical")
+        self.env["ir.config_parameter"].set_param("fits_management_construction.deviation_critical", 70)
+        self.project.invalidate_recordset()
+        self.assertEqual(self.project.mk_progress_state, "late")
+
+    def test_portfolio_without_curve(self):
+        self.assertEqual(self.project.mk_progress_state, "none")
+        self.env["daily.report"].create({"project": self.project.id})
+        self.project.invalidate_recordset()
+        self.assertEqual(self.project.mk_daily_report_count, 1)
+        self.assertGreaterEqual(self.project.mk_document_count, 1)

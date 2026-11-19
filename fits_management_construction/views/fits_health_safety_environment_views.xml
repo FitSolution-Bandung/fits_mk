@@ -26,6 +26,7 @@
                                     icon="fa-check-square-o"/>
                         </div> -->
                     <group>
+                            <field name="project_id"/>
                         <field name="no_hse" readonly="1"/>
                         <!-- <field name="analysis_risk_mitigation_id" invisible="1"/> -->
                         <field name="work_type" readonly="status != 'draft'"/>
@@ -144,6 +145,7 @@
         <field name="model">health.safety.environment</field>
         <field name="arch" type="xml">
             <list string="Job Safety Analysis">
+                    <field name="project_id"/>
                 <field name="no_hse"/>
                 <field name="work_type"/>
                 <field name="work_location"/>

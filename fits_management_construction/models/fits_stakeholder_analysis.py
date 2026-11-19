@@ -4,6 +4,9 @@ from odoo import models, fields, api, _, exceptions
 
 class StakeholderAnalysis(models.Model):
     _name = 'stakeholder.analysis'
+    _mk_project_field = 'project_id'
+    project_id = fields.Many2one('project.project', string='Project', required=True, index=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Stakeholder Analysis'
     _rec_name = 'name_analysis'
@@ -16,8 +19,12 @@ class StakeholderAnalysis(models.Model):
     excel_file = fields.Binary(string="Download File")
     excel_file_name = fields.Char(string="File Name")
     
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_stakeholder', 'New') == 'New':
             vals['no_stakeholder'] = self.env['ir.sequence'].next_by_code('no.stakeholder') or 'New'
         result = super(StakeholderAnalysis, self).create(vals)

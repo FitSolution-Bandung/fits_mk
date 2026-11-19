@@ -3,6 +3,8 @@ from odoo.exceptions import ValidationError
 
 class NonConformanceReportForm(models.Model):
     _name = 'nonconformance.report.form'
+    _mk_project_field = 'project'
+    company_id = fields.Many2one('res.company', string='Company', related='project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Non-Conformance Report Form'
     _rec_name = 'no_ncrf'
@@ -42,8 +44,12 @@ class NonConformanceReportForm(models.Model):
     # Measures
     proposal_measures = fields.Text(string='Proposed Preventive Measures')
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_ncrf', 'New') == 'New':
             vals['no_ncrf'] = self.env['ir.sequence'].next_by_code('no.ncrf') or 'New'
         result = super(NonConformanceReportForm, self).create(vals)

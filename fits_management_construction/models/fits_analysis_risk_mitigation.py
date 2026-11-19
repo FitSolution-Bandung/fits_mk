@@ -8,6 +8,9 @@ from odoo.exceptions import UserError
 
 class AnalysisRiskMitigation(models.Model):
     _name = 'analysis.risk.mitigation'
+    _mk_project_field = 'project_id'
+    project_id = fields.Many2one('project.project', string='Project', required=True, index=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Analysis & Risk Mitigation'
     _rec_name = 'name'
@@ -42,8 +45,12 @@ class AnalysisRiskMitigation(models.Model):
 
         return matrix
     
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_mitigation', 'New') == 'New':
             vals['no_mitigation'] = self.env['ir.sequence'].next_by_code('no.mitigation') or 'New'
         result = super(AnalysisRiskMitigation, self).create(vals)

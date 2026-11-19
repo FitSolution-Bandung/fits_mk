@@ -5,6 +5,8 @@ from odoo import models, fields, api, exceptions
 # Model Defect List / Daftar Cacat
 class FoundryPermits(models.Model):
     _name = 'foundry.permits'
+    _mk_project_field = 'name_project'
+    company_id = fields.Many2one('res.company', string='Company', related='name_project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Foundry Permits'
     _rec_name = 'name_project'
@@ -28,8 +30,12 @@ class FoundryPermits(models.Model):
     work_detail_ids = fields.One2many('foundry.work.detail', 'foundry_permits_id', string="Work Details")
     approval_notes_ids = fields.One2many('approval.notes', 'foundry_permits_id', string="Approval Notes")
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_permits', 'New') == 'New':
             vals['no_permits'] = self.env['ir.sequence'].next_by_code('no.permits') or 'New'
         result = super(FoundryPermits, self).create(vals)

@@ -5,6 +5,9 @@ from odoo import models, fields, api, exceptions
 # Model Execution Permits / Daftar izin Pelaksanaan
 class ExecutionPermits(models.Model):
     _name = 'execution.permits'
+    _mk_project_field = 'project_id'
+    project_id = fields.Many2one('project.project', string='Project', required=True, index=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Execution Permits'
     _rec_name = 'attachment'

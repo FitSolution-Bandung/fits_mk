@@ -5,6 +5,7 @@
             <field name="model">analysis.risk.mitigation</field>
             <field name="arch" type="xml">
                 <list string="Analysis &amp; Risk Mitigation">
+                    <field name="project_id"/>
                     <field name="no_mitigation"/>
                     <field name="name"/>
                     <field name="status"/>
@@ -45,6 +46,7 @@
                                     icon="fa-check-square-o"/>
                         </div> -->
                         <group>
+                            <field name="project_id"/>
                             <field name="no_mitigation"/>
                             <field name="name" readonly="status != 'draft'"/>
                         </group>

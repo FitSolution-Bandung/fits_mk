@@ -4,6 +4,8 @@ from odoo.exceptions import UserError
 
 class BillOfQuantity(models.Model):
     _name = 'boq'
+    _mk_project_field = 'project'
+    company_id = fields.Many2one('res.company', string='Company', related='project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Bill Of Quantity'
     _rec_name = 'name'
@@ -22,8 +24,12 @@ class BillOfQuantity(models.Model):
     rfq_ids = fields.One2many('purchase.order', 'boq_id', string="RFQ")
     rfq_count = fields.Integer(string="RFQ Count", compute="_compute_rfq_count")
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_boq', 'New') == 'New':
             vals['no_boq'] = self.env['ir.sequence'].next_by_code('no.boq') or 'New'
         result = super(BillOfQuantity, self).create(vals)

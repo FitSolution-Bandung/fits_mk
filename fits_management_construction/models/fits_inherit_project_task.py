@@ -71,6 +71,8 @@ class ProjectTask(models.Model):
 
 class TaskProgress(models.Model):
     _name = 'task.progress'
+    _mk_project_field = 'project'
+    company_id = fields.Many2one('res.company', string='Company', related='project.company_id', store=True, index=True, readonly=True)
     _description = 'Task Progress'
 
     date = fields.Date(string='Date')

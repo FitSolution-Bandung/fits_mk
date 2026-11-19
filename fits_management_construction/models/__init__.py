@@ -39,3 +39,5 @@ from . import fits_weather_monitoring
 from . import fits_final_submission
 # from .utils import gemini_helper
 # from . import fits_inherit_bills_of_materials
+from . import fits_mk_access
+from . import fits_mk_portfolio

@@ -75,6 +75,8 @@ class ProjectProject(models.Model):
 
 class ProjectCurveS(models.Model):
     _name = 'project.curve.s'
+    _mk_project_field = 'project_id'
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _description = 'S Curve'
     _rec_name ='project_id'
 
@@ -183,6 +185,8 @@ class ProjectCurveS(models.Model):
     
 class CurveSLine(models.Model):
     _name = 'curve.s.line'
+    _mk_project_field = 'project_id'
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _description = 'S-Curve Line'
     
     curve_id = fields.Many2one('project.curve.s', string='S Curve', ondelete='cascade')

@@ -5,6 +5,7 @@
             <field name="model">stakeholder.analysis</field>
             <field name="arch" type="xml">
                 <list string="Stakeholder Analysis">
+                    <field name="project_id"/>
                     <field name="no_stakeholder"/>
                     <field name="name_analysis"/>
                     <field name="status"/>
@@ -36,6 +37,7 @@
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                                 invisible="active == True"/>
                         <group string="Stakeholder">
+                            <field name="project_id"/>
                             <field name="no_stakeholder"/>
                             <field name="name_analysis" readonly="status != 'draft'"/>
                         </group>

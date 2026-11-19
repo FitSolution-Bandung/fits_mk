@@ -6,6 +6,9 @@ from odoo.exceptions import UserError
 
 class HealthSafetyEnvironment(models.Model):
     _name = 'health.safety.environment'
+    _mk_project_field = 'project_id'
+    project_id = fields.Many2one('project.project', string='Project', required=True, index=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Health Safety Environment'
     _rec_name = 'no_hse'
@@ -71,8 +74,12 @@ class HealthSafetyEnvironment(models.Model):
 
     simops_ids = fields.One2many('simops', 'hse_id', string='SIMOPs')
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_hse', 'New') == 'New':
             vals['no_hse'] = self.env['ir.sequence'].next_by_code('no.hse') or 'New'
         result = super(HealthSafetyEnvironment, self).create(vals)

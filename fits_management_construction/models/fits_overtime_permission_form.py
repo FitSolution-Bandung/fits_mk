@@ -5,6 +5,9 @@ from odoo import models, fields, api, exceptions
 # Model Formulir Izin Lembur / Overtime Form
 class OvertimeForm(models.Model):
     _name = 'overtime.form'
+    _mk_project_field = 'project_id'
+    project_id = fields.Many2one('project.project', string='Project', required=True, index=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Company', related='project_id.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Overtime Form'
     _rec_name = 'attachment'

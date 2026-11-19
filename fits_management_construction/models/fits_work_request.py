@@ -5,6 +5,8 @@ from odoo import models, fields, api, exceptions
 # Model Defect List / Daftar Cacat
 class WorkRequest(models.Model):
     _name = 'work.request'
+    _mk_project_field = 'name_project'
+    company_id = fields.Many2one('res.company', string='Company', related='name_project.company_id', store=True, index=True, readonly=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Work Request'
     _rec_name = 'name_project'
@@ -33,8 +35,12 @@ class WorkRequest(models.Model):
     finish_date         = fields.Date(string="Finish Date")
     notes               = fields.Char(string="Notes")
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        return self.browse().union(*(self._fits_create_one(vals) for vals in vals_list))
+
     @api.model
-    def create(self, vals):
+    def _fits_create_one(self, vals):
         if vals.get('no_contract', 'New') == 'New':
             vals['no_contract'] = self.env['ir.sequence'].next_by_code('no.contract') or 'New'
         result = super(WorkRequest, self).create(vals)
