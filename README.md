@@ -44,6 +44,16 @@ Tes (`fits_management_construction/tests/`):
 - `test_views`: semua window action bisa dibuka (view terkompilasi, model terbaca); setiap laporan punya template.
 - `test_curve_s`: bobot task dari biaya, pembagian rencana per hari, kurva S kumulatif, deviasi, progres proyek.
 - `test_security`: endpoint yang dulu publik kini wajib login; tidak ada API key ter-hard-code.
+- `test_project_access`: dokumen MK mengikuti hak baca proyek (K11), nomor dokumen otomatis, perusahaan mengikuti proyek.
+- `test_v12_sync`: sinkron proyek dari Odoo 12 (server tiruan): buat, perbarui, idempoten, hanya baca.
+
+## Tahap 1 (branch `19.0-tahap1`)
+
+- **Akses per proyek:** model dokumen menandai field proyeknya (`_mk_project_field`); aturan akses `project.project` (visibilitas, pengikut, perusahaan) ikut berlaku pada dokumennya.
+- **Proyek wajib** di semua dokumen lapangan; `company_id` mengikuti proyek.
+- **Portofolio Proyek:** menu baru, rencana/aktual/deviasi dari kurva S terakhir, status On Track/Late/Critical (ambang di parameter `fits_management_construction.deviation_late` / `deviation_critical`, default 5% dan 10%).
+- **Sinkron Odoo 12 (baca-saja):** Pengaturan > Construction Management: Odoo 12 Project Sync. Cron harian nonaktif secara default.
+- Lisensi OPL-1.
 
 ## Catatan port 17 → 19
 

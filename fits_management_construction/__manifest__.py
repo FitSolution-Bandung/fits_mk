@@ -91,6 +91,7 @@
         'views/fits_document_report_views.xml',
         'views/fits_inherit_project_project_views.xml',
         'views/fits_mk_portfolio_views.xml',
+        'views/fits_mk_v12_sync_views.xml',
         'views/fits_inherit_project_manpower_absensi_views.xml',
         'views/fits_inherit_rfq_views.xml',
         'views/fits_inherit_resconfig_setting_views.xml',

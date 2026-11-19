@@ -41,3 +41,4 @@ from . import fits_final_submission
 # from . import fits_inherit_bills_of_materials
 from . import fits_mk_access
 from . import fits_mk_portfolio
+from . import fits_mk_v12_sync

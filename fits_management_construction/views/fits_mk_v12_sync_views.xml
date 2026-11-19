@@ -1,0 +1,53 @@
+<odoo>
+    <record id="res_config_settings_view_mk_v12_sync" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.mk.v12.sync</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='contacts_settings']" position="after">
+                <div id="mk_v12_sync">
+                    <block title="Construction Management: Odoo 12 Project Sync" id="mk_v12_sync_container"
+                           groups="base.group_system">
+                        <setting id="mk_v12_sync_setting"
+                                 help="Read-only: projects and analytic codes are copied from Odoo 12. Nothing is written to Odoo 12.">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label for="mk_v12_url" class="col-lg-4 o_light_label"/>
+                                    <field name="mk_v12_url" placeholder="https://erp.example.com"/>
+                                </div>
+                                <div class="row">
+                                    <label for="mk_v12_db" class="col-lg-4 o_light_label"/>
+                                    <field name="mk_v12_db"/>
+                                </div>
+                                <div class="row">
+                                    <label for="mk_v12_login" class="col-lg-4 o_light_label"/>
+                                    <field name="mk_v12_login"/>
+                                </div>
+                                <div class="row">
+                                    <label for="mk_v12_password" class="col-lg-4 o_light_label"/>
+                                    <field name="mk_v12_password" password="True"/>
+                                </div>
+                                <div class="row">
+                                    <label for="mk_v12_domain" class="col-lg-4 o_light_label"/>
+                                    <field name="mk_v12_domain"/>
+                                </div>
+                                <button name="action_mk_v12_sync_now" type="object" string="Sync now"
+                                        class="btn-link" icon="fa-refresh"/>
+                            </div>
+                        </setting>
+                    </block>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ir_cron_mk_v12_sync" model="ir.cron">
+        <field name="name">Construction Management: sync projects from Odoo 12 (read-only)</field>
+        <field name="model_id" ref="model_fits_mk_v12_sync"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_sync_projects()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>
