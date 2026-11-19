@@ -237,6 +237,49 @@ Unggah file apa saja ─► Kenali jenis & struktur ─► Ekstraksi ke staging 
 - Setelah disetujui, data diterapkan ke model tujuan. File asli disimpan sebagai lampiran, dengan catatan siapa, kapan, dan dari file apa.
 - **Profil pemetaan dipakai ulang.** Dokumen kedua dari kontraktor yang sama otomatis memakai pemetaan yang sama.
 
+**Mode Buat Baru dan Mode Perbarui (update record)**
+
+Dokumen sumber sering diperbarui: RAB revisi, BoQ setelah MC-0, time schedule versi terbaru, atau harga periode baru. Karena itu Easy Input punya dua mode:
+
+| Mode | Kapan | Hasil |
+|---|---|---|
+| **Buat baru** | Dokumen pertama kali masuk | Record baru |
+| **Perbarui** | File versi terbaru dari dokumen yang sudah pernah diimpor | Record yang ada diperbarui sesuai perubahan |
+
+Sistem menyarankan mode secara otomatis. Saran itu muncul kalau sumber dan proyeknya sama dengan impor sebelumnya, atau nama/kode dokumennya mirip.
+
+**1. Pencocokan baris (kunci):** setiap record yang berasal dari impor menyimpan **kunci sumber**. Urutan prioritasnya:
+- kode/nomor item di dokumen (mis. "III.2.a");
+- bila tidak ada kode, kombinasi divisi + uraian + satuan;
+- bila masih ragu, saran pencocokan dari AI yang harus dikonfirmasi pengguna.
+
+Kunci disimpan di profil pemetaan, sehingga file berikutnya cocok otomatis.
+
+**2. Pratinjau perbedaan (diff)** sebelum apa pun diubah. Setiap baris diberi status:
+- 🟢 **Baru:** ada di file, belum ada di Odoo.
+- 🟡 **Berubah:** nilai lama → nilai baru ditampilkan per kolom (volume, harga satuan, tanggal, bobot), lengkap dengan selisih nominal dan persentase.
+- ⚪ **Tetap:** tidak ada perubahan, dilewati.
+- 🔴 **Hilang di file:** ada di Odoo, tidak ada di file baru. **Tidak dihapus**, hanya ditandai *tidak berlaku/dibatalkan* bila disetujui.
+
+Ringkasan di atas pratinjau menunjukkan jumlah baris per status dan **selisih total nilai**. Untuk jadwal, ditampilkan juga pergeseran tanggal selesai proyek.
+
+**3. Pilih yang diterapkan:** semua sekaligus, per status, atau per baris (centang). Kolom tertentu bisa dikunci agar tidak ikut diperbarui, mis. harga satuan kontrak yang sudah mengikat.
+
+**4. Konflik dengan perubahan manual:** bila sebuah record **diubah manual di Odoo** setelah impor terakhir, dan file baru juga mengubah kolom yang sama, baris itu ditandai **Konflik**. Ditampilkan tiga nilai: *nilai impor terakhir / nilai Odoo sekarang / nilai file baru*. Pengguna memilih nilai mana yang dipakai. Tidak ada yang tertimpa diam-diam.
+
+**5. Versi atau ubah langsung, mengikuti jenis data:**
+- **RAB kontrak/EE:** pembaruan membuat **versi/revisi baru** (atau CCO/addendum bila kontrak sudah berjalan). Versi lama tetap tersimpan dan bisa dibandingkan.
+- **Jadwal:** membuat **revisi jadwal** (rencana A → B), sehingga kurva S rencana lama tetap ada untuk dibandingkan.
+- **HSD/harga:** membuat **periode baru**.
+- **Data operasional lain** (daftar personel, material, dsb.): ubah langsung, dengan riwayat perubahan di chatter.
+
+**6. Jejak & keamanan:**
+- Setiap penerapan mencatat file sumber (dilampirkan, beserta hash), versi dokumen, siapa, kapan, dan daftar record yang dibuat, diubah, atau ditandai tidak berlaku.
+- **File yang sama persis diimpor dua kali** dikenali dari hash-nya, dan sistem memberi peringatan.
+- Penerapan bisa **dibatalkan (rollback)** selama record hasilnya belum dipakai proses lanjutan (mis. belum masuk opname/termin).
+
+**Tes yang disiapkan:** impor v1 → impor v2 dengan baris baru, berubah, dan hilang → periksa status diff, hasil penerapan, versi yang terbentuk, deteksi konflik, dan rollback.
+
 **Kaitan dengan MK:** RAB kontrak + time schedule kontraktor yang masuk lewat Easy Input langsung menghasilkan **bobot pekerjaan dan kurva S rencana**. Artinya laporan progres MK bisa dipakai **tanpa harus menyusun AHSP sendiri lebih dulu**.
 
 ## 5. Fitur MK (rinci)
@@ -260,7 +303,7 @@ Unggah file apa saja ─► Kenali jenis & struktur ─► Ekstraksi ke staging 
 | **1** | Fondasi: pecah modul, branding & lisensi, `id.po`, data demo, **multi-proyek & multi-perusahaan (§4A)**: tim proyek, record rule, `company_id`, dashboard portofolio. Keluarkan SO/RFQ ke modul jembatan | Struktur modul baru, akses per proyek teruji |
 | **2** | **RAB inti pola SNI/AHSP**: HSD per wilayah/periode, AHSP (A+B+C, biaya umum & keuntungan), volume, RAB hierarki, SMKK, rekap + PPN + pembulatan + terbilang, cetak PDF | EE/HPS bisa dibuat dari nol sampai cetak |
 | **3** | RAB lanjutan: pustaka AHSP + impor data SE terbaru, analisa alat, versi/revisi + perbandingan, ekspor/impor Excel | RAB siap dipakai di proyek nyata |
-| **3A** | **Easy Input (§4B)**: pintu masuk file, staging, rekonsiliasi total, review, profil pemetaan. Urutan jenis data: RAB/penawaran Excel → BoQ → jadwal (Excel, MS Project XML, Primavera XER) → PDF/scan dengan AI | RAB kontrak dan jadwal kontraktor masuk tanpa ketik ulang |
+| **3A** | **Easy Input (§4B)**: pintu masuk file, staging, rekonsiliasi total, review, profil pemetaan, **mode Buat Baru & Perbarui (diff, konflik, versi, rollback)**. Urutan jenis data: RAB/penawaran Excel → BoQ → jadwal (Excel, MS Project XML, Primavera XER) → PDF/scan dengan AI | RAB kontrak dan jadwal kontraktor masuk tanpa ketik ulang |
 | **3B** | **Riset data AI (§4.7)**: template prompt, template Excel, memakai staging 3A. Mode API sebagai modul opsional | HSD periode baru dari hasil riset AI, dengan jejak sumber |
 | **4** | Jadwal & kurva S rencana dari RAB (bobot otomatis) | Kurva S terhubung ke RAB |
 | **5** | Laporan progres MK (mingguan/bulanan), realisasi, peringatan deviasi | Laporan MK otomatis |
