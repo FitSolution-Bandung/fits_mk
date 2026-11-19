@@ -111,6 +111,85 @@ Model yang sudah ada (`unit.price.analysis`, `ahs.*`, `unit.price.data`, `price.
 
 Keputusan K2: model lama dirombak, atau dibuat model baru lalu data lama dimigrasi.
 
+### 4.7 Riset data terkini dengan AI → Excel → impor
+
+Tujuannya: data yang cepat basi bisa diperbarui dengan bantuan AI generatif, tanpa mengetik ulang, dan tetap bisa diaudit. Contohnya HSD upah, bahan, dan sewa alat per wilayah, harga material terbaru, AHSP/SE terbaru, dan regulasi.
+
+Alurnya:
+
+```
+Template Prompt Riset ──► Prompt siap pakai ──► AI (Claude/ChatGPT/Gemini, atau API)
+   (jenis data, wilayah,      (berisi daftar item,         │
+    periode, daftar item)      format kolom, aturan)        ▼
+                                                    File .xlsx sesuai template
+                                                            │
+             ┌──────────────────────────────────────────────┤
+             ▼                                              ▼
+   Impor standar Odoo (base_import)            Impor dibantu AI (file bebas format
+   ke staging, pakai template kolom            → AI memetakan kolom & satuan)
+             └───────────────┬──────────────────────────────┘
+                             ▼
+            Batch Impor (staging) ─► Validasi otomatis ─► Review & Setujui ─► HSD/AHSP versi baru
+```
+
+**a. Template Prompt Riset** (model data, bisa diubah tanpa kode)
+
+- Jenis data: HSD upah / HSD bahan / sewa alat / pustaka AHSP / regulasi.
+- Parameter: wilayah (provinsi/kab-kota), periode, bidang, mata uang.
+- Tombol **Buat Prompt** menyusun teks prompt lengkap, berisi:
+  - Daftar item yang dicari, diambil dari master (kode, nama, satuan) supaya hasilnya cocok saat diimpor.
+  - **Spesifikasi keluaran yang ketat:** nama kolom persis sama dengan template impor, satuan baku, format angka, satu baris per item.
+  - **Aturan kejujuran data:** setiap baris wajib punya sumber (URL/nama dokumen) dan tanggal data. Kalau data tidak ditemukan, isi kosong dengan keterangan "tidak ditemukan", jangan diperkirakan. Ada juga kolom tingkat keyakinan.
+  - Permintaan agar hasil diberikan sebagai file .xlsx, atau tabel yang bisa langsung disalin ke Excel.
+- Tombol **Salin Prompt** dan **Unduh Template Excel** yang kolomnya sudah cocok dengan model staging.
+- Setiap prompt yang dibuat tersimpan (siapa, kapan, parameter) untuk jejak audit.
+
+**b. Impor ke sistem, dengan dua jalur**
+
+1. **Impor standar Odoo** (`base_import`, sudah ada di CE dan mendukung .xlsx). Data masuk ke model staging *Batch Impor Riset*, memakai template kolom yang sama, sehingga pemetaan kolom tersimpan dan bisa dipakai ulang.
+2. **Impor dibantu AI** (opsional). Pengguna mengunggah file hasil riset dengan format bebas (xlsx/csv/pdf tabel). AI lalu memetakan kolom ke field, menormalkan satuan (mis. "sak 50 kg" → kg), dan mencocokkan nama item ke master. Hasilnya tetap masuk ke **staging**, tidak langsung ke master.
+
+**c. Validasi & persetujuan** (wajib untuk kedua jalur)
+
+- Pengecekan otomatis:
+  - Item cocok dengan master.
+  - Satuan sesuai.
+  - Sumber dan tanggal terisi.
+  - Angka positif.
+  - **Pencilan:** selisih terhadap periode sebelumnya di atas ambang (mis. ±25%) diberi tanda.
+- Review per baris: terima, ubah, atau tolak. Status batch: Draft → Divalidasi → Disetujui → Diterapkan.
+- Saat diterapkan, sistem membuat **HSD/AHSP versi periode baru**. Data lama tidak ditimpa. Sumber, tanggal, model AI, dan prompt yang dipakai ikut tersimpan di setiap baris.
+
+**d. Mode integrasi AI**
+
+- **Mode manual (default, tanpa biaya integrasi):** prompt disalin ke AI pilihan pengguna, lalu file hasilnya diimpor. Tidak ada API key di sistem.
+- **Mode API (modul jembatan opsional `*_construction_ai`):** prompt dikirim langsung dari Odoo ke penyedia AI yang dipilih, dan hasilnya kembali sebagai data terstruktur ke staging. **API key hanya disimpan di Pengaturan (`ir.config_parameter`), tidak pernah di kode.** Ini pelajaran dari kebocoran kunci OpenAI di repo lama. Ada juga batas pemakaian dan log biaya.
+- **Prinsip keamanan:** hasil AI diperlakukan sebagai *data*, bukan perintah, dan selalu lewat staging + persetujuan manusia sebelum memengaruhi RAB.
+
+**e. Kegunaan lain di luar RAB:** pola yang sama (prompt → xlsx → staging → setujui) dapat dipakai untuk data MK. Contohnya daftar regulasi/SNI teknis terbaru, data cuaca historis lokasi proyek, dan harga material untuk evaluasi CCO.
+
+## 4A. Multi-proyek dan multi-perusahaan
+
+**Kondisi sekarang (dicek di kode 2026.11.19): baru sebagian.**
+
+- ✅ Banyak proyek bisa disimpan sekaligus. 21 file model sudah punya kolom Proyek (`project.project`), antara lain RAB, BoQ, laporan harian, kurva S, NCR, material approval, shop drawing, perubahan lapangan, dan serah terima.
+- ❌ **Belum ada record rule.** Setiap pengguna MK melihat **semua** proyek. Pengawas proyek A bisa membuka dokumen proyek B.
+- ❌ **Belum multi-perusahaan.** Tidak ada `company_id` di model MK, jadi FPP/FSE/klien belum bisa dipisah dalam satu database.
+- ❌ **11 file model tidak terhubung ke proyek:** analisis risiko, HSE, izin pelaksanaan, izin pekerjaan, izin lembur, form pengawasan, stakeholder, absensi template, serta AHSP dan data harga. AHSP dan data harga memang sengaja lintas proyek, tetapi dokumen lapangan harus per proyek.
+- ❌ Belum ada **tim proyek per peran** (Owner, Perencana, MK, Kontraktor) dan belum ada tampilan berpusat pada proyek.
+
+**Target (masuk Tahap 1):**
+
+| Hal | Rancangan |
+|---|---|
+| Proyek wajib | Semua dokumen lapangan wajib punya Proyek. Proyek terisi otomatis dari konteks |
+| Tim proyek | Model *Anggota Proyek*: pengguna/partner + peran (Owner, Perencana, MK, Kontraktor) + masa tugas |
+| Record rule | Pengguna hanya melihat proyek tempat ia menjadi anggota. Manager MK melihat semua proyek di perusahaannya. Owner/Kontraktor (portal) hanya melihat proyeknya dan dokumen yang dibagikan |
+| Multi-perusahaan | `company_id` di semua model transaksi + rule perusahaan standar Odoo. Pustaka AHSP/HSD bisa dipakai bersama atau per perusahaan |
+| Tampilan | Smart button di form proyek (RAB, kurva S, laporan, dokumen, NCR terbuka), dashboard portofolio semua proyek (progres, deviasi, dokumen menunggu persetujuan) |
+| Penomoran | Nomor dokumen bisa memakai kode proyek, mis. `[KODE]/LH/2026/001` |
+| Tes | Tes otomatis: pengguna proyek A tidak bisa membaca atau mengubah dokumen proyek B |
+
 ## 5. Fitur MK (rinci)
 
 | Kelompok | Fitur |
@@ -129,9 +208,10 @@ Keputusan K2: model lama dirombak, atau dibuat model baru lalu data lama dimigra
 | Tahap | Lingkup | Hasil |
 |---|---|---|
 | **0** ✅ | Keamanan + port 17→19, tes dasar, Docker lokal + ngrok | Branch `19.0` (sudah di-push) |
-| **1** | Fondasi: pecah modul, branding & lisensi, `id.po`, data demo, record rule per proyek/perusahaan, keluarkan SO/RFQ ke modul jembatan | Struktur modul baru, semua tes lolos |
+| **1** | Fondasi: pecah modul, branding & lisensi, `id.po`, data demo, **multi-proyek & multi-perusahaan (§4A)**: tim proyek, record rule, `company_id`, dashboard portofolio. Keluarkan SO/RFQ ke modul jembatan | Struktur modul baru, akses per proyek teruji |
 | **2** | **RAB inti pola SNI/AHSP**: HSD per wilayah/periode, AHSP (A+B+C, biaya umum & keuntungan), volume, RAB hierarki, SMKK, rekap + PPN + pembulatan + terbilang, cetak PDF | EE/HPS bisa dibuat dari nol sampai cetak |
 | **3** | RAB lanjutan: pustaka AHSP + impor data SE terbaru, analisa alat, versi/revisi + perbandingan, ekspor/impor Excel | RAB siap dipakai di proyek nyata |
+| **3A** | **Riset data AI → Excel → impor (§4.7)**: template prompt, template Excel, staging + validasi + persetujuan, impor standar Odoo. Mode API sebagai modul opsional | HSD periode baru bisa diperbarui dari hasil riset AI dengan jejak sumber |
 | **4** | Jadwal & kurva S rencana dari RAB (bobot otomatis) | Kurva S terhubung ke RAB |
 | **5** | Laporan progres MK (mingguan/bulanan), realisasi, peringatan deviasi | Laporan MK otomatis |
 | **6** | Alur persetujuan dokumen teknis + RFI | Kontraktor → MK → Owner |
@@ -152,6 +232,9 @@ Setiap tahap: kerja di branch fitur dari `19.0`, uji lokal + ngrok, lalu PR sete
 | K6 | Bidang AHSP yang didahulukan | Cipta Karya (gedung) / SDA / Bina Marga | Cipta Karya, sesuai mayoritas proyek gedung Fujicon (perlu konfirmasi) |
 | K7 | Format laporan RAB acuan | Format standar PUPR / format internal Fujicon yang sudah dipakai | Kirimkan contoh RAB/EE Fujicon terakhir sebagai acuan |
 | K8 | Repo publik | Ubah jadi private sekarang / tetap publik untuk Odoo Apps | Private, sesudah kunci OpenAI dicabut |
+| K9 | Mode AI untuk riset data | Manual saja (salin prompt, unggah xlsx) / manual + mode API | Mulai manual. Mode API menyusul setelah pola datanya stabil |
+| K10 | Penyedia AI untuk mode API & impor dibantu AI | Claude / OpenAI / Gemini / bisa dipilih di Pengaturan | Bisa dipilih di Pengaturan, dengan satu penyedia default |
+| K11 | Visibilitas antarproyek | Pengguna hanya melihat proyeknya / semua staf MK melihat semua proyek | Hanya proyeknya. Manager MK dan Direksi melihat semua |
 
 ## 8. Risiko & catatan
 
