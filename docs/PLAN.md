@@ -1,6 +1,6 @@
 # Rencana Pengembangan Modul MK dan RAB (Pola SNI/AHSP) — Odoo 19
 
-Tanggal: 2026.11.19 · Penyusun: Claude bersama Pak Andhi · Status: **draf rencana, belum dikerjakan**
+Tanggal: 2026.11.19 · Penyusun: Claude bersama Pak Andhi · Status: **rencana disetujui sebagian, lihat Keputusan**
 Repo: `FitSolution-Bandung/fits_mk`, branch `19.0` · Lokal: WSL `/home/andhi/fits_mk` (Docker Odoo 19, port 8029)
 Dasar kondisi: `2026.11.19 Kondisi Repo fits_mk dan Rencana Penyempurnaan Modul MK.md`
 
@@ -328,7 +328,7 @@ Setiap tahap: kerja di branch fitur dari `19.0`, uji lokal + ngrok, lalu PR sete
 | K9 | Mode AI untuk riset data | Manual saja (salin prompt, unggah xlsx) / manual + mode API | Mulai manual. Mode API menyusul setelah pola datanya stabil |
 | K10 | Penyedia AI untuk mode API & impor dibantu AI | Claude / OpenAI / Gemini / bisa dipilih di Pengaturan | Bisa dipilih di Pengaturan, dengan satu penyedia default |
 | K11 | Visibilitas antarproyek | Pengguna hanya melihat proyeknya / semua staf MK melihat semua proyek | Hanya proyeknya. Manager MK dan Direksi melihat semua |
-| K12 | **Urutan prioritas** | (a) RAB pola SNI dulu (Tahap 2–3), baru Easy Input / (b) **Easy Input + kurva S dulu** (Tahap 1 → 3A → 4 → 5), RAB pola SNI menyusul | (b) bila MK lebih mendesak: RAB dan jadwal kontraktor langsung jadi kurva S dan laporan MK. (a) bila pekerjaan perencanaan/EE lebih mendesak |
+| K12 | **Urutan prioritas** | (a) RAB pola SNI dulu (Tahap 2–3), baru Easy Input / (b) **Easy Input + kurva S dulu** (Tahap 1 → 3A → 4 → 5), RAB pola SNI menyusul | ✅ **Diputuskan 2026.11.19: (b) Easy Input dulu.** Urutan kerja: Tahap 1 → 3A → 4 → 5, lalu RAB pola SNI (Tahap 2–3) |
 | K13 | Contoh dokumen masuk | Kirim 2–3 contoh nyata: RAB kontraktor, BoQ, time schedule (Excel/MS Project/PDF) | Dipakai sebagai bahan uji parser dan profil pemetaan pertama. Data sensitif bisa disamarkan |
 
 ## 8. Risiko & catatan
