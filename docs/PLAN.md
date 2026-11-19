@@ -49,6 +49,8 @@ Saat ini semuanya ada di satu modul `fits_management_construction`. Usulannya di
 | `*_construction_schedule` | Jadwal pekerjaan dari RAB, bobot otomatis, kurva S rencana A/B | rab |
 | `*_construction_mk` | Laporan harian, mingguan, dan bulanan, kurva S realisasi, opname/MC, persetujuan dokumen, rapat, BA, CCO | schedule |
 | `*_construction_hse` | Analisis risiko, K3/HSE, izin kerja, stakeholder | base |
+| `*_construction_intake` | **Easy Input** (§4B) + riset data AI (§4.7): unggah file, profil pemetaan, staging, rekonsiliasi, review, terapkan | base, rab (schedule untuk jadwal) |
+| `*_construction_ai` (opsional) | Koneksi API ke penyedia AI untuk ekstraksi dan riset | intake |
 | `*_construction_sale_purchase` (opsional) | Jembatan ke SO/RFQ untuk pengguna kontraktor | rab, `sale`, `purchase` |
 
 Prefix (`fits_` atau `fujicon_`) dan cara migrasi dari modul lama ditentukan di Keputusan K1.
@@ -166,6 +168,8 @@ Template Prompt Riset ──► Prompt siap pakai ──► AI (Claude/ChatGPT/G
 - **Mode API (modul jembatan opsional `*_construction_ai`):** prompt dikirim langsung dari Odoo ke penyedia AI yang dipilih, dan hasilnya kembali sebagai data terstruktur ke staging. **API key hanya disimpan di Pengaturan (`ir.config_parameter`), tidak pernah di kode.** Ini pelajaran dari kebocoran kunci OpenAI di repo lama. Ada juga batas pemakaian dan log biaya.
 - **Prinsip keamanan:** hasil AI diperlakukan sebagai *data*, bukan perintah, dan selalu lewat staging + persetujuan manusia sebelum memengaruhi RAB.
 
+**Catatan:** riset AI memakai **staging, validasi, dan persetujuan yang sama dengan Easy Input (§4B)**. Hasil riset hanyalah salah satu jenis "file masuk".
+
 **e. Kegunaan lain di luar RAB:** pola yang sama (prompt → xlsx → staging → setujui) dapat dipakai untuk data MK. Contohnya daftar regulasi/SNI teknis terbaru, data cuaca historis lokasi proyek, dan harga material untuk evaluasi CCO.
 
 ## 4A. Multi-proyek dan multi-perusahaan
@@ -190,6 +194,51 @@ Template Prompt Riset ──► Prompt siap pakai ──► AI (Claude/ChatGPT/G
 | Penomoran | Nomor dokumen bisa memakai kode proyek, mis. `[KODE]/LH/2026/001` |
 | Tes | Tes otomatis: pengguna proyek A tidak bisa membaca atau mengubah dokumen proyek B |
 
+## 4B. Easy Input: data apa pun menjadi data Odoo
+
+**Kebutuhan:** dokumen yang diterima Fujicon datang dari pihak lain dengan format yang berbeda-beda. Contohnya RAB/penawaran kontraktor, BoQ dari perencana lain, time schedule, dan EE dari owner. Semua harus bisa masuk ke Odoo tanpa diketik ulang.
+
+**Satu pintu masuk, satu alur:**
+
+```
+Unggah file apa saja ─► Kenali jenis & struktur ─► Ekstraksi ke staging ─► Cek & rekonsiliasi ─► Review ─► Terapkan
+(xlsx, xls, csv, pdf,     (RAB / BoQ / jadwal /     (baris + hierarki +     (total cocok? bobot   (tabel     (RAB kontrak,
+ scan/foto, MS Project,     HSD / dokumen lain)       nilai asli tersimpan)   100%? satuan valid?)  bisa       BoQ, jadwal,
+ Primavera XER, docx)                                                                                 diedit)    kurva S, HSD)
+```
+
+**Jenis data yang didukung (bertahap):**
+
+| Jenis | Sumber umum | Hasil di Odoo |
+|---|---|---|
+| **RAB / penawaran / EE** | Excel kontraktor/owner (sel gabungan, penomoran I/1/a, subtotal di tengah), PDF | **RAB kontrak**: hierarki divisi → item, volume, satuan, harga satuan *apa adanya dari dokumen*, jumlah. Bisa dibandingkan dengan EE Fujicon |
+| **BoQ** | Excel/PDF | Daftar item + volume + satuan, dicocokkan ke AHSP/WBS bila ada |
+| **Time schedule** | Excel kurva S/barchart, **MS Project (.xml/.mpp lewat ekspor XML)**, **Primavera (.xer)**, PDF | Jadwal per item (mulai, selesai, durasi, bobot), lalu **kurva S rencana** otomatis |
+| **Harga/HSD** | Excel/PDF jurnal harga, SK upah, hasil riset AI (§4.7) | HSD versi periode baru |
+| **Dokumen MK lain** | Laporan kontraktor, daftar material, daftar personel | Draft dokumen MK terkait |
+
+**Cara ekstraksi, tiga lapis dari yang paling pasti:**
+
+1. **Parser terstruktur** untuk format baku: Excel/CSV dengan **profil pemetaan kolom yang disimpan per sumber** (mis. "Format RAB Kontraktor X"), MS Project XML, Primavera XER. Hasilnya deterministik, cepat, dan tanpa AI.
+2. **Impor standar Odoo** (`base_import`) ke model staging, untuk pengguna yang sudah menyiapkan file sesuai template.
+3. **Ekstraksi dibantu AI** untuk yang tidak baku: PDF, hasil scan/foto, dan Excel dengan tata letak bebas. AI mengenali kolom, hierarki penomoran, baris subtotal (yang tidak boleh ikut dihitung), satuan, dan angka berformat Indonesia (titik ribuan, koma desimal). Hasil AI selalu masuk ke staging, tidak langsung ke data final.
+
+**Pemeriksaan otomatis (kunci kepercayaan data):**
+
+- **Rekonsiliasi total:** jumlah baris per divisi dan total keseluruhan harus sama dengan total yang tertulis di dokumen. Selisih ditandai merah per divisi.
+- **Volume × harga satuan = jumlah** per baris. Selisih pembulatan diberi toleransi.
+- Jadwal: **bobot total 100%**, tanggal selesai tidak mendahului tanggal mulai, dan item jadwal cocok dengan item RAB.
+- Satuan dikenal (dinormalkan: m3/M³/m³ → m³), angka positif, dan tidak ada item ganda.
+- Setiap baris menyimpan **nilai asli dari dokumen** (teks sel, halaman/sel sumber) di samping nilai hasil normalisasi, sehingga reviewer bisa membandingkan.
+
+**Review & terapkan:**
+
+- Tabel staging bisa diedit: gabung/pecah baris, ubah level hierarki, cocokkan item ke AHSP/WBS (dengan saran otomatis).
+- Setelah disetujui, data diterapkan ke model tujuan. File asli disimpan sebagai lampiran, dengan catatan siapa, kapan, dan dari file apa.
+- **Profil pemetaan dipakai ulang.** Dokumen kedua dari kontraktor yang sama otomatis memakai pemetaan yang sama.
+
+**Kaitan dengan MK:** RAB kontrak + time schedule kontraktor yang masuk lewat Easy Input langsung menghasilkan **bobot pekerjaan dan kurva S rencana**. Artinya laporan progres MK bisa dipakai **tanpa harus menyusun AHSP sendiri lebih dulu**.
+
 ## 5. Fitur MK (rinci)
 
 | Kelompok | Fitur |
@@ -211,7 +260,8 @@ Template Prompt Riset ──► Prompt siap pakai ──► AI (Claude/ChatGPT/G
 | **1** | Fondasi: pecah modul, branding & lisensi, `id.po`, data demo, **multi-proyek & multi-perusahaan (§4A)**: tim proyek, record rule, `company_id`, dashboard portofolio. Keluarkan SO/RFQ ke modul jembatan | Struktur modul baru, akses per proyek teruji |
 | **2** | **RAB inti pola SNI/AHSP**: HSD per wilayah/periode, AHSP (A+B+C, biaya umum & keuntungan), volume, RAB hierarki, SMKK, rekap + PPN + pembulatan + terbilang, cetak PDF | EE/HPS bisa dibuat dari nol sampai cetak |
 | **3** | RAB lanjutan: pustaka AHSP + impor data SE terbaru, analisa alat, versi/revisi + perbandingan, ekspor/impor Excel | RAB siap dipakai di proyek nyata |
-| **3A** | **Riset data AI → Excel → impor (§4.7)**: template prompt, template Excel, staging + validasi + persetujuan, impor standar Odoo. Mode API sebagai modul opsional | HSD periode baru bisa diperbarui dari hasil riset AI dengan jejak sumber |
+| **3A** | **Easy Input (§4B)**: pintu masuk file, staging, rekonsiliasi total, review, profil pemetaan. Urutan jenis data: RAB/penawaran Excel → BoQ → jadwal (Excel, MS Project XML, Primavera XER) → PDF/scan dengan AI | RAB kontrak dan jadwal kontraktor masuk tanpa ketik ulang |
+| **3B** | **Riset data AI (§4.7)**: template prompt, template Excel, memakai staging 3A. Mode API sebagai modul opsional | HSD periode baru dari hasil riset AI, dengan jejak sumber |
 | **4** | Jadwal & kurva S rencana dari RAB (bobot otomatis) | Kurva S terhubung ke RAB |
 | **5** | Laporan progres MK (mingguan/bulanan), realisasi, peringatan deviasi | Laporan MK otomatis |
 | **6** | Alur persetujuan dokumen teknis + RFI | Kontraktor → MK → Owner |
@@ -235,6 +285,8 @@ Setiap tahap: kerja di branch fitur dari `19.0`, uji lokal + ngrok, lalu PR sete
 | K9 | Mode AI untuk riset data | Manual saja (salin prompt, unggah xlsx) / manual + mode API | Mulai manual. Mode API menyusul setelah pola datanya stabil |
 | K10 | Penyedia AI untuk mode API & impor dibantu AI | Claude / OpenAI / Gemini / bisa dipilih di Pengaturan | Bisa dipilih di Pengaturan, dengan satu penyedia default |
 | K11 | Visibilitas antarproyek | Pengguna hanya melihat proyeknya / semua staf MK melihat semua proyek | Hanya proyeknya. Manager MK dan Direksi melihat semua |
+| K12 | **Urutan prioritas** | (a) RAB pola SNI dulu (Tahap 2–3), baru Easy Input / (b) **Easy Input + kurva S dulu** (Tahap 1 → 3A → 4 → 5), RAB pola SNI menyusul | (b) bila MK lebih mendesak: RAB dan jadwal kontraktor langsung jadi kurva S dan laporan MK. (a) bila pekerjaan perencanaan/EE lebih mendesak |
+| K13 | Contoh dokumen masuk | Kirim 2–3 contoh nyata: RAB kontraktor, BoQ, time schedule (Excel/MS Project/PDF) | Dipakai sebagai bahan uji parser dan profil pemetaan pertama. Data sensitif bisa disamarkan |
 
 ## 8. Risiko & catatan
 
