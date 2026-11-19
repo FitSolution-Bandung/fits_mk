@@ -4,6 +4,14 @@ Tanggal: 2026.11.19 · Penyusun: Claude bersama Pak Andhi · Status: **rencana d
 Repo: `FitSolution-Bandung/fits_mk`, branch `19.0` · Lokal: WSL `/home/andhi/fits_mk` (Docker Odoo 19, port 8029)
 Dasar kondisi: `2026.11.19 Kondisi Repo fits_mk dan Rencana Penyempurnaan Modul MK.md`
 
+
+**Keputusan Pak Andhi (2026.11.19):**
+- K12 urutan: **Easy Input dulu**. Urutan kerjanya Tahap 1 → 3A → 4 → 5, lalu RAB pola SNI.
+- K1: **tetap satu modul** `fits_management_construction`.
+- K3: **OPL-1**.
+- K4: **instance Odoo 19 khusus**, dengan proyek disinkronkan baca-saja dari Odoo Fujicon v12.
+- K11: akses dokumen MK **mengikuti batasan `project.project`**.
+
 ---
 
 ## 1. Tujuan
@@ -38,11 +46,11 @@ HSD (upah/bahan/alat per wilayah & periode)
   6. Semua menu dicek di browser.
 - **Pengembangan lokal + ngrok.** Production Fujicon tidak disentuh. Push hanya setelah ACC.
 
-## 3. Struktur modul yang diusulkan
+## 3. Struktur modul
 
-Saat ini semuanya ada di satu modul `fits_management_construction`. Usulannya dipecah supaya RAB bisa dipakai tanpa modul MK, dan sebaliknya.
+**Diputuskan (K1): tetap satu modul `fits_management_construction`.** Tabel di bawah kini dibaca sebagai **kelompok fitur di dalam modul yang sama**. Setiap kelompok punya berkas model, view, dan tes sendiri, sehingga tetap rapi dan bisa dipecah di kemudian hari bila perlu. Komponen "opsional" dinyalakan lewat Pengaturan, bukan modul terpisah. Prefix `*_construction_*` pada tabel hanya label kelompok.
 
-| Modul | Isi | Bergantung pada |
+| Kelompok fitur | Isi | Bergantung pada |
 |---|---|---|
 | `*_construction_base` | Master bersama: wilayah/lokasi, satuan, divisi/WBS, peran proyek (Owner, Perencana, MK, Kontraktor), field kontrak proyek terstruktur, grup akses | `project`, `uom`, `mail` |
 | `*_construction_rab` | **Estimasi biaya pola SNI/AHSP**: HSD, AHSP, pustaka AHSP, volume/back-up, RAB, SMKK, rekapitulasi, versi/revisi, ekspor Excel/PDF | base |
@@ -53,7 +61,11 @@ Saat ini semuanya ada di satu modul `fits_management_construction`. Usulannya di
 | `*_construction_ai` (opsional) | Koneksi API ke penyedia AI untuk ekstraksi dan riset | intake |
 | `*_construction_sale_purchase` (opsional) | Jembatan ke SO/RFQ untuk pengguna kontraktor | rab, `sale`, `purchase` |
 
-Prefix (`fits_` atau `fujicon_`) dan cara migrasi dari modul lama ditentukan di Keputusan K1.
+**Lisensi (K3):** OPL-1 di manifest, mengikuti syarat Odoo Apps seperti TATEKAN.
+
+**Instance pemakaian (K4):** Odoo 19 khusus MK/RAB. Proyek dan analytic account `[kode]` disinkronkan **baca-saja** dari Odoo Fujicon v12 lewat XML-RPC, menjadi `project.project` + analytic di Odoo 19. Sinkronnya terjadwal dan memakai kunci kode proyek. Pengujian terhadap production v12 hanya setelah ACC.
+
+**Akses antarproyek (K11):** record rule dokumen MK **mengikuti hak baca `project.project`** (visibilitas proyek, pengikut, dan anggota). Pengguna yang tidak boleh melihat proyek itu juga tidak bisa melihat RAB, laporan, dan dokumennya. Data master lintas proyek (HSD, pustaka AHSP) tidak dibatasi per proyek.
 
 ## 4. Fitur RAB pola SNI/AHSP (rinci)
 
@@ -188,7 +200,7 @@ Template Prompt Riset ──► Prompt siap pakai ──► AI (Claude/ChatGPT/G
 |---|---|
 | Proyek wajib | Semua dokumen lapangan wajib punya Proyek. Proyek terisi otomatis dari konteks |
 | Tim proyek | Model *Anggota Proyek*: pengguna/partner + peran (Owner, Perencana, MK, Kontraktor) + masa tugas |
-| Record rule | Pengguna hanya melihat proyek tempat ia menjadi anggota. Manager MK melihat semua proyek di perusahaannya. Owner/Kontraktor (portal) hanya melihat proyeknya dan dokumen yang dibagikan |
+| Record rule | **(K11) Mengikuti hak baca `project.project`.** Dokumen MK terlihat oleh siapa pun yang boleh melihat proyeknya (visibilitas proyek, pengikut, dan anggota), dan tersembunyi dari yang tidak. Owner/Kontraktor (portal) hanya melihat proyek yang dibagikan dan dokumen yang ditandai untuk portal |
 | Multi-perusahaan | `company_id` di semua model transaksi + rule perusahaan standar Odoo. Pustaka AHSP/HSD bisa dipakai bersama atau per perusahaan |
 | Tampilan | Smart button di form proyek (RAB, kurva S, laporan, dokumen, NCR terbuka), dashboard portofolio semua proyek (progres, deviasi, dokumen menunggu persetujuan) |
 | Penomoran | Nomor dokumen bisa memakai kode proyek, mis. `[KODE]/LH/2026/001` |
@@ -300,7 +312,7 @@ Ringkasan di atas pratinjau menunjukkan jumlah baris per status dan **selisih to
 | Tahap | Lingkup | Hasil |
 |---|---|---|
 | **0** ✅ | Keamanan + port 17→19, tes dasar, Docker lokal + ngrok | Branch `19.0` (sudah di-push) |
-| **1** | Fondasi: pecah modul, branding & lisensi, `id.po`, data demo, **multi-proyek & multi-perusahaan (§4A)**: tim proyek, record rule, `company_id`, dashboard portofolio. Keluarkan SO/RFQ ke modul jembatan | Struktur modul baru, akses per proyek teruji |
+| **1** | Fondasi (satu modul): rapikan berkas per kelompok fitur, branding & **OPL-1**, `id.po`, data demo, **multi-proyek & multi-perusahaan (§4A)**: proyek wajib di dokumen lapangan, record rule mengikuti `project.project`, `company_id`, dashboard portofolio. **Sinkron baca-saja proyek + analytic dari Odoo Fujicon v12** (uji ke production setelah ACC) | Akses per proyek teruji, proyek Fujicon tersedia di Odoo 19 |
 | **2** | **RAB inti pola SNI/AHSP**: HSD per wilayah/periode, AHSP (A+B+C, biaya umum & keuntungan), volume, RAB hierarki, SMKK, rekap + PPN + pembulatan + terbilang, cetak PDF | EE/HPS bisa dibuat dari nol sampai cetak |
 | **3** | RAB lanjutan: pustaka AHSP + impor data SE terbaru, analisa alat, versi/revisi + perbandingan, ekspor/impor Excel | RAB siap dipakai di proyek nyata |
 | **3A** | **Easy Input (§4B)**: pintu masuk file, staging, rekonsiliasi total, review, profil pemetaan, **mode Buat Baru & Perbarui (diff, konflik, versi, rollback)**. Urutan jenis data: RAB/penawaran Excel → BoQ → jadwal (Excel, MS Project XML, Primavera XER) → PDF/scan dengan AI | RAB kontrak dan jadwal kontraktor masuk tanpa ketik ulang |
@@ -317,17 +329,17 @@ Setiap tahap: kerja di branch fitur dari `19.0`, uji lokal + ngrok, lalu PR sete
 
 | # | Keputusan | Pilihan | Usulan |
 |---|---|---|---|
-| K1 | Nama/prefix modul dan pemecahan | Tetap satu modul `fits_management_construction` / dipecah dengan prefix `fits_construction_*` / `fujicon_construction_*` | Dipecah. Prefix mengikuti TATEKAN (`fujicon_*`) bila ini produk Fujicon |
+| K1 | Nama/prefix modul dan pemecahan | Tetap satu modul `fits_management_construction` / dipecah dengan prefix `fits_construction_*` / `fujicon_construction_*` | ✅ **Diputuskan: tetap satu modul `fits_management_construction`.** Fitur baru (Easy Input, AI, RAB SNI) ditambahkan di modul yang sama, dirapikan per folder/berkas. Koneksi API AI dinyalakan lewat Pengaturan |
 | K2 | Model RAB lama | Dirombak di tempat / model baru + migrasi data lama | Model baru. Model lama dipensiunkan setelah migrasi |
-| K3 | Lisensi | AGPL-3 (sekarang) / OPL-1 (seperti TATEKAN, bisa dijual) | OPL-1 bila akan dijual di Odoo Apps |
-| K4 | **Di mana dipakai tim Fujicon** | Odoo Fujicon production masih v12, sedangkan modul ini v19. Pilihan: (a) instance Odoo 19 terpisah khusus MK/RAB, (b) menunggu migrasi Odoo Fujicon ke 19, (c) produk untuk klien dulu | Perlu arahan Bapak. Ini menentukan Tahap 8 |
+| K3 | Lisensi | AGPL-3 (sekarang) / OPL-1 (seperti TATEKAN, bisa dijual) | ✅ **Diputuskan: OPL-1** (seperti TATEKAN). Konsekuensinya repo dijadikan private (K8); pengubahan visibilitas menunggu ACC |
+| K4 | **Di mana dipakai tim Fujicon** | Odoo Fujicon production masih v12, sedangkan modul ini v19. Pilihan: (a) instance Odoo 19 terpisah khusus MK/RAB, (b) menunggu migrasi Odoo Fujicon ke 19, (c) produk untuk klien dulu | ✅ **Diputuskan: instance Odoo 19 khusus** untuk MK/RAB. Data proyek dan analytic account `[kode]` disinkronkan **baca-saja** dari Odoo Fujicon v12 (sinkron ke production hanya setelah ACC) |
 | K5 | Sumber data pustaka AHSP | Ketik/impor dari lampiran Permen PUPR + SE yang berlaku / dataset pihak ketiga | Dari dokumen resmi PUPR (peraturan, bebas dipakai). Dataset pihak ketiga hanya sebagai pembanding |
 | K6 | Bidang AHSP yang didahulukan | Cipta Karya (gedung) / SDA / Bina Marga | Cipta Karya, sesuai mayoritas proyek gedung Fujicon (perlu konfirmasi) |
 | K7 | Format laporan RAB acuan | Format standar PUPR / format internal Fujicon yang sudah dipakai | Kirimkan contoh RAB/EE Fujicon terakhir sebagai acuan |
 | K8 | Repo publik | Ubah jadi private sekarang / tetap publik untuk Odoo Apps | Private, sesudah kunci OpenAI dicabut |
 | K9 | Mode AI untuk riset data | Manual saja (salin prompt, unggah xlsx) / manual + mode API | Mulai manual. Mode API menyusul setelah pola datanya stabil |
 | K10 | Penyedia AI untuk mode API & impor dibantu AI | Claude / OpenAI / Gemini / bisa dipilih di Pengaturan | Bisa dipilih di Pengaturan, dengan satu penyedia default |
-| K11 | Visibilitas antarproyek | Pengguna hanya melihat proyeknya / semua staf MK melihat semua proyek | Hanya proyeknya. Manager MK dan Direksi melihat semua |
+| K11 | Visibilitas antarproyek | Pengguna hanya melihat proyeknya / semua staf MK melihat semua proyek | ✅ **Diputuskan: mengikuti batasan `project.project` di Odoo.** Siapa pun yang boleh melihat sebuah proyek (visibilitas proyek, pengikut, dan anggota) boleh melihat dokumen MK proyek itu; yang tidak, tidak bisa |
 | K12 | **Urutan prioritas** | (a) RAB pola SNI dulu (Tahap 2–3), baru Easy Input / (b) **Easy Input + kurva S dulu** (Tahap 1 → 3A → 4 → 5), RAB pola SNI menyusul | ✅ **Diputuskan 2026.11.19: (b) Easy Input dulu.** Urutan kerja: Tahap 1 → 3A → 4 → 5, lalu RAB pola SNI (Tahap 2–3) |
 | K13 | Contoh dokumen masuk | Kirim 2–3 contoh nyata: RAB kontraktor, BoQ, time schedule (Excel/MS Project/PDF) | Dipakai sebagai bahan uji parser dan profil pemetaan pertama. Data sensitif bisa disamarkan |
 
